@@ -13,7 +13,7 @@ $('document').ready(function() {
 
     var gotMoney = function() {
         // Se ladrão pegou dinheiro
-        if ($.alcancou(thiefPosArr, TAMANHOOBJETO, arrPosDinheiro, TAMANHOITEM)) {
+        if ($.reached(thiefPosArr, OBJSIZE, arrPosDinheiro, TAMANHOITEM)) {
             $.ganhaPontos()
             tempo = tempo + TEMPOBONUS;
             dinheiroVis = false;
@@ -23,7 +23,7 @@ $('document').ready(function() {
     
     $.gotClock = function() {
         // Se ladrão pegou relógio
-        if ($.alcancou(thiefPosArr, TAMANHOOBJETO, arrPosRelogio, TAMANHOITEM)) {
+        if ($.reached(thiefPosArr, OBJSIZE, arrPosRelogio, TAMANHOITEM)) {
             $.ganhaPontos();
             tempo = tempo + 10;
             $("#relogio").hide();
@@ -34,14 +34,14 @@ $('document').ready(function() {
     
     $.gotMolotov = function() {
         // Se ladrão pegou o molotov
-        if ($.alcancou(thiefPosArr, TAMANHOOBJETO, arrPosMolotov, TAMANHOITEM)) {
+        if ($.reached(thiefPosArr, OBJSIZE, arrPosMolotov, TAMANHOITEM)) {
             //$.ionSound.play("heehee");
             molotovTime = PAUSAMOLOTOV;
             $.ganhaPontos();
             $("#molotov").hide();
-            $("#policia").attr("src", "img/guarda_fogo_02.gif");
+            Officer1.attr("src", "img/guarda_fogo_02.gif");
             if (currLevel >= TWOPOLICEMENLEVEL) {
-                $("#policia2").attr("src", "img/guarda_fogo_02.gif");
+                Officer2.attr("src", "img/guarda_fogo_02.gif");
             }
             molotovVisible = false;
             $.feedBackMolotov();
@@ -51,21 +51,21 @@ $('document').ready(function() {
     // Função que checa se ladrão pegou a bomba
     $.pegouBomba = function() {
         // Se ladrão pegou o molotov
-        if ($.alcancou(thiefPosArr, TAMANHOOBJETO, arrPosBomba, TAMANHOITEM)) {
+        if ($.reached(thiefPosArr, OBJSIZE, arrPosBomba, TAMANHOITEM)) {
             $.ganhaPontos();
             $("#bomba").hide();
             $.flashPolicia();
             $.flash($("#fase"), "#FFD61F");
             if (currLevel > 1) {
                 currLevel = currLevel - 1;
-                movimentacaoPolicia1 = speedTable[currLevel][0];
-                movimentacaoPolicia2 = speedTable[currLevel][1];
+                officer1MoveRate = speedTable[currLevel][0];
+                officer2MoveRate = speedTable[currLevel][1];
                 if (currLevel < TWOPOLICEMENLEVEL) {
-                    arrPosPolicia2[0] = (mapSize - TAMANHOOBJETO);
-                    arrPosPolicia2[1] = 0;
-                    $.setObjectPosition($("#policia2"), arrPosPolicia2);
+                    officer2PosArr[0] = (mapSize - OBJSIZE);
+                    officer2PosArr[1] = 0;
+                    $.setObjectPosition(Officer2, officer2PosArr);
                     $("#contador2").hide();
-                    $("#policia2").hide();
+                    Officer2.hide();
                 }
             }
             $("#fase").html(currLevel);
@@ -75,7 +75,7 @@ $('document').ready(function() {
     };
 
     // Função que checa se dois objetos se tocaram
-    $.alcancou = function(cacador, tamanhoCacador, presa, tamanhoPresa) {
+    $.reached = function(cacador, tamanhoCacador, presa, tamanhoPresa) {
         if (
             ((cacador[0] >= (presa[0] - tamanhoCacador))
             && (cacador[0] < (presa[0] + tamanhoPresa)))
@@ -88,7 +88,7 @@ $('document').ready(function() {
     };
 
     $.flashPolicia = function() {
-        $.flash($("#policia"), "#FFD61F");
+        $.flash(Officer1, "#FFD61F");
     }
     
     $.flash = function(obj, color) {
@@ -111,16 +111,16 @@ $('document').ready(function() {
     }
 
     $.feedBackMolotov = function() {
-        $.showFeedBack($("#policia"), "can't move", false);
+        $.showFeedBack(Officer1, "can't move", false);
         if (currLevel >= TWOPOLICEMENLEVEL) {
-            $.showFeedBack2($("#policia2"), "can't move", false);
+            $.showFeedBack2(Officer2, "can't move", false);
         }
     }
 
     $.feedBackBomb = function() {
-        $.showFeedBack($("#policia"), "slow", true);
+        $.showFeedBack(Officer1, "slow", true);
         if (currLevel >= TWOPOLICEMENLEVEL) {
-            $.showFeedBack2($("#policia2"), "slow", true);
+            $.showFeedBack2(Officer2, "slow", true);
         }
     }
 
@@ -222,7 +222,7 @@ $('document').ready(function() {
     }
 
     $.show2ndPoliceman = function() {
-        police = $("#policia2");
+        police = officer2;
         if (molotovTime > 0) {
             police.attr("src", "img/guarda_fogo_02.gif")
         }
@@ -238,12 +238,12 @@ $('document').ready(function() {
     }
 
     $.mudamovimentacaoPolicia = function() {
-        movimentacaoPolicia1 = speedTable[currLevel][0];
-        movimentacaoPolicia2 = speedTable[currLevel][1];
+        officer1MoveRate = speedTable[currLevel][0];
+        officer2MoveRate = speedTable[currLevel][1];
     }
 
     $.aparecePolicia2 = function() {
-        $("#policia2").show();
+        Officer2.show();
     }
 
 });

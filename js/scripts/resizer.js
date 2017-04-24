@@ -10,7 +10,7 @@ $(document).ready(function() {
         CROSSBORDERTOLERANCE = $.regraDeTres(CROSSBORDERTOLERANCE, mapSize);
         MOVIMENTACAOMINIMA = $.regraDeTres(MOVIMENTACAOMINIMA, mapSize);
         CATCHTOLERANCE = $.regraDeTres(CATCHTOLERANCE, mapSize);
-        TAMANHOOBJETO = $.regraDeTres(TAMANHOOBJETO, mapSize);
+        OBJSIZE = $.regraDeTres(OBJSIZE, mapSize);
         TAMANHOITEM = $.regraDeTres(TAMANHOITEM, mapSize);
         speedTable = new Array(
             new Array(0, 0),
@@ -130,8 +130,8 @@ $(document).ready(function() {
         $("#fundo").css("height", mapSize);
         $("#backgroundImage").attr("width", mapSize+"px");
         $("#backgroundImage").attr("height", mapSize+"px");
-        $(".personagem").css("width", TAMANHOOBJETO+"px");
-        $(".personagem").css("height", TAMANHOOBJETO+"px");
+        $(".personagem").css("width", OBJSIZE+"px");
+        $(".personagem").css("height", OBJSIZE+"px");
         $(".item").css("width", TAMANHOITEM+"px");
         $(".item").css("height", TAMANHOITEM+"px");
     }

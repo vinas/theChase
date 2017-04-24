@@ -8,16 +8,6 @@ $(document).on("keydown", function(e) {
 
 $(document).on("ready", function() {
 
-    init();
-
-    function init()
-    {
-        $.resizeMapAndItems();
-        $.gameLoop();
-        $.gameClock();
-    }
-
-
     $.gameLoop = function() {
         if (jogoOn) {
             if (tecla == 37) {
@@ -54,7 +44,7 @@ $(document).on("ready", function() {
                 $("#tempo").html(tempo);
                 tempo = tempo - 1;
             } else {
-                $.fimDeJogo("timeUp");
+                $.endGame("timeUp");
             }
         }
         setTimeout($.gameClock, 1000);
@@ -74,7 +64,7 @@ $(document).on("ready", function() {
         $("#pontos").html("0");
         $("#backgroundImage").attr("src", "img/background_v2.jpg");
         //$("#fundo").css("background-image", "url(img/background_v2.jpg)");
-        $("#policia").attr("src", "img/guarda.gif");
+        Officer1.attr("src", "img/guarda.gif");
         $("#actionLegenda").html('');
         $("#fase").html(currLevel);
         $("#tempo").html(tempo);
@@ -82,8 +72,8 @@ $(document).on("ready", function() {
 
     $.relocateCharacters = function() {
         $.setObjectPosition(Thief, thiefPosArr);
-        $.setObjectPosition($("#policia"), arrPosPolicia1);
-        $.setObjectPosition($("#policia2"), arrPosPolicia2);
+        $.setObjectPosition(Officer1, officer1PosArr);
+        $.setObjectPosition(Officer2, officer2PosArr);
     }
 
     $.hideAllHideble = function() {
@@ -99,13 +89,15 @@ $(document).on("ready", function() {
         $("#contador2").hide();
         $("#busted").hide();
         $("#timeUp").hide();
-        $("#policia2").hide();
+        Officer2.hide();
     }
 
     $.showAllShowable = function() {
         $(".backgroundTap").show();
         Thief.show();
-        $("#policia").show();
+        $('#thief').show();
+        $('#officer1').show();
+        Officer1.show();
         $("#dinheiro").show();
         //$("#fundo").show();
         $("#scoreBar").show();
@@ -120,7 +112,7 @@ $(document).on("ready", function() {
         tecla = false;
         jogoOn = false;
         thiefMoveRate = $.regraDeTres(6, mapSize);
-        movimentacaoPolicia1 = MOVIMENTACAOMINIMA;
+        officer1MoveRate = MOVIMENTACAOMINIMA;
         currLevel = 1;
         ultimaFase = 0;
         ultimaPontuacao = 0;
@@ -128,10 +120,10 @@ $(document).on("ready", function() {
         molotovTime = 0;
         thiefPosArr[0] = 0;
         thiefPosArr[1] = 0;
-        arrPosPolicia1[0] = mapSize - TAMANHOOBJETO;
-        arrPosPolicia1[1] = mapSize - TAMANHOOBJETO;
-        arrPosPolicia2[0] = mapSize - TAMANHOOBJETO;
-        arrPosPolicia2[1] = 0;
+        officer1PosArr[0] = mapSize - OBJSIZE;
+        officer1PosArr[1] = mapSize - OBJSIZE;
+        officer2PosArr[0] = mapSize - OBJSIZE;
+        officer2PosArr[1] = 0;
     }
 
     // Função que faz aparecer dinheiro
@@ -171,7 +163,7 @@ $(document).on("ready", function() {
     };
 
     // Função que exibde mensagem de fim de jogo
-    $.fimDeJogo = function(motivo) {
+    $.endGame = function(motivo) {
         $("#gamePoints").val($("#pontos").html());
         $.postRankingForm();
         $(".buttonWeeklyRanking").show();
@@ -198,7 +190,7 @@ $(document).on("ready", function() {
     }
 
     $.postRankingForm = function() {
-        nickName = $("#nickname").val();
+        /*nickName = $("#nickname").val();
         lastName = $("#lastname").val();
         email = $("#email").val();
         points = $("#gamePoints").val();
@@ -211,9 +203,6 @@ $(document).on("ready", function() {
             }, function(res) {
     			res = $.parseJSON(res);
                 if (res.response == 1) {
-                    /*$("#formRanking").hide();
-    				$("#busted").hide();
-    				$("#timeUp").hide();*/
                     $("#maxScore").val(res.maxScore);
                     $("#gamePoints").val(res.lastScore);
                     $("#loginStatus").html(
@@ -231,7 +220,7 @@ $(document).on("ready", function() {
                 document.body.style.cursor = 'default';
                 return false;
             });
-        //}
+        //}*/
     }
 
     $.startPressedTimmer = function(button) {
@@ -264,8 +253,8 @@ $(document).on("ready", function() {
         //$("#fundo").css("background-image", "url()");
         $(".backgroundTap").hide();
         Thief.hide();
-        $("#policia").hide();
-        $("#policia2").hide();
+        Officer1.hide();
+        Officer2.hide();
         $("#dinheiro").hide();
         $("#relogio").hide();
         $("#molotov").hide();
@@ -294,9 +283,7 @@ $(document).on("ready", function() {
         }
     });
 
-    //Hammer(fundo).on("swipeleft", function() {
-    //hammertime.on("swipeleft", function() {
-    $("#fundo, #thief, #policia, .item").on("swipeleft", function() {
+    $("#fundo, #thief, #Officer1, #Officer2, .item").on("swipeleft", function() {
         tecla = 37;
     }).on("swiperight", function() {
         tecla = 39;
@@ -362,5 +349,11 @@ $(document).on("ready", function() {
     $("#loginButton").on("click", function() {
         Android.showToast("teste");
     });
+
+
+    $.loading();
+    $.resizeMapAndItems();
+    $.gameLoop();
+    $.gameClock();
 
 });

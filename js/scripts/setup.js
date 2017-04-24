@@ -1,6 +1,9 @@
 var Thief = $("#thief");
+var Officer1 = $('#officer1');
+var Officer2 = $('#officer2');
 
-var TAMANHOOBJETO = 75,
+
+var OBJSIZE = 75,
     TAMANHOITEM = 25,
     TEMPOPADRAO = 20,
     PONTOSPORFASE = 40,
@@ -26,8 +29,8 @@ var mapSize = 500,
     molotovVisible,
     bombVisible,
     thiefMoveRate,
-    movimentacaoPolicia1,
-    movimentacaoPolicia2,
+    officer1MoveRate,
+    officer2MoveRate,
     jogoOn,
     currLevel,
     ultimaFase,
@@ -37,8 +40,8 @@ var mapSize = 500,
     ultimaPontuacao;
 	//pauseGame;
 
-var arrPosPolicia1 = new Array(0, 0);
-var arrPosPolicia2 = new Array(0, 0);
+var officer1PosArr = new Array(0, 0);
+var officer2PosArr = new Array(0, 0);
 var thiefPosArr = new Array(0, 0);
 var arrPosDinheiro = new Array(500, 500);
 var arrPosRelogio = new Array(500,500);
