@@ -24,7 +24,7 @@ $('document').ready(function()
                 thiefMoveRate,
                 direction
             );
-        $.setObjectPosition(Thief, thiefPosArr);
+        $.setObjectPosition($('#thief'), thiefPosArr);
         $.checkGotSomething();
     }
 
@@ -35,11 +35,11 @@ $('document').ready(function()
             if (whichOfficer == 1) {
                 officerPosArr = officer1PosArr;
                 movementRate = officer1MoveRate;
-                officer = Officer1;
+                officer = $('#officer1');
             } else {
                 officerPosArr = officer2PosArr;
                 movementRate = officer2MoveRate;
-                officer = Officer2;
+                officer = $('#officer2');
             }
             officerPosArr = $.setNewOfficerPos(whichOfficer, officer, officerPosArr, movementRate);
             $.setObjectPosition(officer, officerPosArr);

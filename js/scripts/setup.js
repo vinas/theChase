@@ -1,4 +1,3 @@
-var Thief = $("#thief");
 var Officer1 = $('#officer1');
 var Officer2 = $('#officer2');
 

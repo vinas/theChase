@@ -39,9 +39,9 @@ $('document').ready(function() {
             molotovTime = PAUSAMOLOTOV;
             $.ganhaPontos();
             $("#molotov").hide();
-            Officer1.attr("src", "img/guarda_fogo_02.gif");
+            $('#officer1').attr("src", "img/guarda_fogo_02.gif");
             if (currLevel >= TWOPOLICEMENLEVEL) {
-                Officer2.attr("src", "img/guarda_fogo_02.gif");
+                $('#officer2').attr("src", "img/guarda_fogo_02.gif");
             }
             molotovVisible = false;
             $.feedBackMolotov();
@@ -63,9 +63,9 @@ $('document').ready(function() {
                 if (currLevel < TWOPOLICEMENLEVEL) {
                     officer2PosArr[0] = (mapSize - OBJSIZE);
                     officer2PosArr[1] = 0;
-                    $.setObjectPosition(Officer2, officer2PosArr);
+                    $.setObjectPosition($('#officer2'), officer2PosArr);
                     $("#contador2").hide();
-                    Officer2.hide();
+                    $('#officer2').hide();
                 }
             }
             $("#fase").html(currLevel);
@@ -88,7 +88,7 @@ $('document').ready(function() {
     };
 
     $.flashPolicia = function() {
-        $.flash(Officer1, "#FFD61F");
+        $.flash($('#officer1'), "#FFD61F");
     }
     
     $.flash = function(obj, color) {
@@ -111,21 +111,21 @@ $('document').ready(function() {
     }
 
     $.feedBackMolotov = function() {
-        $.showFeedBack(Officer1, "can't move", false);
+        $.showFeedBack($('#officer1'), "can't move", false);
         if (currLevel >= TWOPOLICEMENLEVEL) {
-            $.showFeedBack2(Officer2, "can't move", false);
+            $.showFeedBack2($('#officer2'), "can't move", false);
         }
     }
 
     $.feedBackBomb = function() {
-        $.showFeedBack(Officer1, "slow", true);
+        $.showFeedBack($('#officer1'), "slow", true);
         if (currLevel >= TWOPOLICEMENLEVEL) {
-            $.showFeedBack2(Officer2, "slow", true);
+            $.showFeedBack2($('#officer2'), "slow", true);
         }
     }
 
     $.feedBackClock = function() {
-        $.showFeedBack(Thief, "time +10", true);
+        $.showFeedBack($('#thief'), "time +10", true);
     }
 
     $.showFeedBack = function(object, message, follow) {
@@ -243,7 +243,7 @@ $('document').ready(function() {
     }
 
     $.aparecePolicia2 = function() {
-        Officer2.show();
+        $('#officer2').show();
     }
 
 });

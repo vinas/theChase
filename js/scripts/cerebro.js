@@ -75,10 +75,10 @@ $('document').ready(function()
             }
         }
         if (molotovTime == 0) {
-            Officer1.attr("src", "img/guarda.gif");
+            $('#officer1').attr("src", "img/guarda.gif");
             $("#contador").hide();
             if (currLevel >= TWOPOLICEMENLEVEL) {
-                Officer2.attr("src", "img/guarda.gif");
+                $('#officer2').attr("src", "img/guarda.gif");
                 $("#contador2").hide();
             }
         }
@@ -162,7 +162,7 @@ $('document').ready(function()
         } else if (thiefPosArr[1] < (mapSize / 2)) {
             officer2PosArr[1] = (mapSize - OBJSIZE);
         }
-        $.setObjectPosition(Officer2, officer2PosArr);
+        $.setObjectPosition($('#officer2'), officer2PosArr);
     }
 
     $.regraDeTres = function(atual, mapSize)

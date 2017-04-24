@@ -11,12 +11,12 @@ $(document).on("ready", function() {
     $.gameLoop = function() {
         if (jogoOn) {
             if (tecla == 37) {
-                $.mirrorObj(Thief, '1');
+                $.mirrorObj($('#thief'), '1');
                 $.move('left');
             } else if (tecla == 38) {
                 $.move('up');
             } else if (tecla == 39) {
-                $.mirrorObj(Thief, '-1');
+                $.mirrorObj($('#thief'), '-1');
                 $.move('right');
             } else if (tecla == 40) {
                 $.move('down');
@@ -64,16 +64,16 @@ $(document).on("ready", function() {
         $("#pontos").html("0");
         $("#backgroundImage").attr("src", "img/background_v2.jpg");
         //$("#fundo").css("background-image", "url(img/background_v2.jpg)");
-        Officer1.attr("src", "img/guarda.gif");
+        $('#officer1').attr("src", "img/guarda.gif");
         $("#actionLegenda").html('');
         $("#fase").html(currLevel);
         $("#tempo").html(tempo);
     }
 
     $.relocateCharacters = function() {
-        $.setObjectPosition(Thief, thiefPosArr);
-        $.setObjectPosition(Officer1, officer1PosArr);
-        $.setObjectPosition(Officer2, officer2PosArr);
+        $.setObjectPosition($('#thief'), thiefPosArr);
+        $.setObjectPosition($('#officer1'), officer1PosArr);
+        $.setObjectPosition($('#officer2'), officer2PosArr);
     }
 
     $.hideAllHideble = function() {
@@ -89,15 +89,13 @@ $(document).on("ready", function() {
         $("#contador2").hide();
         $("#busted").hide();
         $("#timeUp").hide();
-        Officer2.hide();
+        $('#officer2').hide();
     }
 
     $.showAllShowable = function() {
         $(".backgroundTap").show();
-        Thief.show();
         $('#thief').show();
         $('#officer1').show();
-        Officer1.show();
         $("#dinheiro").show();
         //$("#fundo").show();
         $("#scoreBar").show();
@@ -252,9 +250,9 @@ $(document).on("ready", function() {
 
         //$("#fundo").css("background-image", "url()");
         $(".backgroundTap").hide();
-        Thief.hide();
-        Officer1.hide();
-        Officer2.hide();
+        $('#thief').hide();
+        $('#officer1').hide();
+        $('#officer2').hide();
         $("#dinheiro").hide();
         $("#relogio").hide();
         $("#molotov").hide();
@@ -283,7 +281,7 @@ $(document).on("ready", function() {
         }
     });
 
-    $("#fundo, #thief, #Officer1, #Officer2, .item").on("swipeleft", function() {
+    $("#fundo, #thief, #officer1, #officer2, .item").on("swipeleft", function() {
         tecla = 37;
     }).on("swiperight", function() {
         tecla = 39;
