@@ -1,3 +1,5 @@
+var Thief = $("#thief");
+
 var TAMANHOOBJETO = 75,
     TAMANHOITEM = 25,
     TEMPOPADRAO = 20,
@@ -6,7 +8,7 @@ var TAMANHOOBJETO = 75,
     TEMPOBONUS = 3,
     PAUSAMOLOTOV = 4,
     TEMPORELOGIO = 7,
-    FASEDOISPOLICIAS = 3,
+    TWOPOLICEMENLEVEL = 3,
     MOVIMENTACAOMINIMA = 3,
     CATCHTOLERANCE = 15,
     CROSSBORDERTOLERANCE = 20;
@@ -20,24 +22,24 @@ var mapSize = 500,
 	direcao,
     pontos,
     dinheiroVis,
-    relogioVis,
-    molotovVis,
-    bombaVis,
-    movimentacaoLadrao,
+    clockVisible,
+    molotovVisible,
+    bombVisible,
+    thiefMoveRate,
     movimentacaoPolicia1,
     movimentacaoPolicia2,
     jogoOn,
-    faseAtual,
+    currLevel,
     ultimaFase,
     tempo,
     teclaBump,
-    tempoMolotov,
+    molotovTime,
     ultimaPontuacao;
 	//pauseGame;
 
 var arrPosPolicia1 = new Array(0, 0);
 var arrPosPolicia2 = new Array(0, 0);
-var arrPosLadrao = new Array(0, 0);
+var thiefPosArr = new Array(0, 0);
 var arrPosDinheiro = new Array(500, 500);
 var arrPosRelogio = new Array(500,500);
 var arrPosMolotov = new Array(500, 500);

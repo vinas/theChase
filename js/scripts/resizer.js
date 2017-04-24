@@ -51,8 +51,8 @@ $(document).ready(function() {
         $(".setas").attr("height", $.regraDeTres(70, mapSize)+"px");
         $(".setas").attr("padding-left", $.regraDeTres(8, mapSize)+"px");
 
-        $(".ladraoInstruction").attr("width", $.regraDeTres(99, mapSize)+"px");
-        $(".ladraoInstruction").attr("height", $.regraDeTres(86, mapSize)+"px");
+        $(".thiefInstruction").attr("width", $.regraDeTres(99, mapSize)+"px");
+        $(".thiefInstruction").attr("height", $.regraDeTres(86, mapSize)+"px");
 
         $(".barItem").attr("width", $.regraDeTres(25, mapSize)+"px");
         $(".barItem").attr("height", $.regraDeTres(25, mapSize)+"px");
@@ -98,7 +98,7 @@ $(document).ready(function() {
         $(".slideLabel").css("font-size", $.regraDeTres(18, mapSize)+"px");
         $(".slideLabel").css("padding-left", $.regraDeTres(70, mapSize)+"px");
 
-        $(".ladraoInstruction").css("padding-left", $.regraDeTres(130, mapSize)+"px");
+        $(".thiefInstruction").css("padding-left", $.regraDeTres(130, mapSize)+"px");
 
         $(".collectLabel").css("padding-left", $.regraDeTres(250, mapSize)+"px");
         $(".collectLabel").css("font-size", $.regraDeTres(18, mapSize)+"px");

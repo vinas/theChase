@@ -2,20 +2,20 @@ $("document").ready(function() {
 
     // Define a posição relativa X do alvo
     $.definirPosRelXAlvo = function(arrPosPolicia) {
-    	if (arrPosPolicia[0] > arrPosLadrao[0]) {
-    		posRelX = 'esquerda';
-    	} else if (arrPosPolicia[0] == arrPosLadrao[0]) {
+    	if (arrPosPolicia[0] > thiefPosArr[0]) {
+    		posRelX = 'left';
+    	} else if (arrPosPolicia[0] == thiefPosArr[0]) {
     		posRelX = 'igual';
     	} else {
-    		posRelX = 'direita';
+    		posRelX = 'right';
     	}
     };
 
     // Define a posição relativa Y do alvo
     $.definirPosRelYAlvo = function(arrPosPolicia) {
-    	if (arrPosPolicia[1] > arrPosLadrao[1]) {
+    	if (arrPosPolicia[1] > thiefPosArr[1]) {
     		posRelY = 'acima';
-    	} else if (arrPosPolicia[1] == arrPosLadrao[1]) {
+    	} else if (arrPosPolicia[1] == thiefPosArr[1]) {
     		posRelY = 'igual';
     	} else {
     		posRelY = 'abaixo';
@@ -24,10 +24,10 @@ $("document").ready(function() {
 
     // Checa dif (em coords) entre o Policia e a posição x do alvo
     $.checaPosGeoX = function(arrPosPolicia) {
-    	if (posRelX == 'direita') {
-    		diferencaX = arrPosLadrao[0] - arrPosPolicia[0];
-    	} else if (posRelX == 'esquerda') {
-    		diferencaX = arrPosPolicia[0] - arrPosLadrao[0];
+    	if (posRelX == 'right') {
+    		diferencaX = thiefPosArr[0] - arrPosPolicia[0];
+    	} else if (posRelX == 'left') {
+    		diferencaX = arrPosPolicia[0] - thiefPosArr[0];
     	} else {
     		diferencaX = 0;
     	}
@@ -36,9 +36,9 @@ $("document").ready(function() {
     // Checa dif (em coords) entre o Policia e a posição y do alvo
     $.checaPosGeoY = function(arrPosPolicia) {
     	if (posRelY == 'acima') {
-    		diferencaY = arrPosPolicia[1] - arrPosLadrao[1];
+    		diferencaY = arrPosPolicia[1] - thiefPosArr[1];
     	} else if (posRelY == 'abaixo') {
-    		diferencaY = arrPosLadrao[1] - arrPosPolicia[1];
+    		diferencaY = thiefPosArr[1] - arrPosPolicia[1];
     	} else {
     		diferencaY = 0;
     	}
@@ -63,9 +63,9 @@ $("document").ready(function() {
             } else if (diferencaX < diferencaY) {
                 direcao = 'horizontal';
             } else {
-                if (arrPosLadrao[0] == arrPosPolicia2[0]) {
+                if (thiefPosArr[0] == arrPosPolicia2[0]) {
                     direcao = 'horizontal';
-                } else if (arrPosLadrao[1] == arrPosPolicia2[1]) {
+                } else if (thiefPosArr[1] == arrPosPolicia2[1]) {
                     direcao = 'vertical';
                 } else {
                     if (Math.floor((Math.random() * 2) + 1) == 1) {
@@ -78,14 +78,12 @@ $("document").ready(function() {
         }
     };
 
-	// Função que faz o cross-border
-    $.ajustaLimite = function(posicao) {
-        if (posicao > (mapSize - TAMANHOOBJETO)) {
-			posicao = -CROSSBORDERTOLERANCE;
-		} else if (posicao <= (-TAMANHOOBJETO + CROSSBORDERTOLERANCE)) {
-			posicao = posicao + (mapSize - CROSSBORDERTOLERANCE);
-		}
-		return posicao;
+    $.adjustCrossBorder = function(pos) {
+        if (pos > (mapSize - TAMANHOOBJETO))
+			return -CROSSBORDERTOLERANCE;
+		if (pos <= (-TAMANHOOBJETO + CROSSBORDERTOLERANCE))
+			return pos + (mapSize - CROSSBORDERTOLERANCE);
+        return pos;
     };
 
     $.sorteiaFundo = function() {
@@ -97,16 +95,16 @@ $("document").ready(function() {
     }
 
     $.sortMolotov = function() {
-        if ((molotovVis == false) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
+        if ((molotovVisible == false) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
             $.apareceMolotov();
-        } else if ((molotovVis == true) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
+        } else if ((molotovVisible == true) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
             $("#molotov").hide();
-            molotovVis = false;
+            molotovVisible = false;
         }
-        if (tempoMolotov > 0) {
-            tempoMolotov = tempoMolotov - 1;
+        if (molotovTime > 0) {
+            molotovTime = molotovTime - 1;
             $("#contador").show();
-            $("#contador").html(tempoMolotov);
+            $("#contador").html(molotovTime);
             $.setObjectPosition(
                 $("#contador"),
                 new Array(
@@ -114,9 +112,9 @@ $("document").ready(function() {
                     (arrPosPolicia1[1] - 5)
                 )
             );
-            if (faseAtual >= FASEDOISPOLICIAS) {
+            if (currLevel >= TWOPOLICEMENLEVEL) {
                 $("#contador2").show();
-                $("#contador2").html(tempoMolotov);
+                $("#contador2").html(molotovTime);
                 $.setObjectPosition(
                     $("#contador2"),
                     new Array(
@@ -126,10 +124,10 @@ $("document").ready(function() {
                 );
             }
         }
-        if (tempoMolotov == 0) {
+        if (molotovTime == 0) {
             $("#policia").attr("src", "img/guarda.gif");
             $("#contador").hide();
-            if (faseAtual >= FASEDOISPOLICIAS) {
+            if (currLevel >= TWOPOLICEMENLEVEL) {
                 $("#policia2").attr("src", "img/guarda.gif");
                 $("#contador2").hide();
             }
@@ -137,11 +135,11 @@ $("document").ready(function() {
     }
 
     $.sortBomb = function() {
-        if ((bombaVis == false) && (Math.floor((Math.random() * 100) + 1) <= 5)) {
+        if ((bombVisible == false) && (Math.floor((Math.random() * 100) + 1) <= 5)) {
             $.apareceBomba();
-        } else if ((bombaVis == true) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
+        } else if ((bombVisible == true) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
             $("#bomba").hide();
-            bombaVis = false;
+            bombVisible = false;
         }
     }
 
@@ -172,7 +170,7 @@ $("document").ready(function() {
         obj.show();
     }
 
-    $.flipHorizontal = function(objeto, escala) {
+    $.mirrorObj = function(objeto, escala) {
         objeto.css("-moz-transform", "scaleX("+escala+")");
         objeto.css("-webkit-transform", "scaleX("+escala+")");
         objeto.css("-o-transform", "scaleX("+escala+")");
@@ -181,9 +179,9 @@ $("document").ready(function() {
         objeto.css("filter", "fliph");
     }
 
-    $.setObjectPosition = function(obj, arrPosition) {
-        obj.css("left", arrPosition[0]);
-        obj.css("top", arrPosition[1]);
+    $.setObjectPosition = function(obj, posArr) {
+        obj.css("left", posArr[0]);
+        obj.css("top", posArr[1]);
     }
 
     $.getObjectPosition = function(object) {
@@ -194,14 +192,14 @@ $("document").ready(function() {
     }
 
     $.set2ndPolicemanPosition = function() {
-        if (arrPosLadrao[0] > (mapSize / 2)) {
+        if (thiefPosArr[0] > (mapSize / 2)) {
             arrPosPolicia2[0] = 0;
-        } else if (arrPosLadrao[0] < (mapSize / 2)) {
+        } else if (thiefPosArr[0] < (mapSize / 2)) {
             arrPosPolicia2[0] = (mapSize - TAMANHOOBJETO);
         }
-        if (arrPosLadrao[1] > (mapSize / 2)) {
+        if (thiefPosArr[1] > (mapSize / 2)) {
             arrPosPolicia2[1] = 0;
-        } else if (arrPosLadrao[1] < (mapSize / 2)) {
+        } else if (thiefPosArr[1] < (mapSize / 2)) {
             arrPosPolicia2[1] = (mapSize - TAMANHOOBJETO);
         }
         $.setObjectPosition($("#policia2"), arrPosPolicia2);
@@ -211,22 +209,26 @@ $("document").ready(function() {
         return Math.floor((atual / 500) * mapSize);
     }
 
-    $.setNextPosition = function(arrPos, movRate, alignment, direction) {
-        if (alignment == 'horizontal') {
-            if (direction == 'esquerda') {
-                arrPos[0] = arrPos[0] - movRate;
-            } else if (direction == 'direita') {
-                arrPos[0] = arrPos[0] + movRate;
-            }
-            arrPos[0] = $.ajustaLimite(arrPos[0]);
-        } else if (alignment == 'vertical') {
-            if (direction == 'cima') {
-                arrPos[1] = arrPos[1] - movRate;
-            } else if (direction == 'baixo') {
-                arrPos[1] = arrPos[1] + movRate;
-            }
-            arrPos[1] = $.ajustaLimite(arrPos[1])
+    $.setNextPosition = function(posArr, movRate, direction) {
+        var level;
+        switch (direction) {
+            case 'left':
+                posArr[0] = posArr[0] - movRate;
+                level = 0;
+                break;
+            case 'right':
+                posArr[0] = posArr[0] + movRate;
+                level = 0;
+                break;
+            case 'up':
+                posArr[1] = posArr[1] - movRate;
+                level = 1;
+                break;
+            case 'down':
+                posArr[1] = posArr[1] + movRate;
+                level = 1;
         }
-        return arrPos;
+        posArr[level] = $.adjustCrossBorder(posArr[level])
+        return posArr;
     }
 });

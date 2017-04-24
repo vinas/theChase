@@ -4,36 +4,32 @@ $(document).on("dblclick", function() {
 
 $(document).on("keydown", function(e) {
     tecla = e.which;
-    //if (tecla != 123) return false;
 });
 
 $(document).on("ready", function() {
 
-    /*var fundo = document.getElementById("fundo"),
-        hammertime = new Hammer(fundo);*/
+    init();
 
-    /*$.ionSound({
-        sounds: [
-            "heehee"
-        ],
-        path: "audio/",
-        multiPlay: true,
-        volume: "1.0"
-    });*/
+    function init()
+    {
+        $.resizeMapAndItems();
+        $.gameLoop();
+        $.gameClock();
+    }
+
 
     $.gameLoop = function() {
-        if (jogoOn == true) {
-            objLadrao = $("#ladrao");
+        if (jogoOn) {
             if (tecla == 37) {
-                $.flipHorizontal(objLadrao,"1");
-                $.movimento("esquerda");
+                $.mirrorObj(Thief, '1');
+                $.move('left');
             } else if (tecla == 38) {
-                $.movimento("cima");
+                $.move('up');
             } else if (tecla == 39) {
-                $.flipHorizontal(objLadrao,"-1");
-                $.movimento("direita");
+                $.mirrorObj(Thief, '-1');
+                $.move('right');
             } else if (tecla == 40) {
-                $.movimento("baixo");
+                $.move('down');
             // Enter - RESET
             } else if ((tecla == 13) && (tecla != teclaBump)) {
                 $.resetGame();
@@ -80,12 +76,12 @@ $(document).on("ready", function() {
         //$("#fundo").css("background-image", "url(img/background_v2.jpg)");
         $("#policia").attr("src", "img/guarda.gif");
         $("#actionLegenda").html('');
-        $("#fase").html(faseAtual);
+        $("#fase").html(currLevel);
         $("#tempo").html(tempo);
     }
 
     $.relocateCharacters = function() {
-        $.setObjectPosition($("#ladrao"), arrPosLadrao);
+        $.setObjectPosition(Thief, thiefPosArr);
         $.setObjectPosition($("#policia"), arrPosPolicia1);
         $.setObjectPosition($("#policia2"), arrPosPolicia2);
     }
@@ -108,7 +104,7 @@ $(document).on("ready", function() {
 
     $.showAllShowable = function() {
         $(".backgroundTap").show();
-        $("#ladrao").show();
+        Thief.show();
         $("#policia").show();
         $("#dinheiro").show();
         //$("#fundo").show();
@@ -118,20 +114,20 @@ $(document).on("ready", function() {
     $.resetAllValues = function() {
         tempo = TEMPOPADRAO;
         dinheiroVis = false;
-        relogioVis = false;
-        molotovVis = false;
-        bombaVis = false;
+        clockVisible = false;
+        molotovVisible = false;
+        bombVisible = false;
         tecla = false;
         jogoOn = false;
-        movimentacaoLadrao = $.regraDeTres(6, mapSize);
+        thiefMoveRate = $.regraDeTres(6, mapSize);
         movimentacaoPolicia1 = MOVIMENTACAOMINIMA;
-        faseAtual = 1;
+        currLevel = 1;
         ultimaFase = 0;
         ultimaPontuacao = 0;
         pontos = 0;
-        tempoMolotov = 0;
-        arrPosLadrao[0] = 0;
-        arrPosLadrao[1] = 0;
+        molotovTime = 0;
+        thiefPosArr[0] = 0;
+        thiefPosArr[1] = 0;
         arrPosPolicia1[0] = mapSize - TAMANHOOBJETO;
         arrPosPolicia1[1] = mapSize - TAMANHOOBJETO;
         arrPosPolicia2[0] = mapSize - TAMANHOOBJETO;
@@ -149,28 +145,28 @@ $(document).on("ready", function() {
     
     // Função que faz aparecer relogio
     $.apareceRelogio = function() {
-        if (relogioVis == false) {
+        if (clockVisible == false) {
             arrPosRelogio = $.getRandomCoords();
             $.displayItem($("#relogio"), arrPosRelogio);
-            relogioVis = true;
+            clockVisible = true;
         }
     };
     
     // Função que faz aparecer molotov
     $.apareceMolotov = function() {
-        if (molotovVis == false) {
+        if (molotovVisible == false) {
             arrPosMolotov = $.getRandomCoords();
             $.displayItem($("#molotov"), arrPosMolotov);
-            molotovVis = true;
+            molotovVisible = true;
         }
     };
 
     // Função que faz aparecer bomba
     $.apareceBomba = function() {
-        if (bombaVis == false) {
+        if (bombVisible == false) {
             arrPosBomba = $.getRandomCoords();
             $.displayItem($("#bomba"), arrPosBomba);
-            bombaVis = true;
+            bombVisible = true;
         }
     };
 
@@ -252,7 +248,7 @@ $(document).on("ready", function() {
     }
 
     $.showClock = function() {
-        if ((tempo == TEMPORELOGIO) && (relogioVis == false)) {
+        if ((tempo == TEMPORELOGIO) && (clockVisible == false)) {
             $.apareceRelogio();
         }
     }
@@ -260,14 +256,14 @@ $(document).on("ready", function() {
     $.clearHideGameValues = function() {
         tempo = 0;0
         dinheiroVis = false;
-        relogioVis = false;
-        molotovVis = false;
-        bombaVis = false;
+        clockVisible = false;
+        molotovVisible = false;
+        bombVisible = false;
         jogoOn = false;
 
         //$("#fundo").css("background-image", "url()");
         $(".backgroundTap").hide();
-        $("#ladrao").hide();
+        Thief.hide();
         $("#policia").hide();
         $("#policia2").hide();
         $("#dinheiro").hide();
@@ -300,7 +296,7 @@ $(document).on("ready", function() {
 
     //Hammer(fundo).on("swipeleft", function() {
     //hammertime.on("swipeleft", function() {
-    $("#fundo, #ladrao, #policia, .item").on("swipeleft", function() {
+    $("#fundo, #thief, #policia, .item").on("swipeleft", function() {
         tecla = 37;
     }).on("swiperight", function() {
         tecla = 39;
@@ -366,12 +362,5 @@ $(document).on("ready", function() {
     $("#loginButton").on("click", function() {
         Android.showToast("teste");
     });
-
-    /* ******************************* */
-    $.loading();
-
-    $.resizeMapAndItems();
-    $.gameLoop();
-    $.gameClock();
 
 });

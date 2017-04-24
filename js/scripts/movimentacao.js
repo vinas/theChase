@@ -1,49 +1,34 @@
-$('document').ready(function() {
+$('document').ready(function()
+{
 
-        // Funcão que aciona movimentos do jogo
-        $.movimento = function(direcaoComando) {
-            if (direcaoComando == "esquerda") {
-                $.moverLadrao('horizontal','esquerda');
-            } else if (direcaoComando == "cima") {
-                $.moverLadrao('vertical','cima');
-            } else if (direcaoComando == "direita") {
-                $.moverLadrao('horizontal','direita');
-            } else if (direcaoComando == "baixo") {
-                $.moverLadrao('vertical','baixo');
-            }
-            if (tempoMolotov <= 0) {
-                $.moverPolicia(1);
-                if (faseAtual >= FASEDOISPOLICIAS) {
-                    $.moverPolicia(2);
-                }
+    $.move = function(direction)
+    {
+        moveThief(direction);
+        movePolicemen();
+    }
+
+    var movePolicemen = function()
+    {
+        if (molotovTime <= 0) {
+            movePolice(1);
+            if (currLevel >= TWOPOLICEMENLEVEL) {
+                movePolice(2);
             }
         }
+    }
 
-    	// Função que move o ladrão segundo a tecla pressionada
-    	$.moverLadrao = function(alinhamento, sentido) {
-            arrPosLadrao = $.setNextPosition(arrPosLadrao, movimentacaoLadrao, alinhamento, sentido);
+	var moveThief = function(direction) {
+        thiefPosArr = $.setNextPosition(
+                thiefPosArr,
+                thiefMoveRate,
+                direction
+            );
+        $.setObjectPosition(Thief, thiefPosArr);
+        $.checkGotSomething();
+    }
 
-            // Move ladrão
-            $.setObjectPosition($("#ladrao"), arrPosLadrao);
 
-            // Checa se pegou dinheiro
-            $.pegouDinheiro();
 
-            // Checa se pegou o relógio
-            if (relogioVis == true) {
-                $.pegouRelogio();
-            }
-            
-            // Checa se pegou o molotov
-            if (molotovVis == true) {
-                $.pegouMolotov();
-            }
-
-            // Checa se pegou a bomba
-            if (bombaVis == true) {
-                $.pegouBomba();
-            }
-    	}
 
         $.definirPolicial = function(policial) {
             if (policial == 1) {
@@ -62,7 +47,7 @@ $('document').ready(function() {
         }
 
     	// Função que move Policia na direção do alvo
-        $.moverPolicia = function(policial) {
+        var movePolice = function(policial) {
 
             policeman = $.definirPolicial(policial);
             
@@ -75,26 +60,26 @@ $('document').ready(function() {
 
         	// Mexer Policia
         	if (direcao == 'horizontal') {
-        		if (posRelX == 'direita') {
-                    $.flipHorizontal(objPolicial,"-1");
+        		if (posRelX == 'right') {
+                    $.mirrorObj(objPolicial,"-1");
         			arrPosPolicia[0] = arrPosPolicia[0] + movimentacaoPolicia;
-        		} else if (posRelX == 'esquerda') {
-                    $.flipHorizontal(objPolicial,"1");
+        		} else if (posRelX == 'left') {
+                    $.mirrorObj(objPolicial,"1");
         			arrPosPolicia[0] = arrPosPolicia[0] - movimentacaoPolicia;
         		}
-                arrPosPolicia[0] = $.ajustaLimite(arrPosPolicia[0]);
+                arrPosPolicia[0] = $.adjustCrossBorder(arrPosPolicia[0]);
         	} else if (direcao == 'vertical') {
         		if (posRelY == 'acima') {
         			arrPosPolicia[1] = arrPosPolicia[1] - movimentacaoPolicia;
         		} else if (posRelY == 'abaixo') {
         			arrPosPolicia[1] = arrPosPolicia[1] + movimentacaoPolicia;
         		}
-                arrPosPolicia[1] = $.ajustaLimite(arrPosPolicia[1]);
+                arrPosPolicia[1] = $.adjustCrossBorder(arrPosPolicia[1]);
         	}
             $.setObjectPosition(objPolicial, arrPosPolicia);
 
             // Se polícia alcançou o ladrão
-            if ($.alcancou(arrPosPolicia, (TAMANHOOBJETO - CATCHTOLERANCE), arrPosLadrao, (TAMANHOOBJETO - CATCHTOLERANCE))) {
+            if ($.alcancou(arrPosPolicia, (TAMANHOOBJETO - CATCHTOLERANCE), thiefPosArr, (TAMANHOOBJETO - CATCHTOLERANCE))) {
                $.fimDeJogo("busted");
             }
         }
