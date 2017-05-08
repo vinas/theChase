@@ -46,7 +46,7 @@ $('document').ready(function()
     $.sortMolotov = function()
     {
         if ((molotovVisible == false) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
-            $.apareceMolotov();
+            displayMolotov();
         } else if ((molotovVisible == true) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
             $("#molotov").hide();
             molotovVisible = false;
@@ -87,7 +87,7 @@ $('document').ready(function()
     $.sortBomb = function()
     {
         if ((bombVisible == false) && (Math.floor((Math.random() * 100) + 1) <= 5)) {
-            $.apareceBomba();
+            displayBomb();
         } else if ((bombVisible == true) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
             $("#bomba").hide();
             bombVisible = false;
@@ -136,8 +136,6 @@ $('document').ready(function()
 
     $.setObjectPosition = function(obj, posArr)
     {
-        console.log('obj');
-        console.log(obj)
         obj.css("left", posArr[0]);
         obj.css("top", posArr[1]);
     }
@@ -193,6 +191,23 @@ $('document').ready(function()
         posArr[level] = $.adjustCrossBorder(posArr[level])
         return posArr;
     }
+
+
+    var displayBomb = function() {
+        if (bombVisible == false) {
+            arrPosBomba = $.getRandomCoords();
+            $.displayItem($("#bomba"), arrPosBomba);
+            bombVisible = true;
+        }
+    };
+
+    var displayMolotov = function() {
+        if (molotovVisible == false) {
+            arrPosMolotov = $.getRandomCoords();
+            $.displayItem($("#molotov"), arrPosMolotov);
+            molotovVisible = true;
+        }
+    };
 
     // Define a posição relativa X do alvo
     var definirPosRelXAlvo = function(officerPosArr)

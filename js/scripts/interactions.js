@@ -17,7 +17,7 @@ $('document').ready(function() {
             $.ganhaPontos()
             tempo = tempo + TEMPOBONUS;
             dinheiroVis = false;
-            $.apareceDinheiro();
+            $.displayMoney();
         }
     };
     

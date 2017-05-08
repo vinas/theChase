@@ -49,7 +49,7 @@ var arrPosBomba = new Array(500, 500);
 
 var speedTable = new Array();
 
-var preloadImages = new Array(
+var ImgsToPreload = new Array(
         "img/detalhes.gif",
         "img/start_over.png",
         "img/guarda_fogo_02.gif",
