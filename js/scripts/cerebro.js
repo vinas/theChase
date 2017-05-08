@@ -86,11 +86,10 @@ $('document').ready(function()
 
     $.sortBomb = function()
     {
-        if ((bombVisible == false) && (Math.floor((Math.random() * 100) + 1) <= 5)) {
+        if ((currLevel > 1) && (bombVisible == false) && (Math.floor((Math.random() * 100) + 1) <= 5)) {
             displayBomb();
         } else if ((bombVisible == true) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
-            $("#bomba").hide();
-            bombVisible = false;
+            hideBomb();
         }
     }
 
@@ -192,14 +191,16 @@ $('document').ready(function()
         return posArr;
     }
 
-
     var displayBomb = function() {
-        if (bombVisible == false) {
-            arrPosBomba = $.getRandomCoords();
-            $.displayItem($("#bomba"), arrPosBomba);
-            bombVisible = true;
-        }
+        arrPosBomba = $.getRandomCoords();
+        $.displayItem($("#bomba"), arrPosBomba);
+        bombVisible = true;
     };
+
+    var hideBomb = function() {
+        $("#bomba").hide();
+        bombVisible = false;
+    }
 
     var displayMolotov = function() {
         if (molotovVisible == false) {
