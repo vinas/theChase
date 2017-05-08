@@ -222,7 +222,7 @@ $('document').ready(function() {
     }
 
     $.show2ndPoliceman = function() {
-        police = officer2;
+        police = $('#officer2');
         if (molotovTime > 0) {
             police.attr("src", "img/guarda_fogo_02.gif")
         }

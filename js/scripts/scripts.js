@@ -327,6 +327,15 @@ $(document).on("ready", function() {
     }*/
 
     /* ******************************* */
+    function init()
+    {
+        loadEventHandlers();
+        $.loading();
+        $.resizeMapAndItems();
+        gameLoop();
+        gameClock();
+    }
+
     init();
 
 });
