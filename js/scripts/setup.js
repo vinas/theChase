@@ -1,3 +1,5 @@
+var game, eventHandlers, movement, interactions;
+
 var Officer1 = $('#officer1');
 var Officer2 = $('#officer2');
 

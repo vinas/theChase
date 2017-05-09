@@ -1,23 +1,25 @@
-$('document').ready(function()
+function Movement()
 {
+    this.move = move;
 
-    $.move = function(direction)
+    return this;
+
+    function move(direction)
     {
         moveThief(direction);
         movePolice();
     }
 
-    var movePolice = function()
+    function movePolice()
     {
         if (molotovTime <= 0) {
             moveOfficer(1);
-            if (currLevel >= TWOPOLICEMENLEVEL) {
+            if (currLevel >= TWOPOLICEMENLEVEL)
                 moveOfficer(2);
-            }
         }
     }
 
-	var moveThief = function(direction)
+    function moveThief(direction)
     {
         thiefPosArr = $.setNextPosition(
                 thiefPosArr,
@@ -25,10 +27,10 @@ $('document').ready(function()
                 direction
             );
         $.setObjectPosition($('#thief'), thiefPosArr);
-        $.checkGotSomething();
+        interactions.checkGotSomething();
     }
 
-    var moveOfficer = function(whichOfficer)
+    function moveOfficer(whichOfficer)
     {
         if (whichOfficer) {
             var officerPosArr, movementRate, officer;
@@ -44,9 +46,9 @@ $('document').ready(function()
             officerPosArr = $.setNewOfficerPos(whichOfficer, officer, officerPosArr, movementRate);
             $.setObjectPosition(officer, officerPosArr);
 
-            if ($.reached(officerPosArr, (OBJSIZE - CATCHTOLERANCE), thiefPosArr, (OBJSIZE - CATCHTOLERANCE)))
-               $.endGame('busted');
+            if (calculator.reached(officerPosArr, (OBJSIZE - CATCHTOLERANCE), thiefPosArr, (OBJSIZE - CATCHTOLERANCE)))
+               game.endGame('busted');
         }
     }
 
-});
+}
