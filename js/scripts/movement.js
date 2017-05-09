@@ -21,12 +21,12 @@ function Movement()
 
     function moveThief(direction)
     {
-        thiefPosArr = $.setNextPosition(
+        thiefPosArr = calculator.setNextPosition(
                 thiefPosArr,
                 thiefMoveRate,
                 direction
             );
-        $.setObjectPosition($('#thief'), thiefPosArr);
+        calculator.setObjectPosition($('#thief'), thiefPosArr);
         interactions.checkGotSomething();
     }
 
@@ -43,8 +43,8 @@ function Movement()
                 movementRate = officer2MoveRate;
                 officer = $('#officer2');
             }
-            officerPosArr = $.setNewOfficerPos(whichOfficer, officer, officerPosArr, movementRate);
-            $.setObjectPosition(officer, officerPosArr);
+            officerPosArr = calculator.setNewOfficerPos(whichOfficer, officer, officerPosArr, movementRate);
+            calculator.setObjectPosition(officer, officerPosArr);
 
             if (calculator.reached(officerPosArr, (OBJSIZE - CATCHTOLERANCE), thiefPosArr, (OBJSIZE - CATCHTOLERANCE)))
                game.endGame('busted');

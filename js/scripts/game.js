@@ -35,7 +35,7 @@ function Game()
         /*$("#formRanking").show();
         $("#btOk").show();
         $("#btVerRanking").show();*/
-    };
+    }
 
     function resetGame()
     {
@@ -46,7 +46,7 @@ function Game()
         display.displayMoney();
         display.displayGameInfo();
         jogoOn = true;
-    };
+    }
 
     function getPoints() {
         pontos = pontos + VALORDINHEIRO;
@@ -56,19 +56,19 @@ function Game()
             ultimaPontuacao = pontos;
             changeLevel();
         }
-    };
+    }
 
 
     function gameLoop()
     {
         if (jogoOn) {
             if (tecla == 37) {
-                $.mirrorObj($('#thief'), '1');
+                display.mirrorObj($('#thief'), '1');
                 movement.move('left');
             } else if (tecla == 38) {
                 movement.move('up');
             } else if (tecla == 39) {
-                $.mirrorObj($('#thief'), '-1');
+                display.mirrorObj($('#thief'), '-1');
                 movement.move('right');
             } else if (tecla == 40) {
                 movement.move('down');
@@ -81,7 +81,7 @@ function Game()
             }
         }
         setTimeout(gameLoop, 40);
-    };
+    }
 
     function gameClock()
     {
@@ -91,8 +91,8 @@ function Game()
                     display.flash($("#tempo"), "#FFD61F");
                 }
                 display.displayClock();
-                $.sortMolotov();
-                $.sortBomb();
+                calculator.sortMolotov();
+                calculator.sortBomb();
                 display.displayMoney();
                 $("#tempo").html(tempo);
                 tempo = tempo - 1;
@@ -101,7 +101,7 @@ function Game()
             }
         }
         setTimeout(gameClock, 1000);
-    };
+    }
 
 
     function resetAllValues()
@@ -113,7 +113,7 @@ function Game()
         bombVisible = false;
         tecla = false;
         jogoOn = false;
-        thiefMoveRate = $.regraDeTres(6, mapSize);
+        thiefMoveRate = calculator.regraDeTres(6, mapSize);
         officer1MoveRate = MOVIMENTACAOMINIMA;
         currLevel = 1;
         ultimaFase = 0;
@@ -130,9 +130,9 @@ function Game()
 
     function relocateCharacters()
     {
-        $.setObjectPosition($('#thief'), thiefPosArr);
-        $.setObjectPosition($('#officer1'), officer1PosArr);
-        $.setObjectPosition($('#officer2'), officer2PosArr);
+        calculator.setObjectPosition($('#thief'), thiefPosArr);
+        calculator.setObjectPosition($('#officer1'), officer1PosArr);
+        calculator.setObjectPosition($('#officer2'), officer2PosArr);
     }
 
     function clearGameValues()

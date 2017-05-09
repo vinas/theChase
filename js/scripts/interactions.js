@@ -66,7 +66,7 @@ function Interactions()
                 if (currLevel < TWOPOLICEMENLEVEL) {
                     officer2PosArr[0] = (mapSize - OBJSIZE);
                     officer2PosArr[1] = 0;
-                    $.setObjectPosition($('#officer2'), officer2PosArr);
+                    calculator.setObjectPosition($('#officer2'), officer2PosArr);
                     $("#contador2").hide();
                     $('#officer2').hide();
                 }

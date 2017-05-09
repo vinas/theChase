@@ -17,13 +17,17 @@ function Display()
     this.startPressedTimmer = startPressedTimmer;
     this.show2ndPoliceman = show2ndPoliceman;
     this.changeBackground = changeBackground;
+    this.mirrorObj = mirrorObj;
+    this.displayBomb = displayBomb;
+    this.hideBomb = hideBomb;
+    this.displayMolotov = displayMolotov;
     
     return this;
 
     function flashPolicia()
     {
         flash($('#officer1'), "#FFD61F");
-    };
+    }
 
     function flash(obj, color) {
         obj.css("background-color", color);
@@ -42,7 +46,7 @@ function Display()
                 }, 100);
             }, 100);
         }, 100);
-    };
+    }
 
     function feedBackMolotov()
     {
@@ -67,11 +71,11 @@ function Display()
 
     function displayMoney() {
         if (!dinheiroVis) {
-            arrPosDinheiro = $.getRandomCoords();
-            $.displayItem($("#dinheiro"), arrPosDinheiro);
+            arrPosDinheiro = calculator.getRandomCoords();
+            displayItem($("#dinheiro"), arrPosDinheiro);
             dinheiroVis = true;
         }
-    };
+    }
 
     function displayGameInfo()
     {
@@ -86,8 +90,8 @@ function Display()
     function displayClock()
     {
         if ((tempo == TEMPORELOGIO) && (clockVisible == false) && (clockVisible == false)) {
-            arrPosRelogio = $.getRandomCoords();
-            $.displayItem($("#relogio"), arrPosRelogio);
+            arrPosRelogio = calculator.getRandomCoords();
+            displayItem($("#relogio"), arrPosRelogio);
             clockVisible = true;
         }
     }
@@ -160,7 +164,7 @@ function Display()
         if (molotovTime > 0) {
             police.attr("src", "img/guarda_fogo_02.gif")
         }
-        $.set2ndPolicemanPosition();
+        calculator.set2ndPolicemanPosition();
         police.show();
     }
 
@@ -168,16 +172,58 @@ function Display()
     {
         $("#backgroundImage").attr(
             "src",
-            "img/"+$.sorteiaFundo()
+            "img/"+sortBackground()
         );
     }
 
+    function mirrorObj(objeto, escala)
+    {
+        objeto.css("-moz-transform", "scaleX("+escala+")");
+        objeto.css("-webkit-transform", "scaleX("+escala+")");
+        objeto.css("-o-transform", "scaleX("+escala+")");
+        objeto.css("transform", "scaleX("+escala+")");
+        objeto.css("-ms-filter", "fliph");
+        objeto.css("filter", "fliph");
+    }
+
+    function displayBomb()
+    {
+        arrPosBomba = calculator.getRandomCoords();
+        displayItem($("#bomba"), arrPosBomba);
+        bombVisible = true;
+    }
+
+    function hideBomb()
+    {
+        $("#bomba").hide();
+        bombVisible = false;
+    }
+
+    function displayMolotov()
+    {
+        if (molotovVisible == false) {
+            arrPosMolotov = calculator.getRandomCoords();
+            displayItem($("#molotov"), arrPosMolotov);
+            molotovVisible = true;
+        }
+    }
+
+
+
+    function sortBackground()
+    {
+        var rand = Math.floor(Math.random() * backgrounds.length);
+        while ($("#backgroundImage").attr("src") == "url(img/"+backgrounds[rand]+")") {
+            rand = Math.floor(Math.random() * backgrounds.length);
+        }
+        return backgrounds[rand];
+    }
 
     function showFeedBack(object, message, follow)
     {
         legenda =  $("#actionLegenda");
-        objectPosition = $.getObjectPosition(object);
-        messagePosition = $.calculateMessagePosition(objectPosition);
+        objectPosition = calculator.getObjectPosition(object);
+        messagePosition = calculator.calculateMessagePosition(objectPosition);
         
         legenda.offset({ top: messagePosition[1], left: messagePosition[0]});
         legenda.html(message);
@@ -186,8 +232,8 @@ function Display()
             legenda.html("");
             setTimeout(function() {
                 if (follow == true) {
-                    objectPosition = $.getObjectPosition(object);
-                    messagePosition = $.calculateMessagePosition(objectPosition);
+                    objectPosition = calculator.getObjectPosition(object);
+                    messagePosition = calculator.calculateMessagePosition(objectPosition);
                     legenda.offset({ top: messagePosition[1], left: messagePosition[0]});
                 }
                 legenda.html(message);
@@ -195,8 +241,8 @@ function Display()
                     legenda.html("");
                     setTimeout(function() {
                         if (follow == true) {
-                            objectPosition = $.getObjectPosition(object);
-                            messagePosition = $.calculateMessagePosition(objectPosition);
+                            objectPosition = calculator.getObjectPosition(object);
+                            messagePosition = calculator.calculateMessagePosition(objectPosition);
                             legenda.offset({ top: messagePosition[1], left: messagePosition[0]});
                         }
                         legenda.html(message);
@@ -211,8 +257,8 @@ function Display()
 
     function showFeedBack2(object, message, follow) {
         legenda2 =  $("#actionLegenda2");
-        objectPosition = $.getObjectPosition(object);
-        messagePosition = $.calculateMessagePosition(objectPosition);
+        objectPosition = calculator.getObjectPosition(object);
+        messagePosition = calculator.calculateMessagePosition(objectPosition);
         
         legenda2.offset({ top: messagePosition[1], left: messagePosition[0]});
         legenda2.html(message);
@@ -221,8 +267,8 @@ function Display()
             legenda2.html("");
             setTimeout(function() {
                 if (follow == true) {
-                    objectPosition = $.getObjectPosition(object);
-                    messagePosition = $.calculateMessagePosition(objectPosition);
+                    objectPosition = calculator.getObjectPosition(object);
+                    messagePosition = calculator.calculateMessagePosition(objectPosition);
                     legenda2.offset({ top: messagePosition[1], left: messagePosition[0]});
                 }
                 legenda2.html(message);
@@ -230,8 +276,8 @@ function Display()
                     legenda2.html("");
                     setTimeout(function() {
                         if (follow == true) {
-                            objectPosition = $.getObjectPosition(object);
-                            messagePosition = $.calculateMessagePosition(objectPosition);
+                            objectPosition = calculator.getObjectPosition(object);
+                            messagePosition = calculator.calculateMessagePosition(objectPosition);
                             legenda2.offset({ top: messagePosition[1], left: messagePosition[0]});
                         }
                         legenda2.html(message);
@@ -248,6 +294,12 @@ function Display()
         for (i = 0; i < images.length; i++) {
             $('<img/>')[0].src = images[i];
         }
+    }
+
+    function displayItem(obj, arrPosition)
+    {
+        calculator.setObjectPosition(obj, arrPosition);
+        obj.show();
     }
 
 }
