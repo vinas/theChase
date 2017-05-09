@@ -7,11 +7,15 @@ $(document).on("keydown", function(e) {
 });
 
 $(document).on("ready", function() {
+
     eventHandlers = EventHandlers();
     movement = Movement();
     interactions = Interactions();
     calculator = Calculator();
     display = Display();
+    resizer = Resizer();
+
     game = Game();
     game.init();
+
 });

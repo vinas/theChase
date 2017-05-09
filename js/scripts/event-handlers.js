@@ -47,7 +47,7 @@ function EventHandlers()
         $("#btOk").on("tap", function() {
             $(this).hide();
             $("#btVerRanking").hide()
-            $.postRankingForm();
+            //$.postRankingForm();
         });
 
         $(".buttonWeeklyRanking").on("tap", function() {

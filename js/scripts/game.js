@@ -1,6 +1,5 @@
 function Game()
 {
-    
     this.endGame = endGame;
     this.loading = loading;
     this.init = init;
@@ -13,7 +12,7 @@ function Game()
     {
         eventHandlers.load();
         display.loading();
-        $.resizeMapAndItems();
+        resizer.resizeMapAndItems();
         gameLoop();
         gameClock();
     }

@@ -1,11 +1,18 @@
-$(document).ready(function() {
+function Resizer()
+{
+    this.resizeMapAndItems = resizeMapAndItems;
 
-    $.resizeMapAndItems = function() {
-        $.calculateMeasurements();
-        $.resizeVisualElements();
+    return this;
+
+    function resizeMapAndItems()
+    {
+        calculateMeasurements();
+        resizeVisualElements();
     }
 
-    $.calculateMeasurements = function() {
+
+    function calculateMeasurements()
+    {
         mapSize = $("#fundo").css("width").replace(new RegExp("px", 'g'), "");
         CROSSBORDERTOLERANCE = calculator.regraDeTres(CROSSBORDERTOLERANCE, mapSize);
         MOVIMENTACAOMINIMA = calculator.regraDeTres(MOVIMENTACAOMINIMA, mapSize);
@@ -35,10 +42,11 @@ $(document).ready(function() {
         );
     }
 
-    $.resizeVisualElements = function() {
-        $.resizeGamePlayElements();
+    function resizeVisualElements()
+    {
+        resizeGamePlayElements();
 
-        $.resizeRankingElements();
+        resizeRankingElements();
 
         $(".presentation").css("height", mapSize);
         $("#presentationImage").attr("width", mapSize+"px");
@@ -126,7 +134,8 @@ $(document).ready(function() {
         $(".barLeft").css("padding-top", calculator.regraDeTres(10, mapSize)+"px");
     }
 
-    $.resizeGamePlayElements = function() {
+    function resizeGamePlayElements()
+    {
         $("#fundo").css("height", mapSize);
         $("#backgroundImage").attr("width", mapSize+"px");
         $("#backgroundImage").attr("height", mapSize+"px");
@@ -136,7 +145,8 @@ $(document).ready(function() {
         $(".item").css("height", TAMANHOITEM+"px");
     }
 
-    $.resizeRankingElements = function() {
+    function resizeRankingElements()
+    {
         $(".title").css("font-size", calculator.regraDeTres(40, mapSize)+"px");
 
         $(".formRanking").css("left", calculator.regraDeTres(152, mapSize)+"px");
@@ -186,4 +196,4 @@ $(document).ready(function() {
         $("#rankingLinkButton").css("padding", calculator.regraDeTres(5, mapSize)+"px");
     }
 
-});
+}
