@@ -15,8 +15,8 @@ $(document).on("ready", function() {
     calculator = Calculator();
     display = Display();
     resizer = Resizer();
-
     game = Game();
+
     game.init();
 
 });

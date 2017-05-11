@@ -21,6 +21,7 @@ function Movement()
 
     function moveThief(direction)
     {
+        setThiefHorDirection(direction);
         thiefPosArr = calculator.setNextPosition(
                 thiefPosArr,
                 thiefMoveRate,

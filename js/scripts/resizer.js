@@ -46,8 +46,6 @@ function Resizer()
     {
         resizeGamePlayElements();
 
-        //resizeRankingElements();
-
         $(".presentation").css("height", mapSize);
         $("#presentationImage").attr("width", mapSize+"px");
         $("#presentationImage").attr("height", mapSize+"px");
@@ -144,56 +142,4 @@ function Resizer()
         $(".item").css("width", TAMANHOITEM+"px");
         $(".item").css("height", TAMANHOITEM+"px");
     }
-
-    /*function resizeRankingElements()
-    {
-        $(".title").css("font-size", calculator.regraDeTres(40, mapSize)+"px");
-
-        $(".formRanking").css("left", calculator.regraDeTres(152, mapSize)+"px");
-        $(".formRanking").css("top", calculator.regraDeTres(295, mapSize)+"px");
-        $(".formRanking").css("width", calculator.regraDeTres(200, mapSize)+"px");
-        $(".formRanking").css("height", calculator.regraDeTres(174, mapSize)+"px");
-
-        $(".formRanking .nickname").css("padding-left", calculator.regraDeTres(6, mapSize)+"px");
-        $(".formRanking .nickname").css("padding-top", calculator.regraDeTres(6, mapSize)+"px");
-        $(".formRanking .nickname").css("font-size", calculator.regraDeTres(11, mapSize)+"px");
-
-        $(".formRanking .btOk").css("width", calculator.regraDeTres(50, mapSize)+"px");
-        $(".formRanking .btOk").css("height", calculator.regraDeTres(50, mapSize)+"px");
-        $(".formRanking .btOk").css("left", calculator.regraDeTres(30, mapSize)+"px");
-        $(".formRanking .btOk").css("top", calculator.regraDeTres(98, mapSize)+"px");
-
-        $(".formRanking .btVerRanking").css("width", calculator.regraDeTres(50, mapSize)+"px");
-        $(".formRanking .btVerRanking").css("height", calculator.regraDeTres(50, mapSize)+"px");
-        $(".formRanking .btVerRanking").css("left", calculator.regraDeTres(30, mapSize)+"px");
-        $(".formRanking .btVerRanking").css("top", calculator.regraDeTres(105, mapSize)+"px");
-
-        $(".formRanking .email").css("padding-left", calculator.regraDeTres(6, mapSize)+"px");
-        $(".formRanking .email").css("padding-top", calculator.regraDeTres(6, mapSize)+"px");
-        $(".formRanking .email").css("font-size", calculator.regraDeTres(11, mapSize)+"px");        
-
-        $("#ranking").css("width", mapSize+"px");
-        $("#ranking").css("height", mapSize+"px");
-
-        $("#ranking .title").css("top", calculator.regraDeTres(9, mapSize)+"px");
-        $("#ranking .title").css("font-size", calculator.regraDeTres(35, mapSize)+"px");
-
-        $(".lista").css("left", calculator.regraDeTres(62, mapSize)+"px");
-        $(".lista").css("top", calculator.regraDeTres(71, mapSize)+"px");
-
-        $(".lista .linha").css("width", calculator.regraDeTres(380, mapSize)+"px");
-        $(".lista .linha").css("height", calculator.regraDeTres(25, mapSize)+"px");
-        $(".lista .linha").css("padding-bottom", calculator.regraDeTres(4, mapSize)+"px");
-
-        $(".lista .linha .nome").css("font-size", calculator.regraDeTres(18, mapSize)+"px");
-
-        $(".lista .linha .pontuacao").css("width", calculator.regraDeTres(80, mapSize)+"px");
-        $(".lista .linha .pontuacao").css("font-size", calculator.regraDeTres(18, mapSize)+"px");
-
-        $(".rankingFooter").css("font-size", calculator.regraDeTres(20, mapSize)+"px");
-        $(".rankingFooter").css("top", calculator.regraDeTres(453, mapSize)+"px");
-
-        $("#rankingLinkButton").css("padding", calculator.regraDeTres(5, mapSize)+"px");
-    }*/
-
 }

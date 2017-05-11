@@ -30,8 +30,21 @@ function Display()
     this.displayMolotov = displayMolotov;
     this.updatePointsDisplay = updatePointsDisplay;
     this.updateDificultyDisplay = updateDificultyDisplay;
+    this.setThiefHorDirection = setThiefHorDirection;
     
     return this;
+
+    function setThiefHorDirection(direction)
+    {
+        switch (direction) {
+            case 'left':
+                mirrorObj(Thief, '1');
+                break;
+            case 'right':
+                mirrorObj(Thief, '-1');
+                break;
+        }
+    }
 
     function updateDificultyDisplay()
     {
@@ -130,9 +143,6 @@ function Display()
     function hideAllHideble()
     {
         $("#instructionsBar").hide();
-        //$("#ranking").hide();
-        //$("#rankingFooter").hide();
-        //$("#formRanking").hide();
         $("#presentation").hide();
         Clock.hide();
         Molotov.hide();

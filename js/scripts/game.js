@@ -52,22 +52,27 @@ function Game()
     function gameLoop()
     {
         if (jogoOn) {
-            if (tecla == 37) {
-                display.mirrorObj(Thief, '1');
-                movement.move('left');
-            } else if (tecla == 38) {
-                movement.move('up');
-            } else if (tecla == 39) {
-                display.mirrorObj(Thief, '-1');
-                movement.move('right');
-            } else if (tecla == 40) {
-                movement.move('down');
-            // Enter - RESET
-            } else if ((tecla == 13) && (tecla != teclaBump)) {
-                resetGame();
-                teclaBump = tecla;
-            } else if (tecla != 13) {
-                teclaBump = false;
+            switch (tecla) {
+                case 37:
+                    movement.move('left');
+                    break;
+                case 38:
+                    movement.move('up');
+                    break;
+                case 39:
+                    movement.move('right');
+                    break;
+                case 40:
+                    movement.move('down');
+                    break;
+                case 13:
+                    if ((tecla != teclaBump)) {
+                        resetGame();
+                        teclaBump = tecla;
+                    }
+                    break;
+                default:
+                    teclaBump = false;
             }
         }
         setTimeout(gameLoop, 40);
