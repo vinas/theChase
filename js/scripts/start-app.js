@@ -8,6 +8,7 @@ $(document).on("keydown", function(e) {
 
 $(document).on("ready", function() {
 
+    setup = Setup();
     eventHandlers = EventHandlers();
     movement = Movement();
     interactions = Interactions();

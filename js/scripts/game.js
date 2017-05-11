@@ -4,12 +4,13 @@ function Game()
     this.loading = loading;
     this.init = init;
     this.resetGame = resetGame;
-    this.getPoints = getPoints;
+    this.scorePoints = scorePoints;
 
     return this;
 
     function init()
     {
+        setup.setAll();
         eventHandlers.load();
         display.loading();
         resizer.resizeMapAndItems();
@@ -18,9 +19,6 @@ function Game()
     }
 
     function endGame(motivo) {
-        $("#gamePoints").val($("#pontos").html());
-        //$.postRankingForm();
-        $(".buttonWeeklyRanking").show();
         if (motivo == "busted") {
             display.busted();
         } else if (motivo == "timeUp") {
@@ -28,12 +26,6 @@ function Game()
         }
         display.hideGameValues();
         clearGameValues();
-
-        // mexer aqui: exibir form se nao tiver nada no #userId
-        // se tiver user Id, postar um ajax pro endGame sem parametros (ou com userID só)
-        /*$("#formRanking").show();
-        $("#btOk").show();
-        $("#btVerRanking").show();*/
     }
 
     function resetGame()
@@ -47,10 +39,9 @@ function Game()
         jogoOn = true;
     }
 
-    function getPoints() {
+    function scorePoints() {
         pontos = pontos + VALORDINHEIRO;
-        $("#pontos").html(pontos);
-        display.flash($("#pontos"), "#FFD61F");
+        display.updatePointsDisplay();
         if ((pontos != 0) && (pontos >= (ultimaPontuacao + PONTOSPORFASE))) {
             ultimaPontuacao = pontos;
             changeLevel();
@@ -62,12 +53,12 @@ function Game()
     {
         if (jogoOn) {
             if (tecla == 37) {
-                display.mirrorObj($('#thief'), '1');
+                display.mirrorObj(Thief, '1');
                 movement.move('left');
             } else if (tecla == 38) {
                 movement.move('up');
             } else if (tecla == 39) {
-                display.mirrorObj($('#thief'), '-1');
+                display.mirrorObj(Thief, '-1');
                 movement.move('right');
             } else if (tecla == 40) {
                 movement.move('down');
@@ -87,13 +78,13 @@ function Game()
         if (jogoOn == true) {
             if (tempo >= 0) {
                 if (tempo <= 3) {
-                    display.flash($("#tempo"), "#FFD61F");
+                    display.flash(Time, "#FFD61F");
                 }
                 display.displayClock();
                 calculator.sortMolotov();
                 calculator.sortBomb();
                 display.displayMoney();
-                $("#tempo").html(tempo);
+                Time.html(tempo);
                 tempo = tempo - 1;
             } else {
                 endGame("timeUp");
@@ -129,9 +120,9 @@ function Game()
 
     function relocateCharacters()
     {
-        calculator.setObjectPosition($('#thief'), thiefPosArr);
-        calculator.setObjectPosition($('#officer1'), officer1PosArr);
-        calculator.setObjectPosition($('#officer2'), officer2PosArr);
+        calculator.setObjectPosition(Thief, thiefPosArr);
+        calculator.setObjectPosition(Officer1, officer1PosArr);
+        calculator.setObjectPosition(Officer2, officer2PosArr);
     }
 
     function clearGameValues()
@@ -152,8 +143,7 @@ function Game()
         } else if (currLevel ==  TWOPOLICEMENLEVEL) {
             display.show2ndPoliceman();
         }
-        $("#fase").html(currLevel);
-        display.flash($("#fase"), "#FFD61F");
+        display.updateDificultyDisplay();
         display.changeBackground();
         changePoliceMoveRate();
     }
@@ -163,39 +153,5 @@ function Game()
         officer1MoveRate = speedTable[currLevel][0];
         officer2MoveRate = speedTable[currLevel][1];
     }
-
-    /*$.postRankingForm = function() {
-        nickName = $("#nickname").val();
-        lastName = $("#lastname").val();
-        email = $("#email").val();
-        points = $("#gamePoints").val();
-        //if ((nickName) && (email) && (points)) {
-            $.post('/Ranking/endGame/', {
-                nickName: nickName,
-                lastName: lastName,
-                email: email,
-                points: points
-            }, function(res) {
-                res = $.parseJSON(res);
-                if (res.response == 1) {
-                    $("#maxScore").val(res.maxScore);
-                    $("#gamePoints").val(res.lastScore);
-                    $("#loginStatus").html(
-                        'last score: ' + $("#gamePoints").val() + '&nbsp;&nbsp;-&nbsp;&nbsp;best score: ' + $("#maxScore").val()
-                    );
-                    $.post(res.redirect, {}, function(ranking) {
-                        ranking = $.parseJSON(ranking);
-                        $("#ranking").html(ranking.thisRanking);
-                        $("#rankingFooter").attr("data-rankingType", ranking.otherRankingLink);
-                        $("#rankingLinkButton").html(ranking.linkCaption);
-                    });
-                } else {
-                    alert("Sorry,\n\nThere was an error.\n\nError: "+res.erro);
-                }
-                document.body.style.cursor = 'default';
-                return false;
-            });
-        //}
-    }*/
 
 }

@@ -44,43 +44,6 @@ function EventHandlers()
             }
         });
 
-        $("#btOk").on("tap", function() {
-            $(this).hide();
-            $("#btVerRanking").hide()
-            //$.postRankingForm();
-        });
-
-        $(".buttonWeeklyRanking").on("tap", function() {
-            $(this).hide();
-            //$("#formRanking").hide();
-            $("#busted").hide();
-            $("#timeUp").hide();
-            /*$.post("/Ranking/listWeeklyRanking", {}, function(ranking) {
-                $("#ranking").html(ranking);
-                $("#ranking").show();
-            });*/
-            $("#ranking").show();
-            $("#rankingFooter").show();
-        });
-
-        $("#rankingLinkButton").on("tap", function() {
-            type = $(this).attr("data-rankingType");
-            if (type == "thisweeks") {
-                rankingType = "listWeeklyRanking";
-            } else if (type == "alltimes") {
-                rankingType = "listAllTimesRanking";
-            }
-            $.post("/Ranking/" + rankingType, {}, function(ranking) {
-                ranking = $.parseJSON(ranking);
-                $("#ranking").html(ranking.thisRanking);
-                $("#rankingLinkButton").attr("data-rankingType", ranking.otherRankingLink);
-                $("#rankingLinkButton").html(ranking.linkCaption);
-            });
-        });
-
-        $("#loginButton").on("click", function() {
-            Android.showToast("teste");
-        });
     }
 
 }

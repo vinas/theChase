@@ -1,5 +1,12 @@
 function Display()
 {
+    var Money = $('#dinheiro'),
+        PointsCounter = $('#pontos'),
+        Legenda = $('#actionLegenda'),
+        Legenda2 =  $('#actionLegenda2'),
+        Busted = $('#busted'),
+        TimeUp = $('#timeUp');
+ 
     this.flashPolicia = flashPolicia;
     this.flash = flash;
     this.feedBackMolotov = feedBackMolotov;
@@ -21,12 +28,26 @@ function Display()
     this.displayBomb = displayBomb;
     this.hideBomb = hideBomb;
     this.displayMolotov = displayMolotov;
+    this.updatePointsDisplay = updatePointsDisplay;
+    this.updateDificultyDisplay = updateDificultyDisplay;
     
     return this;
 
+    function updateDificultyDisplay()
+    {
+        CurrLevel.html(currLevel);
+        flash(CurrLevel, "#FFD61F");
+    }
+
+    function updatePointsDisplay()
+    {
+        PointsCounter.html(pontos);
+        flash(PointsCounter, "#FFD61F");
+    }
+
     function flashPolicia()
     {
-        flash($('#officer1'), "#FFD61F");
+        flash(Officer1, "#FFD61F");
     }
 
     function flash(obj, color) {
@@ -50,98 +71,98 @@ function Display()
 
     function feedBackMolotov()
     {
-        showFeedBack($('#officer1'), "can't move", false);
+        showFeedBack(Officer1, "can't move", false);
         if (currLevel >= TWOPOLICEMENLEVEL) {
-            showFeedBack2($('#officer2'), "can't move", false);
+            showFeedBack2(Officer2, "can't move", false);
         }
     }
 
     function feedBackBomb()
     {
-        showFeedBack($('#officer1'), "slow", true);
+        showFeedBack(Officer1, "slow", true);
         if (currLevel >= TWOPOLICEMENLEVEL) {
-            showFeedBack2($('#officer2'), "slow", true);
+            showFeedBack2(Officer2, "slow", true);
         }
     }
 
     function feedBackClock()
     {
-        showFeedBack($('#thief'), "time +10", true);
+        showFeedBack(Thief, "time +10", true);
     }
 
     function displayMoney() {
         if (!dinheiroVis) {
             arrPosDinheiro = calculator.getRandomCoords();
-            displayItem($("#dinheiro"), arrPosDinheiro);
+            displayItem(Money, arrPosDinheiro);
             dinheiroVis = true;
         }
     }
 
     function displayGameInfo()
     {
-        $("#pontos").html("0");
-        $("#backgroundImage").attr("src", "img/background_v2.jpg");
-        $('#officer1').attr("src", "img/guarda.gif");
-        $("#actionLegenda").html('');
-        $("#fase").html(currLevel);
-        $("#tempo").html(tempo);
+        PointsCounter.html("0");
+        BackgroundImg.attr("src", "img/background_v2.jpg");
+        Officer1.attr("src", "img/guarda.gif");
+        Legenda.html('');
+        CurrLevel.html(currLevel);
+        Time.html(tempo);
     }
 
     function displayClock()
     {
         if ((tempo == TEMPORELOGIO) && (clockVisible == false) && (clockVisible == false)) {
             arrPosRelogio = calculator.getRandomCoords();
-            displayItem($("#relogio"), arrPosRelogio);
+            displayItem(Clock, arrPosRelogio);
             clockVisible = true;
         }
     }
 
     function busted()
     {
-        $("#busted").show();
+        Busted.show();
     }
 
     function timeUp()
     {
-        $("#timeUp").show();
+        TimeUp.show();
     }
 
     function hideAllHideble()
     {
         $("#instructionsBar").hide();
-        $("#ranking").hide();
-        $("#rankingFooter").hide();
-        $("#formRanking").hide();
+        //$("#ranking").hide();
+        //$("#rankingFooter").hide();
+        //$("#formRanking").hide();
         $("#presentation").hide();
-        $("#relogio").hide();
-        $("#molotov").hide();
-        $("#bomba").hide();
-        $("#contador").hide();
-        $("#contador2").hide();
-        $("#busted").hide();
-        $("#timeUp").hide();
-        $('#officer2').hide();
+        Clock.hide();
+        Molotov.hide();
+        Bomb.hide();
+        Counter1.hide();
+        Counter2.hide();
+        Busted.hide();
+        TimeUp.hide();
+        Officer2.hide();
     }
 
     function showAllShowable()
     {
         $(".backgroundTap").show();
-        $('#thief').show();
-        $('#officer1').show();
-        $("#dinheiro").show();
+        Thief.show();
+        Officer1.show();
+        Money.show();
         $("#scoreBar").show();
     }
 
     function hideGameValues()
     {
         $(".backgroundTap").hide();
-        $('#thief').hide();
-        $('#officer1').hide();
-        $('#officer2').hide();
-        $("#dinheiro").hide();
-        $("#relogio").hide();
-        $("#molotov").hide();
-        $("#bomba").hide();
+        Thief.hide();
+        Officer1.hide();
+        Officer2.hide();
+        Money.hide();
+        Clock.hide();
+        Molotov.hide();
+        Bomb.hide();
     }
 
     function loading() {
@@ -160,7 +181,7 @@ function Display()
 
     function show2ndPoliceman()
     {
-        police = $('#officer2');
+        police = Officer2;
         if (molotovTime > 0) {
             police.attr("src", "img/guarda_fogo_02.gif")
         }
@@ -170,7 +191,7 @@ function Display()
 
     function changeBackground()
     {
-        $("#backgroundImage").attr(
+        BackgroundImg.attr(
             "src",
             "img/"+sortBackground()
         );
@@ -189,13 +210,13 @@ function Display()
     function displayBomb()
     {
         arrPosBomba = calculator.getRandomCoords();
-        displayItem($("#bomba"), arrPosBomba);
+        displayItem(Bomb, arrPosBomba);
         bombVisible = true;
     }
 
     function hideBomb()
     {
-        $("#bomba").hide();
+        Bomb.hide();
         bombVisible = false;
     }
 
@@ -203,7 +224,7 @@ function Display()
     {
         if (molotovVisible == false) {
             arrPosMolotov = calculator.getRandomCoords();
-            displayItem($("#molotov"), arrPosMolotov);
+            displayItem(Molotov, arrPosMolotov);
             molotovVisible = true;
         }
     }
@@ -213,7 +234,7 @@ function Display()
     function sortBackground()
     {
         var rand = Math.floor(Math.random() * backgrounds.length);
-        while ($("#backgroundImage").attr("src") == "url(img/"+backgrounds[rand]+")") {
+        while (BackgroundImg.attr("src") == "url(img/"+backgrounds[rand]+")") {
             rand = Math.floor(Math.random() * backgrounds.length);
         }
         return backgrounds[rand];
@@ -221,33 +242,32 @@ function Display()
 
     function showFeedBack(object, message, follow)
     {
-        legenda =  $("#actionLegenda");
         objectPosition = calculator.getObjectPosition(object);
         messagePosition = calculator.calculateMessagePosition(objectPosition);
         
-        legenda.offset({ top: messagePosition[1], left: messagePosition[0]});
-        legenda.html(message);
+        Legenda.offset({ top: messagePosition[1], left: messagePosition[0]});
+        Legenda.html(message);
         
         setTimeout(function() {
-            legenda.html("");
+            Legenda.html("");
             setTimeout(function() {
                 if (follow == true) {
                     objectPosition = calculator.getObjectPosition(object);
                     messagePosition = calculator.calculateMessagePosition(objectPosition);
-                    legenda.offset({ top: messagePosition[1], left: messagePosition[0]});
+                    Legenda.offset({ top: messagePosition[1], left: messagePosition[0]});
                 }
-                legenda.html(message);
+                Legenda.html(message);
                 setTimeout(function() {
-                    legenda.html("");
+                    Legenda.html("");
                     setTimeout(function() {
                         if (follow == true) {
                             objectPosition = calculator.getObjectPosition(object);
                             messagePosition = calculator.calculateMessagePosition(objectPosition);
-                            legenda.offset({ top: messagePosition[1], left: messagePosition[0]});
+                            Legenda.offset({ top: messagePosition[1], left: messagePosition[0]});
                         }
-                        legenda.html(message);
+                        Legenda.html(message);
                         setTimeout(function() {
-                            legenda.html("");
+                            Legenda.html("");
                         }, 500);
                     }, 300);
                 }, 800);
@@ -256,33 +276,32 @@ function Display()
     }
 
     function showFeedBack2(object, message, follow) {
-        legenda2 =  $("#actionLegenda2");
         objectPosition = calculator.getObjectPosition(object);
         messagePosition = calculator.calculateMessagePosition(objectPosition);
         
-        legenda2.offset({ top: messagePosition[1], left: messagePosition[0]});
-        legenda2.html(message);
+        Legenda2.offset({ top: messagePosition[1], left: messagePosition[0]});
+        Legenda2.html(message);
         
         setTimeout(function() {
-            legenda2.html("");
+            Legenda2.html("");
             setTimeout(function() {
                 if (follow == true) {
                     objectPosition = calculator.getObjectPosition(object);
                     messagePosition = calculator.calculateMessagePosition(objectPosition);
-                    legenda2.offset({ top: messagePosition[1], left: messagePosition[0]});
+                    Legenda2.offset({ top: messagePosition[1], left: messagePosition[0]});
                 }
-                legenda2.html(message);
+                Legenda2.html(message);
                 setTimeout(function() {
-                    legenda2.html("");
+                    Legenda2.html("");
                     setTimeout(function() {
                         if (follow == true) {
                             objectPosition = calculator.getObjectPosition(object);
                             messagePosition = calculator.calculateMessagePosition(objectPosition);
-                            legenda2.offset({ top: messagePosition[1], left: messagePosition[0]});
+                            Legenda2.offset({ top: messagePosition[1], left: messagePosition[0]});
                         }
-                        legenda2.html(message);
+                        Legenda2.html(message);
                         setTimeout(function() {
-                            legenda2.html("");
+                            Legenda2.html("");
                         }, 500);
                     }, 300);
                 }, 800);

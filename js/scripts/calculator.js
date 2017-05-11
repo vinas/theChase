@@ -11,7 +11,7 @@ function Calculator()
     this.calculateMessagePosition = calculateMessagePosition;
     this.regraDeTres = regraDeTres;
     this.set2ndPolicemanPosition = set2ndPolicemanPosition;
-
+    
     return this;
 
     function reached(cacador, tamanhoCacador, presa, tamanhoPresa)
@@ -80,25 +80,25 @@ function Calculator()
         if ((molotovVisible == false) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
             display.displayMolotov();
         } else if ((molotovVisible == true) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
-            $("#molotov").hide();
+            Molotov.hide();
             molotovVisible = false;
         }
         if (molotovTime > 0) {
             molotovTime = molotovTime - 1;
-            $("#contador").show();
-            $("#contador").html(molotovTime);
+            Counter1.show();
+            Counter1.html(molotovTime);
             setObjectPosition(
-                $("#contador"),
+                Counter1,
                 new Array(
                     (officer1PosArr[0] - 5),
                     (officer1PosArr[1] - 5)
                 )
             );
             if (currLevel >= TWOPOLICEMENLEVEL) {
-                $("#contador2").show();
-                $("#contador2").html(molotovTime);
+                Counter2.show();
+                Counter2.html(molotovTime);
                 setObjectPosition(
-                    $("#contador2"),
+                    Counter2,
                     new Array(
                         (officer2PosArr[0] - 5),
                         (officer2PosArr[1] - 5)
@@ -107,11 +107,11 @@ function Calculator()
             }
         }
         if (molotovTime == 0) {
-            $('#officer1').attr("src", "img/guarda.gif");
-            $("#contador").hide();
+            Officer1.attr("src", "img/guarda.gif");
+            Counter1.hide();
             if (currLevel >= TWOPOLICEMENLEVEL) {
-                $('#officer2').attr("src", "img/guarda.gif");
-                $("#contador2").hide();
+                Officer2.attr("src", "img/guarda.gif");
+                Counter2.hide();
             }
         }
     }
@@ -180,7 +180,7 @@ function Calculator()
         } else if (thiefPosArr[1] < (mapSize / 2)) {
             officer2PosArr[1] = (mapSize - OBJSIZE);
         }
-        setObjectPosition($('#officer2'), officer2PosArr);
+        setObjectPosition(Officer2, officer2PosArr);
     }
 
     /**** PRIVATE METHODS ****/

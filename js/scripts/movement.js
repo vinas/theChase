@@ -26,7 +26,7 @@ function Movement()
                 thiefMoveRate,
                 direction
             );
-        calculator.setObjectPosition($('#thief'), thiefPosArr);
+        calculator.setObjectPosition(Thief, thiefPosArr);
         interactions.checkGotSomething();
     }
 
@@ -37,11 +37,11 @@ function Movement()
             if (whichOfficer == 1) {
                 officerPosArr = officer1PosArr;
                 movementRate = officer1MoveRate;
-                officer = $('#officer1');
+                officer = Officer1;
             } else {
                 officerPosArr = officer2PosArr;
                 movementRate = officer2MoveRate;
-                officer = $('#officer2');
+                officer = Officer2;
             }
             officerPosArr = calculator.setNewOfficerPos(whichOfficer, officer, officerPosArr, movementRate);
             calculator.setObjectPosition(officer, officerPosArr);

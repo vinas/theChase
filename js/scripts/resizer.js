@@ -46,7 +46,7 @@ function Resizer()
     {
         resizeGamePlayElements();
 
-        resizeRankingElements();
+        //resizeRankingElements();
 
         $(".presentation").css("height", mapSize);
         $("#presentationImage").attr("width", mapSize+"px");
@@ -137,15 +137,15 @@ function Resizer()
     function resizeGamePlayElements()
     {
         $("#fundo").css("height", mapSize);
-        $("#backgroundImage").attr("width", mapSize+"px");
-        $("#backgroundImage").attr("height", mapSize+"px");
+        BackgroundImg.attr("width", mapSize+"px");
+        BackgroundImg.attr("height", mapSize+"px");
         $(".personagem").css("width", OBJSIZE+"px");
         $(".personagem").css("height", OBJSIZE+"px");
         $(".item").css("width", TAMANHOITEM+"px");
         $(".item").css("height", TAMANHOITEM+"px");
     }
 
-    function resizeRankingElements()
+    /*function resizeRankingElements()
     {
         $(".title").css("font-size", calculator.regraDeTres(40, mapSize)+"px");
 
@@ -194,6 +194,6 @@ function Resizer()
         $(".rankingFooter").css("top", calculator.regraDeTres(453, mapSize)+"px");
 
         $("#rankingLinkButton").css("padding", calculator.regraDeTres(5, mapSize)+"px");
-    }
+    }*/
 
 }

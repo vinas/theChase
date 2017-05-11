@@ -1,8 +1,28 @@
-var game, eventHandlers, movement, interactions;
+// App Objects
+var setup,
+    eventHandlers,
+    movement,
+    interactions,
+    calculator,
+    display,
+    resizer;
 
-var Officer1 = $('#officer1');
-var Officer2 = $('#officer2');
+// Characters
+var Thief,
+    Officer1,
+    Officer2;
 
+// Game Items
+var Molotov,
+    Clock,
+    Bomb;
+
+// Display Items
+var Counter1,
+    Counter2,
+    BackgroundImg,
+    CurrLevel,
+    Time;
 
 var OBJSIZE = 75,
     TAMANHOITEM = 25,
@@ -87,3 +107,41 @@ $.mobile.loadingMessage = false;
 
 $.event.special.swipe.horizontalDistanceThreshold = 20;
 $.event.special.swipe.verticalDistanceThreshold = 20;
+
+function Setup()
+{
+    this.setAll = setAll;
+
+    return this;
+
+    function setAll()
+    {
+        setCharacters();
+        setGameItems();
+        setDisplayItems();
+        
+        function setCharacters()
+        {
+            Thief = $('#thief');
+            Officer1 = $('#officer1');
+            Officer2 = $('#officer2');
+        }
+
+        function setGameItems()
+        {
+            Molotov = $('#molotov');
+            Clock = $('#relogio');
+            Bomb = $('#bomba');
+            Counter1 = $('#contador');
+            Counter2 = $('#contador2');
+        }
+
+        function setDisplayItems()
+        {
+            BackgroundImg = $('#backgroundImage');
+            CurrLevel = $('#fase');
+            Time = $('#tempo');
+        }
+    }
+
+}

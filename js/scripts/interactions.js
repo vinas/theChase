@@ -18,7 +18,7 @@ function Interactions()
     function gotMoney()
     {
         if (calculator.reached(thiefPosArr, OBJSIZE, arrPosDinheiro, TAMANHOITEM)) {
-            game.getPoints();
+            game.scorePoints();
             tempo = tempo + TEMPOBONUS;
             dinheiroVis = false;
             display.displayMoney();
@@ -28,9 +28,9 @@ function Interactions()
     function gotClock()
     {
         if (calculator.reached(thiefPosArr, OBJSIZE, arrPosRelogio, TAMANHOITEM)) {
-            game.getPoints();
+            game.scorePoints();
             tempo = tempo + 10;
-            $("#relogio").hide();
+            Clock.hide();
             clockVisible = false;
             display.feedBackClock();
         }
@@ -41,11 +41,11 @@ function Interactions()
         if (calculator.reached(thiefPosArr, OBJSIZE, arrPosMolotov, TAMANHOITEM)) {
             //$.ionSound.play("heehee");
             molotovTime = PAUSAMOLOTOV;
-            game.getPoints();
-            $("#molotov").hide();
-            $('#officer1').attr("src", "img/guarda_fogo_02.gif");
+            game.scorePoints();
+            Molotov.hide();
+            Officer1.attr("src", "img/guarda_fogo_02.gif");
             if (currLevel >= TWOPOLICEMENLEVEL) {
-                $('#officer2').attr("src", "img/guarda_fogo_02.gif");
+                Officer2.attr("src", "img/guarda_fogo_02.gif");
             }
             molotovVisible = false;
             display.feedBackMolotov();
@@ -55,10 +55,10 @@ function Interactions()
     function gotBomb()
     {
         if (calculator.reached(thiefPosArr, OBJSIZE, arrPosBomba, TAMANHOITEM)) {
-            game.getPoints();
-            $("#bomba").hide();
+            game.scorePoints();
+            Bomb.hide();
             display.flashPolicia();
-            display.flash($("#fase"), "#FFD61F");
+            display.flash(CurrLevel, "#FFD61F");
             if (currLevel > 1) {
                 currLevel = currLevel - 1;
                 officer1MoveRate = speedTable[currLevel][0];
@@ -66,12 +66,12 @@ function Interactions()
                 if (currLevel < TWOPOLICEMENLEVEL) {
                     officer2PosArr[0] = (mapSize - OBJSIZE);
                     officer2PosArr[1] = 0;
-                    calculator.setObjectPosition($('#officer2'), officer2PosArr);
-                    $("#contador2").hide();
-                    $('#officer2').hide();
+                    calculator.setObjectPosition(Officer2, officer2PosArr);
+                    Counter2.hide();
+                    Officer2.hide();
                 }
             }
-            $("#fase").html(currLevel);
+            CurrLevel.html(currLevel);
             bombVisible = false;
             display.feedBackBomb();
         }
