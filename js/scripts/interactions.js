@@ -1,8 +1,15 @@
 function Interactions()
 {
     this.checkGotSomething = checkGotSomething;
+    this.changePoliceMoveRate = changePoliceMoveRate;
 
     return this;
+
+    function changePoliceMoveRate()
+    {
+        officer1MoveRate = SPEEDTABLE[currLevel][0];
+        officer2MoveRate = SPEEDTABLE[currLevel][1];
+    }
 
     function checkGotSomething()
     {

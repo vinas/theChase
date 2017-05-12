@@ -1,6 +1,5 @@
 function Game()
 {
-
     var gameOn = false;
     var lastChangedLevel = 0;
 
@@ -54,6 +53,7 @@ function Game()
         }
     }
 
+    /**** PRIVATE METHODS ****/
 
     function gameLoop()
     {
@@ -107,7 +107,6 @@ function Game()
     function handleMolotov()
     {
         calculator.sortMolotov();
-        console.log('molotovTime - ', molotovTime);
         if (molotovTime > 0)
             display.handleMolotovCounter();
         if (molotovTime == 0)
@@ -124,13 +123,7 @@ function Game()
         }
         display.updateDificultyDisplay();
         display.changeBackground();
-        changePoliceMoveRate();
-    }
-
-    function changePoliceMoveRate()
-    {
-        officer1MoveRate = SPEEDTABLE[currLevel][0];
-        officer2MoveRate = SPEEDTABLE[currLevel][1];
+        interactions.changePoliceMoveRate();
     }
 
 }
