@@ -1,124 +1,48 @@
-// App Objects
-var setup,
-    eventHandlers,
-    movement,
-    interactions,
-    calculator,
-    display,
-    resizer;
-
-// Characters
-var Thief,
-    Officer1,
-    Officer2;
-
-// Game Items
-var Molotov,
-    Clock,
-    Bomb;
-
-// Display Items
-var Counter1,
-    Counter2,
-    BackgroundImg,
-    CurrLevel,
-    Time;
-
-var OBJSIZE = 75,
-    TAMANHOITEM = 25,
-    TEMPOPADRAO = 20,
-    PONTOSPORFASE = 40,
-    VALORDINHEIRO = 5,
-    TEMPOBONUS = 3,
-    PAUSAMOLOTOV = 4,
-    TEMPORELOGIO = 7,
-    TWOPOLICEMENLEVEL = 3,
-    MOVIMENTACAOMINIMA = 3,
-    CATCHTOLERANCE = 15,
-    CROSSBORDERTOLERANCE = 20;
-
-var mapSize = 500,
-    tecla,
-	posRelX,
-	posRelY,
-	diferencaX,
-	diferencaY,
-	direcao,
-    pontos,
-    dinheiroVis,
-    clockVisible,
-    molotovVisible,
-    bombVisible,
-    thiefMoveRate,
-    officer1MoveRate,
-    officer2MoveRate,
-    jogoOn,
-    currLevel,
-    ultimaFase,
-    tempo,
-    teclaBump,
-    molotovTime,
-    ultimaPontuacao;
-	//pauseGame;
-
-var officer1PosArr = new Array(0, 0);
-var officer2PosArr = new Array(0, 0);
-var thiefPosArr = new Array(0, 0);
-var arrPosDinheiro = new Array(500, 500);
-var arrPosRelogio = new Array(500,500);
-var arrPosMolotov = new Array(500, 500);
-var arrPosBomba = new Array(500, 500);
-
-var speedTable = new Array();
-
-var ImgsToPreload = new Array(
-        "img/detalhes.gif",
-        "img/start_over.png",
-        "img/guarda_fogo_02.gif",
-        "img/background_01.jpg",
-        "img/background_v2.jpg",
-        "img/bkg_01.jpg",
-        "img/bkg_02.jpg",
-        "img/bkg_03.jpg",
-        "img/bkg_04.jpg",
-        "img/bkg_05.jpg",
-        "img/bkg_06.jpg",
-        "img/busted.png",
-        "img/timeisup_01.png",
-        "img/start.png",
-        "img/molotov_v2.png",
-        "img/money2.png",
-        "img/bomb_v2.png"
-    );
-
-var backgrounds = new Array(
-        "bkg_01.jpg",
-        "bkg_02.jpg",
-        "bkg_03.jpg",
-        "bkg_04.jpg",
-        "bkg_05.jpg",
-        "bkg_06.jpg",
-        "background_01.jpg",
-        "background_v2.jpg"
-    );
-
-$.mobile.ajaxEnabled = false;
-$.mobile.loadingMessage = false;
-
-$.event.special.swipe.horizontalDistanceThreshold = 20;
-$.event.special.swipe.verticalDistanceThreshold = 20;
-
 function Setup()
 {
+    this.clearGameValues = clearGameValues;
     this.setAll = setAll;
+    this.resetAllValues = resetAllValues;
 
     return this;
 
+    function clearGameValues()
+    {
+        time = 0;
+        isClockVisible = false;
+        isMolotovVisible = false;
+        isBombVisible = false;
+        currLevel = 1;
+        points = 0;
+        molotovTime = 0;
+    }
+
+    function resetAllValues()
+    {
+        clearGameValues();
+        time = STANDARDTIME;
+        pressedKey = false;
+        thiefMoveRate = calculator.regraDeTres(STANDTHIEFMOVRATE, MAPSIZE);
+        officer1MoveRate = MINMOVINGRATE;
+        thiefPosArr[0] = 0;
+        thiefPosArr[1] = 0;
+        calculator.setOfficersStartCoords();
+    }
+
     function setAll()
     {
+        applySettings();
         setCharacters();
         setGameItems();
         setDisplayItems();
+
+        function applySettings()
+        {
+            $.mobile.ajaxEnabled = false;
+            $.mobile.loadingMessage = false;
+            $.event.special.swipe.horizontalDistanceThreshold = SWIPEDISTANCE;
+            $.event.special.swipe.verticalDistanceThreshold = SWIPEDISTANCE;
+        }
         
         function setCharacters()
         {
@@ -140,8 +64,8 @@ function Setup()
         {
             BackgroundImg = $('#backgroundImage');
             CurrLevel = $('#fase');
-            Time = $('#tempo');
+            Time = $('#time');
         }
-    }
 
+    }
 }

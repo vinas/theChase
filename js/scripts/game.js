@@ -1,5 +1,9 @@
 function Game()
 {
+
+    var gameOn = false;
+    var lastChangedLevel = 0;
+
     this.endGame = endGame;
     this.loading = loading;
     this.init = init;
@@ -19,31 +23,33 @@ function Game()
     }
 
     function endGame(motivo) {
+        gameOn = false;
         if (motivo == "busted") {
             display.busted();
         } else if (motivo == "timeUp") {
             display.timeUp();
         }
         display.hideGameValues();
-        clearGameValues();
+        setup.clearGameValues();
     }
 
     function resetGame()
     {
-        resetAllValues();
-        display.hideAllHideble();
-        display.showAllShowable();
-        relocateCharacters();
+        setup.resetAllValues();
+        display.hideInGameElements();
+        calculator.relocateCharacters();
+        display.showInGameElements();
         display.displayMoney();
         display.displayGameInfo();
-        jogoOn = true;
+        lastChangedLevel = 0; 
+        gameOn = true;
     }
 
     function scorePoints() {
-        pontos = pontos + VALORDINHEIRO;
+        points = points + POINTUNITY;
         display.updatePointsDisplay();
-        if ((pontos != 0) && (pontos >= (ultimaPontuacao + PONTOSPORFASE))) {
-            ultimaPontuacao = pontos;
+        if ((points != 0) && (points >= (lastChangedLevel + PTSTOCHANGELEVEL))) {
+            lastChangedLevel = points;
             changeLevel();
         }
     }
@@ -51,8 +57,9 @@ function Game()
 
     function gameLoop()
     {
-        if (jogoOn) {
-            switch (tecla) {
+        var pressedKeyBump;
+        if (gameOn) {
+            switch (pressedKey) {
                 case 37:
                     movement.move('left');
                     break;
@@ -66,31 +73,30 @@ function Game()
                     movement.move('down');
                     break;
                 case 13:
-                    if ((tecla != teclaBump)) {
+                    if ((pressedKey != pressedKeyBump)) {
                         resetGame();
-                        teclaBump = tecla;
+                        pressedKeyBump = pressedKey;
                     }
                     break;
                 default:
-                    teclaBump = false;
+                    pressedKeyBump = false;
             }
         }
-        setTimeout(gameLoop, 40);
+        setTimeout(gameLoop, STANDGAMEREFRESHRATE);
     }
 
     function gameClock()
     {
-        if (jogoOn == true) {
-            if (tempo >= 0) {
-                if (tempo <= 3) {
-                    display.flash(Time, "#FFD61F");
+        if (gameOn) {
+            if (time >= 0) {
+                if (time <= 3) {
+                    display.flash(Time);
                 }
                 display.displayClock();
-                calculator.sortMolotov();
+                handleMolotov();
                 calculator.sortBomb();
-                display.displayMoney();
-                Time.html(tempo);
-                tempo = tempo - 1;
+                Time.html(time);
+                time = time - 1;
             } else {
                 endGame("timeUp");
             }
@@ -98,46 +104,14 @@ function Game()
         setTimeout(gameClock, 1000);
     }
 
-
-    function resetAllValues()
+    function handleMolotov()
     {
-        tempo = TEMPOPADRAO;
-        dinheiroVis = false;
-        clockVisible = false;
-        molotovVisible = false;
-        bombVisible = false;
-        tecla = false;
-        jogoOn = false;
-        thiefMoveRate = calculator.regraDeTres(6, mapSize);
-        officer1MoveRate = MOVIMENTACAOMINIMA;
-        currLevel = 1;
-        ultimaFase = 0;
-        ultimaPontuacao = 0;
-        pontos = 0;
-        molotovTime = 0;
-        thiefPosArr[0] = 0;
-        thiefPosArr[1] = 0;
-        officer1PosArr[0] = mapSize - OBJSIZE;
-        officer1PosArr[1] = mapSize - OBJSIZE;
-        officer2PosArr[0] = mapSize - OBJSIZE;
-        officer2PosArr[1] = 0;
-    }
-
-    function relocateCharacters()
-    {
-        calculator.setObjectPosition(Thief, thiefPosArr);
-        calculator.setObjectPosition(Officer1, officer1PosArr);
-        calculator.setObjectPosition(Officer2, officer2PosArr);
-    }
-
-    function clearGameValues()
-    {
-        tempo = 0;
-        dinheiroVis = false;
-        clockVisible = false;
-        molotovVisible = false;
-        bombVisible = false;
-        jogoOn = false;
+        calculator.sortMolotov();
+        console.log('molotovTime - ', molotovTime);
+        if (molotovTime > 0)
+            display.handleMolotovCounter();
+        if (molotovTime == 0)
+            display.restorePolicemen();
     }
 
     function changeLevel()
@@ -155,8 +129,8 @@ function Game()
 
     function changePoliceMoveRate()
     {
-        officer1MoveRate = speedTable[currLevel][0];
-        officer2MoveRate = speedTable[currLevel][1];
+        officer1MoveRate = SPEEDTABLE[currLevel][0];
+        officer2MoveRate = SPEEDTABLE[currLevel][1];
     }
 
 }

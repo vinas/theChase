@@ -13,32 +13,32 @@ function Resizer()
 
     function calculateMeasurements()
     {
-        mapSize = $("#fundo").css("width").replace(new RegExp("px", 'g'), "");
-        CROSSBORDERTOLERANCE = calculator.regraDeTres(CROSSBORDERTOLERANCE, mapSize);
-        MOVIMENTACAOMINIMA = calculator.regraDeTres(MOVIMENTACAOMINIMA, mapSize);
-        CATCHTOLERANCE = calculator.regraDeTres(CATCHTOLERANCE, mapSize);
-        OBJSIZE = calculator.regraDeTres(OBJSIZE, mapSize);
-        TAMANHOITEM = calculator.regraDeTres(TAMANHOITEM, mapSize);
-        speedTable = new Array(
+        MAPSIZE = $("#fundo").css("width").replace(new RegExp("px", 'g'), "");
+        CROSSBORDERTOLERANCE = calculator.regraDeTres(CROSSBORDERTOLERANCE, MAPSIZE);
+        MINMOVINGRATE = calculator.regraDeTres(MINMOVINGRATE, MAPSIZE);
+        CATCHTOLERANCE = calculator.regraDeTres(CATCHTOLERANCE, MAPSIZE);
+        CHARSIZE = calculator.regraDeTres(CHARSIZE, MAPSIZE);
+        ITEMSIZE = calculator.regraDeTres(ITEMSIZE, MAPSIZE);
+        SPEEDTABLE = new Array(
             new Array(0, 0),
-            new Array(MOVIMENTACAOMINIMA, 0),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(1, mapSize), 0),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(2, mapSize), MOVIMENTACAOMINIMA),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(3, mapSize), MOVIMENTACAOMINIMA),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(3, mapSize), MOVIMENTACAOMINIMA + calculator.regraDeTres(1, mapSize)),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(3, mapSize), MOVIMENTACAOMINIMA + calculator.regraDeTres(2, mapSize)),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(3, mapSize), MOVIMENTACAOMINIMA + calculator.regraDeTres(3, mapSize)),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(4, mapSize), MOVIMENTACAOMINIMA + calculator.regraDeTres(3, mapSize)),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(4, mapSize), MOVIMENTACAOMINIMA + calculator.regraDeTres(4, mapSize)),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(5, mapSize), MOVIMENTACAOMINIMA + calculator.regraDeTres(4, mapSize)),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(5, mapSize), MOVIMENTACAOMINIMA + calculator.regraDeTres(5, mapSize)),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(6, mapSize), MOVIMENTACAOMINIMA + calculator.regraDeTres(5, mapSize)),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(6, mapSize), MOVIMENTACAOMINIMA + calculator.regraDeTres(6, mapSize)),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(6, mapSize), MOVIMENTACAOMINIMA + calculator.regraDeTres(6, mapSize)),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(6, mapSize), MOVIMENTACAOMINIMA + calculator.regraDeTres(6, mapSize)),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(6, mapSize), MOVIMENTACAOMINIMA + calculator.regraDeTres(6, mapSize)),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(6, mapSize), MOVIMENTACAOMINIMA + calculator.regraDeTres(6, mapSize)),
-            new Array(MOVIMENTACAOMINIMA + calculator.regraDeTres(6, mapSize), MOVIMENTACAOMINIMA + calculator.regraDeTres(6, mapSize))
+            new Array(MINMOVINGRATE, 0),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(1, MAPSIZE), 0),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(2, MAPSIZE), MINMOVINGRATE),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(3, MAPSIZE), MINMOVINGRATE),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(3, MAPSIZE), MINMOVINGRATE + calculator.regraDeTres(1, MAPSIZE)),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(3, MAPSIZE), MINMOVINGRATE + calculator.regraDeTres(2, MAPSIZE)),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(3, MAPSIZE), MINMOVINGRATE + calculator.regraDeTres(3, MAPSIZE)),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(4, MAPSIZE), MINMOVINGRATE + calculator.regraDeTres(3, MAPSIZE)),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(4, MAPSIZE), MINMOVINGRATE + calculator.regraDeTres(4, MAPSIZE)),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(5, MAPSIZE), MINMOVINGRATE + calculator.regraDeTres(4, MAPSIZE)),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(5, MAPSIZE), MINMOVINGRATE + calculator.regraDeTres(5, MAPSIZE)),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(6, MAPSIZE), MINMOVINGRATE + calculator.regraDeTres(5, MAPSIZE)),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(6, MAPSIZE), MINMOVINGRATE + calculator.regraDeTres(6, MAPSIZE)),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(6, MAPSIZE), MINMOVINGRATE + calculator.regraDeTres(6, MAPSIZE)),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(6, MAPSIZE), MINMOVINGRATE + calculator.regraDeTres(6, MAPSIZE)),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(6, MAPSIZE), MINMOVINGRATE + calculator.regraDeTres(6, MAPSIZE)),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(6, MAPSIZE), MINMOVINGRATE + calculator.regraDeTres(6, MAPSIZE)),
+            new Array(MINMOVINGRATE + calculator.regraDeTres(6, MAPSIZE), MINMOVINGRATE + calculator.regraDeTres(6, MAPSIZE))
         );
     }
 
@@ -46,100 +46,100 @@ function Resizer()
     {
         resizeGamePlayElements();
 
-        $(".presentation").css("height", mapSize);
-        $("#presentationImage").attr("width", mapSize+"px");
-        $("#presentationImage").attr("height", mapSize+"px");
+        $(".presentation").css("height", MAPSIZE);
+        $("#presentationImage").attr("width", MAPSIZE+"px");
+        $("#presentationImage").attr("height", MAPSIZE+"px");
 
-        $(".endGameImage").css("width", mapSize+"px");
-        $(".endGameImage").css("height", mapSize+"px");
+        $(".endGameImage").css("width", MAPSIZE+"px");
+        $(".endGameImage").css("height", MAPSIZE+"px");
 
-        $(".setas").attr("width", calculator.regraDeTres(48, mapSize)+"px");
-        $(".setas").attr("height", calculator.regraDeTres(70, mapSize)+"px");
-        $(".setas").attr("padding-left", calculator.regraDeTres(8, mapSize)+"px");
+        $(".setas").attr("width", calculator.regraDeTres(48, MAPSIZE)+"px");
+        $(".setas").attr("height", calculator.regraDeTres(70, MAPSIZE)+"px");
+        $(".setas").attr("padding-left", calculator.regraDeTres(8, MAPSIZE)+"px");
 
-        $(".thiefInstruction").attr("width", calculator.regraDeTres(99, mapSize)+"px");
-        $(".thiefInstruction").attr("height", calculator.regraDeTres(86, mapSize)+"px");
+        $(".thiefInstruction").attr("width", calculator.regraDeTres(99, MAPSIZE)+"px");
+        $(".thiefInstruction").attr("height", calculator.regraDeTres(86, MAPSIZE)+"px");
 
-        $(".barItem").attr("width", calculator.regraDeTres(25, mapSize)+"px");
-        $(".barItem").attr("height", calculator.regraDeTres(25, mapSize)+"px");
-        $(".barItem").css("padding-right", calculator.regraDeTres(14, mapSize)+"px");
-        $(".barItem").css("padding-top", calculator.regraDeTres(10, mapSize)+"px");
+        $(".barItem").attr("width", calculator.regraDeTres(25, MAPSIZE)+"px");
+        $(".barItem").attr("height", calculator.regraDeTres(25, MAPSIZE)+"px");
+        $(".barItem").css("padding-right", calculator.regraDeTres(14, MAPSIZE)+"px");
+        $(".barItem").css("padding-top", calculator.regraDeTres(10, MAPSIZE)+"px");
         
-        $("#timeBox").css("padding-left", calculator.regraDeTres(10, mapSize)+"px");
-        $("#scoreBox").css("padding-left", calculator.regraDeTres(120, mapSize)+"px");
-        $("#dificultyBox").css("padding-left", calculator.regraDeTres(240, mapSize)+"px");
-        $("#dificultyBox").css("width", calculator.regraDeTres(95, mapSize)+"px");
+        $("#timeBox").css("padding-left", calculator.regraDeTres(10, MAPSIZE)+"px");
+        $("#scoreBox").css("padding-left", calculator.regraDeTres(120, MAPSIZE)+"px");
+        $("#dificultyBox").css("padding-left", calculator.regraDeTres(240, MAPSIZE)+"px");
+        $("#dificultyBox").css("width", calculator.regraDeTres(95, MAPSIZE)+"px");
 
-        $(".actionButton").attr("width", calculator.regraDeTres(100, mapSize)+"px");
-        $(".actionButton").attr("height", calculator.regraDeTres(100, mapSize)+"px");
+        $(".actionButton").attr("width", calculator.regraDeTres(100, MAPSIZE)+"px");
+        $(".actionButton").attr("height", calculator.regraDeTres(100, MAPSIZE)+"px");
 
-        $(".barraInfo").css("top", mapSize);
-        $(".barraInfo").css("width", mapSize);
-        $(".barraInfo").css("height", calculator.regraDeTres(100, mapSize)+"px");
-        $(".barraInfo").css("border-bottom-width", calculator.regraDeTres(5, mapSize)+"px");
-        $(".barraInfo").css("padding-top", calculator.regraDeTres(5, mapSize)+"px");
-        $(".barraInfo").css("padding-bottom", calculator.regraDeTres(5, mapSize)+"px");
+        $(".barraInfo").css("top", MAPSIZE);
+        $(".barraInfo").css("width", MAPSIZE);
+        $(".barraInfo").css("height", calculator.regraDeTres(100, MAPSIZE)+"px");
+        $(".barraInfo").css("border-bottom-width", calculator.regraDeTres(5, MAPSIZE)+"px");
+        $(".barraInfo").css("padding-top", calculator.regraDeTres(5, MAPSIZE)+"px");
+        $(".barraInfo").css("padding-bottom", calculator.regraDeTres(5, MAPSIZE)+"px");
 
-        $(".mostrador").css("font-size", calculator.regraDeTres(32, mapSize)+"px");
-        $(".mostrador").css("padding-top", calculator.regraDeTres(8, mapSize)+"px");
+        $(".mostrador").css("font-size", calculator.regraDeTres(32, MAPSIZE)+"px");
+        $(".mostrador").css("padding-top", calculator.regraDeTres(8, MAPSIZE)+"px");
 
-        $(".tituloMostrador").css("font-size", calculator.regraDeTres(17, mapSize)+"px");
+        $(".tituloMostrador").css("font-size", calculator.regraDeTres(17, MAPSIZE)+"px");
 
-        $(".action").css("font-size", calculator.regraDeTres(14, mapSize)+"px");
-        $(".action").css("padding-top", calculator.regraDeTres(5, mapSize)+"px");
-        $(".action").css("min-width", calculator.regraDeTres(20, mapSize)+"px");
-        $(".action").css("max-width", calculator.regraDeTres(90, mapSize)+"px");
+        $(".action").css("font-size", calculator.regraDeTres(14, MAPSIZE)+"px");
+        $(".action").css("padding-top", calculator.regraDeTres(5, MAPSIZE)+"px");
+        $(".action").css("min-width", calculator.regraDeTres(20, MAPSIZE)+"px");
+        $(".action").css("max-width", calculator.regraDeTres(90, MAPSIZE)+"px");
 
-        $(".contador").css("font-size", calculator.regraDeTres(14, mapSize)+"px");
+        $(".contador").css("font-size", calculator.regraDeTres(14, MAPSIZE)+"px");
         
-        $(".busted").css("width", mapSize+"px");
-        $(".busted").css("height", mapSize+"px");
-        $(".timeUp").css("width", mapSize+"px");
-        $(".timeUp").css("height", mapSize+"px");
+        $(".busted").css("width", MAPSIZE+"px");
+        $(".busted").css("height", MAPSIZE+"px");
+        $(".timeUp").css("width", MAPSIZE+"px");
+        $(".timeUp").css("height", MAPSIZE+"px");
 
-        $(".userName").css("padding-left", calculator.regraDeTres(10, mapSize)+"px");
-        $(".userName").css("padding-top", calculator.regraDeTres(15, mapSize)+"px");
-        $(".userName").css("font-size", calculator.regraDeTres(19, mapSize)+"px");
+        $(".userName").css("padding-left", calculator.regraDeTres(10, MAPSIZE)+"px");
+        $(".userName").css("padding-top", calculator.regraDeTres(15, MAPSIZE)+"px");
+        $(".userName").css("font-size", calculator.regraDeTres(19, MAPSIZE)+"px");
 
-        $(".slideLabel").css("font-size", calculator.regraDeTres(18, mapSize)+"px");
-        $(".slideLabel").css("padding-left", calculator.regraDeTres(70, mapSize)+"px");
+        $(".slideLabel").css("font-size", calculator.regraDeTres(18, MAPSIZE)+"px");
+        $(".slideLabel").css("padding-left", calculator.regraDeTres(70, MAPSIZE)+"px");
 
-        $(".thiefInstruction").css("padding-left", calculator.regraDeTres(130, mapSize)+"px");
+        $(".thiefInstruction").css("padding-left", calculator.regraDeTres(130, MAPSIZE)+"px");
 
-        $(".collectLabel").css("padding-left", calculator.regraDeTres(250, mapSize)+"px");
-        $(".collectLabel").css("font-size", calculator.regraDeTres(18, mapSize)+"px");
-        $(".collectLabel").css("width", calculator.regraDeTres(115, mapSize)+"px");
+        $(".collectLabel").css("padding-left", calculator.regraDeTres(250, MAPSIZE)+"px");
+        $(".collectLabel").css("font-size", calculator.regraDeTres(18, MAPSIZE)+"px");
+        $(".collectLabel").css("width", calculator.regraDeTres(115, MAPSIZE)+"px");
 
-        $(".items").css("padding-top", calculator.regraDeTres(5, mapSize)+"px");
+        $(".items").css("padding-top", calculator.regraDeTres(5, MAPSIZE)+"px");
 
-        $(".loginButton").css("top", calculator.regraDeTres(407, mapSize)+"px");
-        $(".loginButton").css("left", calculator.regraDeTres(63, mapSize)+"px");
-        $(".loginButton").css("width", calculator.regraDeTres(180, mapSize)+"px");
-        $(".loginButton").css("height", calculator.regraDeTres(55, mapSize)+"px");
-        $(".loginButton").css("font-size", calculator.regraDeTres(18, mapSize)+"px");
+        $(".loginButton").css("top", calculator.regraDeTres(407, MAPSIZE)+"px");
+        $(".loginButton").css("left", calculator.regraDeTres(63, MAPSIZE)+"px");
+        $(".loginButton").css("width", calculator.regraDeTres(180, MAPSIZE)+"px");
+        $(".loginButton").css("height", calculator.regraDeTres(55, MAPSIZE)+"px");
+        $(".loginButton").css("font-size", calculator.regraDeTres(18, MAPSIZE)+"px");
 
-        $("#loginStatus").css("left", calculator.regraDeTres(73, mapSize)+"px");
-        $("#loginStatus").css("top", calculator.regraDeTres(359, mapSize)+"px");
-        $("#loginStatus").css("font-size", calculator.regraDeTres(20, mapSize)+"px");
+        $("#loginStatus").css("left", calculator.regraDeTres(73, MAPSIZE)+"px");
+        $("#loginStatus").css("top", calculator.regraDeTres(359, MAPSIZE)+"px");
+        $("#loginStatus").css("font-size", calculator.regraDeTres(20, MAPSIZE)+"px");
 
-        $(".buttonWeeklyRanking").css("left", calculator.regraDeTres(252, mapSize)+"px");
-        $(".buttonWeeklyRanking").css("top", calculator.regraDeTres(404, mapSize)+"px");
-        $(".buttonWeeklyRanking").css("width", calculator.regraDeTres(181, mapSize)+"px");
-        $(".buttonWeeklyRanking").css("height", calculator.regraDeTres(49, mapSize)+"px");
-        $(".buttonWeeklyRanking").css("font-size", calculator.regraDeTres(16, mapSize)+"px");
-        $(".buttonWeeklyRanking").css("padding-top", calculator.regraDeTres(7, mapSize)+"px");
+        $(".buttonWeeklyRanking").css("left", calculator.regraDeTres(252, MAPSIZE)+"px");
+        $(".buttonWeeklyRanking").css("top", calculator.regraDeTres(404, MAPSIZE)+"px");
+        $(".buttonWeeklyRanking").css("width", calculator.regraDeTres(181, MAPSIZE)+"px");
+        $(".buttonWeeklyRanking").css("height", calculator.regraDeTres(49, MAPSIZE)+"px");
+        $(".buttonWeeklyRanking").css("font-size", calculator.regraDeTres(16, MAPSIZE)+"px");
+        $(".buttonWeeklyRanking").css("padding-top", calculator.regraDeTres(7, MAPSIZE)+"px");
 
-        $(".barLeft").css("padding-top", calculator.regraDeTres(10, mapSize)+"px");
+        $(".barLeft").css("padding-top", calculator.regraDeTres(10, MAPSIZE)+"px");
     }
 
     function resizeGamePlayElements()
     {
-        $("#fundo").css("height", mapSize);
-        BackgroundImg.attr("width", mapSize+"px");
-        BackgroundImg.attr("height", mapSize+"px");
-        $(".personagem").css("width", OBJSIZE+"px");
-        $(".personagem").css("height", OBJSIZE+"px");
-        $(".item").css("width", TAMANHOITEM+"px");
-        $(".item").css("height", TAMANHOITEM+"px");
+        $("#fundo").css("height", MAPSIZE);
+        BackgroundImg.attr("width", MAPSIZE+"px");
+        BackgroundImg.attr("height", MAPSIZE+"px");
+        $(".personagem").css("width", CHARSIZE+"px");
+        $(".personagem").css("height", CHARSIZE+"px");
+        $(".item").css("width", ITEMSIZE+"px");
+        $(".item").css("height", ITEMSIZE+"px");
     }
 }

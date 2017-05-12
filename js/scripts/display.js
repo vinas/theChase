@@ -1,15 +1,45 @@
 function Display()
 {
     var Money = $('#dinheiro'),
-        PointsCounter = $('#pontos'),
+        PointsCounter = $('#points'),
         Legenda = $('#actionLegenda'),
         Legenda2 =  $('#actionLegenda2'),
         Busted = $('#busted'),
         TimeUp = $('#timeUp');
  
+     var ImgsToPreload = new Array(
+             'img/detalhes.gif',
+             'img/start_over.png',
+             'img/guarda_fogo_02.gif',
+             'img/background_01.jpg',
+             'img/background_v2.jpg',
+             'img/bkg_01.jpg',
+             'img/bkg_02.jpg',
+             'img/bkg_03.jpg',
+             'img/bkg_04.jpg',
+             'img/bkg_05.jpg',
+             'img/bkg_06.jpg',
+             'img/busted.png',
+             'img/timeisup_01.png',
+             'img/start.png',
+             'img/molotov_v2.png',
+             'img/money2.png',
+             'img/bomb_v2.png'
+         );
+
+    var backgrounds = new Array(
+            'bkg_01.jpg',
+            'bkg_02.jpg',
+            'bkg_03.jpg',
+            'bkg_04.jpg',
+            'bkg_05.jpg',
+            'bkg_06.jpg',
+            'background_01.jpg',
+            'background_v2.jpg'
+        );
+
     this.flashPolicia = flashPolicia;
     this.flash = flash;
-    this.feedBackMolotov = feedBackMolotov;
     this.feedBackBomb = feedBackBomb;
     this.feedBackClock = feedBackClock;
     this.displayMoney = displayMoney;
@@ -17,8 +47,8 @@ function Display()
     this.displayClock = displayClock;
     this.timeUp = timeUp;
     this.busted = busted;
-    this.hideAllHideble = hideAllHideble;
-    this.showAllShowable = showAllShowable;
+    this.hideInGameElements = hideInGameElements;
+    this.showInGameElements = showInGameElements;
     this.hideGameValues = hideGameValues;
     this.loading = loading;
     this.startPressedTimmer = startPressedTimmer;
@@ -31,8 +61,54 @@ function Display()
     this.updatePointsDisplay = updatePointsDisplay;
     this.updateDificultyDisplay = updateDificultyDisplay;
     this.setThiefHorDirection = setThiefHorDirection;
+    this.burnDaPolice = burnDaPolice;
+    this.hideMolotov = hideMolotov;
+    this.handleMolotovCounter = handleMolotovCounter;
+    this.restorePolicemen = restorePolicemen;
     
     return this;
+
+    function restorePolicemen()
+    {
+        Officer1.attr("src", "img/guarda.gif");
+        Counter1.hide();
+        if (currLevel >= TWOPOLICEMENLEVEL) {
+            Officer2.attr("src", "img/guarda.gif");
+            Counter2.hide();
+        }
+    }
+
+    function handleMolotovCounter()
+    {
+        molotovTime = molotovTime - 1;
+        setObjectPosition(
+            Counter1,
+            new Array(
+                (officer1PosArr[0] - 5),
+                (officer1PosArr[1] - 5)
+            )
+        );
+        Counter1.html(molotovTime);
+        Counter1.show();
+        if (currLevel >= TWOPOLICEMENLEVEL) {
+            setObjectPosition(
+                Counter2,
+                new Array(
+                    (officer2PosArr[0] - 5),
+                    (officer2PosArr[1] - 5)
+                )
+            );
+            Counter2.html(molotovTime);
+            Counter2.show();
+        }
+        return;
+    }
+
+    function hideMolotov()
+    {
+        Molotov.hide();
+        isMolotovVisible = false;
+    }
 
     function setThiefHorDirection(direction)
     {
@@ -49,21 +125,22 @@ function Display()
     function updateDificultyDisplay()
     {
         CurrLevel.html(currLevel);
-        flash(CurrLevel, "#FFD61F");
+        flash(CurrLevel);
     }
 
     function updatePointsDisplay()
     {
-        PointsCounter.html(pontos);
-        flash(PointsCounter, "#FFD61F");
+        PointsCounter.html(points);
+        flash(PointsCounter);
     }
 
     function flashPolicia()
     {
-        flash(Officer1, "#FFD61F");
+        flash(Officer1);
     }
 
     function flash(obj, color) {
+        color = (!color) ? '#FFD61F' : color;
         obj.css("background-color", color);
         setTimeout(function() {
             obj.css("background-color", "");
@@ -82,10 +159,12 @@ function Display()
         }, 100);
     }
 
-    function feedBackMolotov()
+    function burnDaPolice()
     {
+        Officer1.attr("src", "img/guarda_fogo_02.gif");
         showFeedBack(Officer1, "can't move", false);
         if (currLevel >= TWOPOLICEMENLEVEL) {
+            Officer2.attr("src", "img/guarda_fogo_02.gif");
             showFeedBack2(Officer2, "can't move", false);
         }
     }
@@ -104,11 +183,8 @@ function Display()
     }
 
     function displayMoney() {
-        if (!dinheiroVis) {
-            arrPosDinheiro = calculator.getRandomCoords();
-            displayItem(Money, arrPosDinheiro);
-            dinheiroVis = true;
-        }
+        moneyPos = calculator.getRandomCoords();
+        displayItem(Money, moneyPos);
     }
 
     function displayGameInfo()
@@ -118,15 +194,15 @@ function Display()
         Officer1.attr("src", "img/guarda.gif");
         Legenda.html('');
         CurrLevel.html(currLevel);
-        Time.html(tempo);
+        Time.html(time);
     }
 
     function displayClock()
     {
-        if ((tempo == TEMPORELOGIO) && (clockVisible == false) && (clockVisible == false)) {
-            arrPosRelogio = calculator.getRandomCoords();
-            displayItem(Clock, arrPosRelogio);
-            clockVisible = true;
+        if ((time == DISPLAYCLOCKAT) && (!isClockVisible)) {
+            clockPos = calculator.getRandomCoords();
+            displayItem(Clock, clockPos);
+            isClockVisible = true;
         }
     }
 
@@ -140,7 +216,7 @@ function Display()
         TimeUp.show();
     }
 
-    function hideAllHideble()
+    function hideInGameElements()
     {
         $("#instructionsBar").hide();
         $("#presentation").hide();
@@ -154,7 +230,7 @@ function Display()
         Officer2.hide();
     }
 
-    function showAllShowable()
+    function showInGameElements()
     {
         $(".backgroundTap").show();
         Thief.show();
@@ -219,24 +295,22 @@ function Display()
 
     function displayBomb()
     {
-        arrPosBomba = calculator.getRandomCoords();
-        displayItem(Bomb, arrPosBomba);
-        bombVisible = true;
+        bombPos = calculator.getRandomCoords();
+        displayItem(Bomb, bombPos);
+        isBombVisible = true;
     }
 
     function hideBomb()
     {
         Bomb.hide();
-        bombVisible = false;
+        isBombVisible = false;
     }
 
     function displayMolotov()
     {
-        if (molotovVisible == false) {
-            arrPosMolotov = calculator.getRandomCoords();
-            displayItem(Molotov, arrPosMolotov);
-            molotovVisible = true;
-        }
+        molotovPos = calculator.getRandomCoords();
+        displayItem(Molotov, molotovPos);
+        isMolotovVisible = true;
     }
 
 
@@ -261,7 +335,7 @@ function Display()
         setTimeout(function() {
             Legenda.html("");
             setTimeout(function() {
-                if (follow == true) {
+                if (follow) {
                     objectPosition = calculator.getObjectPosition(object);
                     messagePosition = calculator.calculateMessagePosition(objectPosition);
                     Legenda.offset({ top: messagePosition[1], left: messagePosition[0]});
@@ -270,7 +344,7 @@ function Display()
                 setTimeout(function() {
                     Legenda.html("");
                     setTimeout(function() {
-                        if (follow == true) {
+                        if (follow) {
                             objectPosition = calculator.getObjectPosition(object);
                             messagePosition = calculator.calculateMessagePosition(objectPosition);
                             Legenda.offset({ top: messagePosition[1], left: messagePosition[0]});
@@ -295,7 +369,7 @@ function Display()
         setTimeout(function() {
             Legenda2.html("");
             setTimeout(function() {
-                if (follow == true) {
+                if (follow) {
                     objectPosition = calculator.getObjectPosition(object);
                     messagePosition = calculator.calculateMessagePosition(objectPosition);
                     Legenda2.offset({ top: messagePosition[1], left: messagePosition[0]});
@@ -304,7 +378,7 @@ function Display()
                 setTimeout(function() {
                     Legenda2.html("");
                     setTimeout(function() {
-                        if (follow == true) {
+                        if (follow) {
                             objectPosition = calculator.getObjectPosition(object);
                             messagePosition = calculator.calculateMessagePosition(objectPosition);
                             Legenda2.offset({ top: messagePosition[1], left: messagePosition[0]});

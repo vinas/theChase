@@ -47,7 +47,7 @@ function Movement()
             officerPosArr = calculator.setNewOfficerPos(whichOfficer, officer, officerPosArr, movementRate);
             calculator.setObjectPosition(officer, officerPosArr);
 
-            if (calculator.reached(officerPosArr, (OBJSIZE - CATCHTOLERANCE), thiefPosArr, (OBJSIZE - CATCHTOLERANCE)))
+            if (calculator.reached(officerPosArr, (CHARSIZE - CATCHTOLERANCE), thiefPosArr, (CHARSIZE - CATCHTOLERANCE)))
                game.endGame('busted');
         }
     }

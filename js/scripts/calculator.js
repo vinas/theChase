@@ -11,8 +11,26 @@ function Calculator()
     this.calculateMessagePosition = calculateMessagePosition;
     this.regraDeTres = regraDeTres;
     this.set2ndPolicemanPosition = set2ndPolicemanPosition;
+    this.setOfficersStartCoords = setOfficersStartCoords;
+    this.relocateCharacters = relocateCharacters;
     
     return this;
+
+    function relocateCharacters()
+    {
+        setObjectPosition(Thief, thiefPosArr);
+        setObjectPosition(Officer1, officer1PosArr);
+        setObjectPosition(Officer2, officer2PosArr);
+    }
+
+    function setOfficersStartCoords()
+    {
+        var coord = MAPSIZE - CHARSIZE;
+        officer1PosArr[0] = coord;
+        officer1PosArr[1] = coord;
+        officer2PosArr[0] = coord;
+        officer2PosArr[1] = coord;
+    }
 
     function reached(cacador, tamanhoCacador, presa, tamanhoPresa)
     {
@@ -77,42 +95,10 @@ function Calculator()
 
     function sortMolotov()
     {
-        if ((molotovVisible == false) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
+        if ((!isMolotovVisible) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
             display.displayMolotov();
-        } else if ((molotovVisible == true) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
-            Molotov.hide();
-            molotovVisible = false;
-        }
-        if (molotovTime > 0) {
-            molotovTime = molotovTime - 1;
-            Counter1.show();
-            Counter1.html(molotovTime);
-            setObjectPosition(
-                Counter1,
-                new Array(
-                    (officer1PosArr[0] - 5),
-                    (officer1PosArr[1] - 5)
-                )
-            );
-            if (currLevel >= TWOPOLICEMENLEVEL) {
-                Counter2.show();
-                Counter2.html(molotovTime);
-                setObjectPosition(
-                    Counter2,
-                    new Array(
-                        (officer2PosArr[0] - 5),
-                        (officer2PosArr[1] - 5)
-                    )
-                );
-            }
-        }
-        if (molotovTime == 0) {
-            Officer1.attr("src", "img/guarda.gif");
-            Counter1.hide();
-            if (currLevel >= TWOPOLICEMENLEVEL) {
-                Officer2.attr("src", "img/guarda.gif");
-                Counter2.hide();
-            }
+        } else if ((isMolotovVisible) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
+            display.hideMolotov();
         }
     }
 
@@ -132,9 +118,9 @@ function Calculator()
 
     function sortBomb()
     {
-        if ((currLevel > 1) && (bombVisible == false) && (Math.floor((Math.random() * 100) + 1) <= 5)) {
+        if ((currLevel > 1) && (!isBombVisible) && (Math.floor((Math.random() * 100) + 1) <= 5)) {
             display.displayBomb();
-        } else if ((bombVisible == true) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
+        } else if ((isBombVisible) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
             display.hideBomb();
         }
     }
@@ -142,43 +128,43 @@ function Calculator()
     function getRandomCoords()
     {
         return new Array(
-                Math.floor((Math.random() * (mapSize - TAMANHOITEM))),
-                Math.floor((Math.random() * (mapSize - TAMANHOITEM)))
+                Math.floor((Math.random() * (MAPSIZE - ITEMSIZE))),
+                Math.floor((Math.random() * (MAPSIZE - ITEMSIZE)))
             );
     }
 
     function calculateMessagePosition(arrPosObjeto)
     {
         posLeft = parseInt(arrPosObjeto[0]);
-        ninety = regraDeTres(90, mapSize);
-        thirty = regraDeTres(30, mapSize);
-        if ((posLeft + ninety) >= mapSize) {
-            dif = (posLeft + ninety) - mapSize;
-            posLeft = parseInt(arrPosObjeto[0]) - ((posLeft + ninety) - mapSize);
+        ninety = regraDeTres(90, MAPSIZE);
+        thirty = regraDeTres(30, MAPSIZE);
+        if ((posLeft + ninety) >= MAPSIZE) {
+            dif = (posLeft + ninety) - MAPSIZE;
+            posLeft = parseInt(arrPosObjeto[0]) - ((posLeft + ninety) - MAPSIZE);
         }
-        posTop = (parseInt(arrPosObjeto[1]) + OBJSIZE);
-        if ((posTop + thirty) >= mapSize) {
+        posTop = (parseInt(arrPosObjeto[1]) + CHARSIZE);
+        if ((posTop + thirty) >= MAPSIZE) {
             posTop = parseInt(arrPosObjeto[1]) - thirty;
         }
         return new Array(posLeft, posTop);
     }
 
-    function regraDeTres(atual, mapSize)
+    function regraDeTres(atual, MAPSIZE)
     {
-        return Math.floor((atual / 500) * mapSize);
+        return Math.floor((atual / 500) * MAPSIZE);
     }
 
     function set2ndPolicemanPosition()
     {
-        if (thiefPosArr[0] > (mapSize / 2)) {
+        if (thiefPosArr[0] > (MAPSIZE / 2)) {
             officer2PosArr[0] = 0;
-        } else if (thiefPosArr[0] < (mapSize / 2)) {
-            officer2PosArr[0] = (mapSize - OBJSIZE);
+        } else if (thiefPosArr[0] < (MAPSIZE / 2)) {
+            officer2PosArr[0] = (MAPSIZE - CHARSIZE);
         }
-        if (thiefPosArr[1] > (mapSize / 2)) {
+        if (thiefPosArr[1] > (MAPSIZE / 2)) {
             officer2PosArr[1] = 0;
-        } else if (thiefPosArr[1] < (mapSize / 2)) {
-            officer2PosArr[1] = (mapSize - OBJSIZE);
+        } else if (thiefPosArr[1] < (MAPSIZE / 2)) {
+            officer2PosArr[1] = (MAPSIZE - CHARSIZE);
         }
         setObjectPosition(Officer2, officer2PosArr);
     }
@@ -261,10 +247,10 @@ function Calculator()
 
     function adjustCrossBorder(pos)
     {
-        if (pos > (mapSize - OBJSIZE))
+        if (pos > (MAPSIZE - CHARSIZE))
             return -CROSSBORDERTOLERANCE;
-        if (pos <= (-OBJSIZE + CROSSBORDERTOLERANCE))
-            return pos + (mapSize - CROSSBORDERTOLERANCE);
+        if (pos <= (-CHARSIZE + CROSSBORDERTOLERANCE))
+            return pos + (MAPSIZE - CROSSBORDERTOLERANCE);
         return pos;
     }
 

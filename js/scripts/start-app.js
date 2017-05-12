@@ -3,7 +3,7 @@ $(document).on("dblclick", function() {
 });
 
 $(document).on("keydown", function(e) {
-    tecla = e.which;
+    pressedKey = e.which;
 });
 
 $(document).on("ready", function() {

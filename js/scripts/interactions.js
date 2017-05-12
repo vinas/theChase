@@ -7,64 +7,59 @@ function Interactions()
     function checkGotSomething()
     {
         gotMoney();
-        if (clockVisible)
+        if (isClockVisible)
             gotClock();
-        if (molotovVisible)
+        if (isMolotovVisible)
             gotMolotov();
-        if (bombVisible)
+        if (isBombVisible)
             gotBomb();
     }
 
     function gotMoney()
     {
-        if (calculator.reached(thiefPosArr, OBJSIZE, arrPosDinheiro, TAMANHOITEM)) {
+        if (calculator.reached(thiefPosArr, CHARSIZE, moneyPos, ITEMSIZE)) {
             game.scorePoints();
-            tempo = tempo + TEMPOBONUS;
-            dinheiroVis = false;
+            time = time + BONUSTIME;
+            display.flash(Time);
             display.displayMoney();
         }
     }
 
     function gotClock()
     {
-        if (calculator.reached(thiefPosArr, OBJSIZE, arrPosRelogio, TAMANHOITEM)) {
+        if (calculator.reached(thiefPosArr, CHARSIZE, clockPos, ITEMSIZE)) {
             game.scorePoints();
-            tempo = tempo + 10;
+            time = time + 10;
             Clock.hide();
-            clockVisible = false;
+            isClockVisible = false;
             display.feedBackClock();
         }
     }
 
     function gotMolotov()
     {
-        if (calculator.reached(thiefPosArr, OBJSIZE, arrPosMolotov, TAMANHOITEM)) {
+        if (calculator.reached(thiefPosArr, CHARSIZE, molotovPos, ITEMSIZE)) {
             //$.ionSound.play("heehee");
-            molotovTime = PAUSAMOLOTOV;
+            molotovTime = MOLOTOVPAUSE;
             game.scorePoints();
-            Molotov.hide();
-            Officer1.attr("src", "img/guarda_fogo_02.gif");
-            if (currLevel >= TWOPOLICEMENLEVEL) {
-                Officer2.attr("src", "img/guarda_fogo_02.gif");
-            }
-            molotovVisible = false;
-            display.feedBackMolotov();
+            display.hideMolotov();
+            display.burnDaPolice();
         }
     }
 
     function gotBomb()
     {
-        if (calculator.reached(thiefPosArr, OBJSIZE, arrPosBomba, TAMANHOITEM)) {
+        if (calculator.reached(thiefPosArr, CHARSIZE, bombPos, ITEMSIZE)) {
+            display.hideBomb();
             game.scorePoints();
-            Bomb.hide();
             display.flashPolicia();
-            display.flash(CurrLevel, "#FFD61F");
+            display.flash(CurrLevel);
             if (currLevel > 1) {
                 currLevel = currLevel - 1;
-                officer1MoveRate = speedTable[currLevel][0];
-                officer2MoveRate = speedTable[currLevel][1];
+                officer1MoveRate = SPEEDTABLE[currLevel][0];
+                officer2MoveRate = SPEEDTABLE[currLevel][1];
                 if (currLevel < TWOPOLICEMENLEVEL) {
-                    officer2PosArr[0] = (mapSize - OBJSIZE);
+                    officer2PosArr[0] = (MAPSIZE - CHARSIZE);
                     officer2PosArr[1] = 0;
                     calculator.setObjectPosition(Officer2, officer2PosArr);
                     Counter2.hide();
@@ -72,7 +67,6 @@ function Interactions()
                 }
             }
             CurrLevel.html(currLevel);
-            bombVisible = false;
             display.feedBackBomb();
         }
     }

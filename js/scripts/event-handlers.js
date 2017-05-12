@@ -22,13 +22,13 @@ function EventHandlers()
         });
 
         $("#fundo, #thief, #officer1, #officer2, .item").on("swipeleft", function() {
-            tecla = 37;
+            pressedKey = 37;
         }).on("swiperight", function() {
-            tecla = 39;
+            pressedKey = 39;
         }).on("swipeup", function() {
-            tecla = 38;
+            pressedKey = 38;
         }).on("swipedown", function() {
-            tecla = 40;
+            pressedKey = 40;
         });
         $("#presentation").on("swipeleft", function() {
             if ($("#justOpened").val() == 0) {
