@@ -52,15 +52,13 @@ var pressedKey,
     isMolotovVisible,
     isBombVisible,
     thiefMoveRate,
-    officer1MoveRate,
-    officer2MoveRate,
+    officerMoveRate = new Array(0, 0),
     currLevel,
     time,
     molotovTime;
 
 // Game elements' position arrays
-var officer1PosArr = new Array(0, 0),
-    officer2PosArr = new Array(0, 0),
+var officerPosArr = new Array(new Array(0, 0), new Array(0, 0)),
     thiefPosArr = new Array(0, 0),
     moneyPos = new Array(0, 0),
     clockPos = new Array(0, 0),

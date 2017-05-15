@@ -20,13 +20,14 @@ function Setup()
     function resetAllValues()
     {
         clearGameValues();
+        setOfficersStartCoords();
         time = STANDARDTIME;
         pressedKey = false;
         thiefMoveRate = calculator.regraDeTres(STANDTHIEFMOVRATE, MAPSIZE);
-        officer1MoveRate = MINMOVINGRATE;
+        officerMoveRate[0] = SPEEDTABLE[1][0];
+        officerMoveRate[1] = SPEEDTABLE[1][1];
         thiefPosArr[0] = 0;
         thiefPosArr[1] = 0;
-        calculator.setOfficersStartCoords();
     }
 
     function setAll()
@@ -68,4 +69,14 @@ function Setup()
         }
 
     }
+
+    function setOfficersStartCoords()
+    {
+        var coord = MAPSIZE - CHARSIZE;
+        officerPosArr[0][0] = coord;
+        officerPosArr[0][1] = coord;
+        officerPosArr[1][0] = coord;
+        officerPosArr[1][1] = coord;
+    }
+
 }

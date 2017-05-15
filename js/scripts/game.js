@@ -36,7 +36,7 @@ function Game()
     {
         setup.resetAllValues();
         display.hideInGameElements();
-        calculator.relocateCharacters();
+        display.relocateCharacters();
         display.showInGameElements();
         display.displayMoney();
         display.displayGameInfo();
@@ -57,30 +57,10 @@ function Game()
 
     function gameLoop()
     {
-        var pressedKeyBump;
         if (gameOn) {
-            switch (pressedKey) {
-                case 37:
-                    movement.move('left');
-                    break;
-                case 38:
-                    movement.move('up');
-                    break;
-                case 39:
-                    movement.move('right');
-                    break;
-                case 40:
-                    movement.move('down');
-                    break;
-                case 13:
-                    if ((pressedKey != pressedKeyBump)) {
-                        resetGame();
-                        pressedKeyBump = pressedKey;
-                    }
-                    break;
-                default:
-                    pressedKeyBump = false;
-            }
+            movement.moveItAll();
+            interactions.checkGotItem();
+            interactions.checkGotBusted();
         }
         setTimeout(gameLoop, STANDGAMEREFRESHRATE);
     }

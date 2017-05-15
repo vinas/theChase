@@ -4,69 +4,50 @@ function Calculator()
     this.setNewOfficerPos = setNewOfficerPos;
     this.setNextPosition = setNextPosition;
     this.sortMolotov = sortMolotov;
-    this.setObjectPosition = setObjectPosition;
     this.getObjectPosition = getObjectPosition;
     this.sortBomb = sortBomb;
     this.getRandomCoords = getRandomCoords;
     this.calculateMessagePosition = calculateMessagePosition;
     this.regraDeTres = regraDeTres;
     this.set2ndPolicemanPosition = set2ndPolicemanPosition;
-    this.setOfficersStartCoords = setOfficersStartCoords;
-    this.relocateCharacters = relocateCharacters;
     
     return this;
 
-    function relocateCharacters()
+    function reached(hunter, hunterSize, prey, preySize)
     {
-        setObjectPosition(Thief, thiefPosArr);
-        setObjectPosition(Officer1, officer1PosArr);
-        setObjectPosition(Officer2, officer2PosArr);
-    }
-
-    function setOfficersStartCoords()
-    {
-        var coord = MAPSIZE - CHARSIZE;
-        officer1PosArr[0] = coord;
-        officer1PosArr[1] = coord;
-        officer2PosArr[0] = coord;
-        officer2PosArr[1] = coord;
-    }
-
-    function reached(cacador, tamanhoCacador, presa, tamanhoPresa)
-    {
-        if (
-            ((cacador[0] >= (presa[0] - tamanhoCacador))
-            && (cacador[0] < (presa[0] + tamanhoPresa)))
-            && ((cacador[1] >= (presa[1] - tamanhoCacador))
-            && (cacador[1] < (presa[1] + tamanhoPresa)))
-        ){
-            return true;
-        }
-        return false;
+        return (
+                (
+                    (hunter[0] >= (prey[0] - hunterSize))
+                    && (hunter[0] < (prey[0] + preySize))
+                )
+                && (
+                    (hunter[1] >= (prey[1] - hunterSize))
+                    && (hunter[1] < (prey[1] + preySize))
+                )
+            );
     }
     
-    function setNewOfficerPos(whichOfficer, officer, officerPosArr, movementRate)
+    function setNewOfficerPos(whichOfficer, officer)
     {
-        var relativePositions = getRelativePositions(officerPosArr);
-        var directionAxis = setDirectionAxis(whichOfficer, officerPosArr, relativePositions);
+        var relativePositions = getRelativePositions(officerPosArr[whichOfficer]);
+        var directionAxis = setDirectionAxis(whichOfficer, officerPosArr[whichOfficer], relativePositions);
         if (directionAxis == 'horizontal') {
             if (relativePositions[0] == 'right') {
                 display.mirrorObj(officer, '-1');
-                officerPosArr[0] = officerPosArr[0] + movementRate;
+                officerPosArr[whichOfficer][0] = officerPosArr[whichOfficer][0] + officerMoveRate[whichOfficer];
             } else if (relativePositions[0] == 'left') {
                 display.mirrorObj(officer, '1');
-                officerPosArr[0] = officerPosArr[0] - movementRate;
+                officerPosArr[whichOfficer][0] = officerPosArr[whichOfficer][0] - officerMoveRate[whichOfficer];
             }
-            officerPosArr[0] = adjustCrossBorder(officerPosArr[0]);
+            officerPosArr[whichOfficer][0] = adjustCrossBorder(officerPosArr[whichOfficer][0]);
         } else if (directionAxis == 'vertical') {
             if (relativePositions[1] == 'up') {
-                officerPosArr[1] = officerPosArr[1] - movementRate;
+                officerPosArr[whichOfficer][1] = officerPosArr[whichOfficer][1] - officerMoveRate[whichOfficer];
             } else if (relativePositions[1] == 'down') {
-                officerPosArr[1] = officerPosArr[1] + movementRate;
+                officerPosArr[whichOfficer][1] = officerPosArr[whichOfficer][1] + officerMoveRate[whichOfficer];
             }
-            officerPosArr[1] = adjustCrossBorder(officerPosArr[1]);
+            officerPosArr[whichOfficer][1] = adjustCrossBorder(officerPosArr[whichOfficer][1]);
         }
-        return officerPosArr;
     }
 
     function setNextPosition(posArr, movRate, direction)
@@ -102,12 +83,6 @@ function Calculator()
         }
     }
 
-    function setObjectPosition(obj, posArr)
-    {
-        obj.css("left", posArr[0]);
-        obj.css("top", posArr[1]);
-    }
-
     function getObjectPosition(object)
     {
         return new Array(
@@ -135,17 +110,14 @@ function Calculator()
 
     function calculateMessagePosition(arrPosObjeto)
     {
-        posLeft = parseInt(arrPosObjeto[0]);
-        ninety = regraDeTres(90, MAPSIZE);
-        thirty = regraDeTres(30, MAPSIZE);
-        if ((posLeft + ninety) >= MAPSIZE) {
-            dif = (posLeft + ninety) - MAPSIZE;
+        var posLeft = parseInt(arrPosObjeto[0]),
+            posTop = parseInt(arrPosObjeto[1]) + CHARSIZE,
+            ninety = regraDeTres(90, MAPSIZE),
+            thirty = regraDeTres(30, MAPSIZE);
+        if ((posLeft + ninety) >= MAPSIZE)
             posLeft = parseInt(arrPosObjeto[0]) - ((posLeft + ninety) - MAPSIZE);
-        }
-        posTop = (parseInt(arrPosObjeto[1]) + CHARSIZE);
-        if ((posTop + thirty) >= MAPSIZE) {
+        if ((posTop + thirty) >= MAPSIZE)
             posTop = parseInt(arrPosObjeto[1]) - thirty;
-        }
         return new Array(posLeft, posTop);
     }
 
@@ -157,71 +129,65 @@ function Calculator()
     function set2ndPolicemanPosition()
     {
         if (thiefPosArr[0] > (MAPSIZE / 2)) {
-            officer2PosArr[0] = 0;
+            officerPosArr[1][0] = 0;
         } else if (thiefPosArr[0] < (MAPSIZE / 2)) {
-            officer2PosArr[0] = (MAPSIZE - CHARSIZE);
+            officerPosArr[1][0] = (MAPSIZE - CHARSIZE);
         }
         if (thiefPosArr[1] > (MAPSIZE / 2)) {
-            officer2PosArr[1] = 0;
+            officerPosArr[1][1] = 0;
         } else if (thiefPosArr[1] < (MAPSIZE / 2)) {
-            officer2PosArr[1] = (MAPSIZE - CHARSIZE);
+            officerPosArr[1][1] = (MAPSIZE - CHARSIZE);
         }
-        setObjectPosition(Officer2, officer2PosArr);
+        setObjectPosition(Officer2, officerPosArr[1]);
     }
 
     /**** PRIVATE METHODS ****/
 
-    function getRelativePositions(officerPosArr)
+    function getRelativePositions(officerPos)
     {
         var position = [];
-        position[0] = definirPosRelXAlvo(officerPosArr);
-        position[1] = definirPosRelYAlvo(officerPosArr);
+        position[0] = definirPosRelXAlvo(officerPos);
+        position[1] = definirPosRelYAlvo(officerPos);
         return position;
     }
 
     // Define a posição relativa X do alvo
-    function definirPosRelXAlvo(officerPosArr)
+    function definirPosRelXAlvo(officerPos)
     {
-        if (officerPosArr[0] > thiefPosArr[0])
+        if (officerPos[0] > thiefPosArr[0])
             return 'left';
-        if (officerPosArr[0] == thiefPosArr[0])
+        if (officerPos[0] == thiefPosArr[0])
             return 'same';
         return 'right';
     }
 
     // Define a posição relativa Y do alvo
-    function definirPosRelYAlvo(officerPosArr)
+    function definirPosRelYAlvo(officerPos)
     {
-        if (officerPosArr[1] > thiefPosArr[1])
+        if (officerPos[1] > thiefPosArr[1])
            return 'up';
-        if (officerPosArr[1] == thiefPosArr[1])
+        if (officerPos[1] == thiefPosArr[1])
             return 'same';
         return 'down';
     }
 
-    function setDirectionAxis(officer, officerPosArr, relativePositions)
+    function setDirectionAxis(officer, officerPos, relativePositions)
     {
-        var diffX = checaPosGeoX(officerPosArr, relativePositions[0]);
-        var diffY = checaPosGeoY(officerPosArr, relativePositions[1]);
-        if (officer == 1) {
+        var diffX = checaPosGeoX(officerPos, relativePositions[0]);
+        var diffY = checaPosGeoY(officerPos, relativePositions[1]);
+        if (officer == 0) {
             if (diffX > diffY)
                 return 'horizontal';
             if (diffX < diffY)
                 return 'vertical';
-            if (Math.floor((Math.random() * 2) + 1) == 1)
-                return 'horizontal';
         } else {
             if (diffX > diffY)
                 return 'vertical';
             if (diffX < diffY)
                 return 'horizontal';
-            if (thiefPosArr[0] == officer2PosArr[0])
-                return 'horizontal';
-            if (thiefPosArr[1] == officer2PosArr[1])
-                return 'vertical';
-            if (Math.floor((Math.random() * 2) + 1) == 1)
-                return 'horizontal';
         }
+        if (Math.floor((Math.random() * 2) + 1) == 1)
+            return 'horizontal';
         return 'vertical';
     }
 

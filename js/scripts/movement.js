@@ -1,55 +1,45 @@
 function Movement()
 {
-    this.move = move;
+    this.moveItAll = moveItAll;
 
     return this;
 
-    function move(direction)
+    function moveItAll()
     {
-        moveThief(direction);
+        moveThief();
         movePolice();
     }
 
     function movePolice()
     {
         if (molotovTime <= 0) {
-            moveOfficer(1);
+            moveOfficer(0);
             if (currLevel >= TWOPOLICEMENLEVEL)
-                moveOfficer(2);
+                moveOfficer(1);
         }
     }
 
-    function moveThief(direction)
+    function moveThief()
     {
+        var direction = interactions.getDirection();
         setThiefHorDirection(direction);
         thiefPosArr = calculator.setNextPosition(
                 thiefPosArr,
                 thiefMoveRate,
                 direction
             );
-        calculator.setObjectPosition(Thief, thiefPosArr);
-        interactions.checkGotSomething();
+        display.setObjectPosition(Thief, thiefPosArr);
     }
 
     function moveOfficer(whichOfficer)
     {
-        if (whichOfficer) {
-            var officerPosArr, movementRate, officer;
-            if (whichOfficer == 1) {
-                officerPosArr = officer1PosArr;
-                movementRate = officer1MoveRate;
-                officer = Officer1;
-            } else {
-                officerPosArr = officer2PosArr;
-                movementRate = officer2MoveRate;
-                officer = Officer2;
-            }
-            officerPosArr = calculator.setNewOfficerPos(whichOfficer, officer, officerPosArr, movementRate);
-            calculator.setObjectPosition(officer, officerPosArr);
-
-            if (calculator.reached(officerPosArr, (CHARSIZE - CATCHTOLERANCE), thiefPosArr, (CHARSIZE - CATCHTOLERANCE)))
-               game.endGame('busted');
-        }
+        var officer;
+        officer = (whichOfficer == 0) ? Officer1 : Officer2;
+        calculator.setNewOfficerPos(
+                whichOfficer,
+                officer
+            );
+        display.setObjectPosition(officer, officerPosArr[whichOfficer]);
     }
 
 }

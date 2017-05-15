@@ -65,8 +65,23 @@ function Display()
     this.hideMolotov = hideMolotov;
     this.handleMolotovCounter = handleMolotovCounter;
     this.restorePolicemen = restorePolicemen;
-    
+    this.relocateCharacters = relocateCharacters;
+    this.setObjectPosition = setObjectPosition;
+
     return this;
+
+    function setObjectPosition(obj, posArr)
+    {
+        obj.css("left", posArr[0]);
+        obj.css("top", posArr[1]);
+    }
+
+    function relocateCharacters()
+    {
+        setObjectPosition(Thief, thiefPosArr);
+        setObjectPosition(Officer1, officerPosArr[0]);
+        setObjectPosition(Officer2, officerPosArr[1]);
+    }
 
     function restorePolicemen()
     {
@@ -84,8 +99,8 @@ function Display()
         setObjectPosition(
             Counter1,
             new Array(
-                (officer1PosArr[0] - 5),
-                (officer1PosArr[1] - 5)
+                (officerPosArr[0][0] - 5),
+                (officerPosArr[0][1] - 5)
             )
         );
         Counter1.html(molotovTime);
@@ -94,8 +109,8 @@ function Display()
             setObjectPosition(
                 Counter2,
                 new Array(
-                    (officer2PosArr[0] - 5),
-                    (officer2PosArr[1] - 5)
+                    (officerPosArr[1][0] - 5),
+                    (officerPosArr[1][1] - 5)
                 )
             );
             Counter2.html(molotovTime);
@@ -401,7 +416,7 @@ function Display()
 
     function displayItem(obj, arrPosition)
     {
-        calculator.setObjectPosition(obj, arrPosition);
+        setObjectPosition(obj, arrPosition);
         obj.show();
     }
 

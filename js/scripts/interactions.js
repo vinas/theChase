@@ -1,17 +1,68 @@
 function Interactions()
 {
-    this.checkGotSomething = checkGotSomething;
+    this.checkGotItem = checkGotItem;
     this.changePoliceMoveRate = changePoliceMoveRate;
+    this.checkGotBusted = checkGotBusted;
+    this.getDirection = getDirection;
 
     return this;
 
-    function changePoliceMoveRate()
+    function getDirection()
     {
-        officer1MoveRate = SPEEDTABLE[currLevel][0];
-        officer2MoveRate = SPEEDTABLE[currLevel][1];
+        var pressedKeyBump;
+        switch (pressedKey) {
+            case 37:
+                return 'left';
+            case 38:
+                return 'up';
+            case 39:
+                return 'right';
+            case 40:
+                return 'down';
+                break;
+            case 13:
+                if ((pressedKey != pressedKeyBump)) {
+                    game.resetGame();
+                    pressedKeyBump = pressedKey;
+                }
+                break;
+            default:
+                pressedKeyBump = false;
+                return false;
+        }
     }
 
-    function checkGotSomething()
+    function checkGotBusted()
+    {
+        if (
+            (calculator.reached(
+                    officerPosArr[0],
+                    (CHARSIZE - CATCHTOLERANCE),
+                    thiefPosArr,
+                    (CHARSIZE - CATCHTOLERANCE)
+                )
+            )
+            || (
+                (currLevel >= TWOPOLICEMENLEVEL)
+                && (calculator.reached(
+                        officerPosArr[1],
+                        (CHARSIZE - CATCHTOLERANCE),
+                        thiefPosArr,
+                        (CHARSIZE - CATCHTOLERANCE)
+                    )
+                )
+            )
+        )
+            game.endGame('busted');
+    }
+
+    function changePoliceMoveRate()
+    {
+        officerMoveRate[0] = SPEEDTABLE[currLevel][0];
+        officerMoveRate[1] = SPEEDTABLE[currLevel][1];
+    }
+
+    function checkGotItem()
     {
         gotMoney();
         if (isClockVisible)
@@ -63,12 +114,12 @@ function Interactions()
             display.flash(CurrLevel);
             if (currLevel > 1) {
                 currLevel = currLevel - 1;
-                officer1MoveRate = SPEEDTABLE[currLevel][0];
-                officer2MoveRate = SPEEDTABLE[currLevel][1];
+                officerMoveRate[0] = SPEEDTABLE[currLevel][0];
+                officerMoveRate[1] = SPEEDTABLE[currLevel][1];
                 if (currLevel < TWOPOLICEMENLEVEL) {
-                    officer2PosArr[0] = (MAPSIZE - CHARSIZE);
-                    officer2PosArr[1] = 0;
-                    calculator.setObjectPosition(Officer2, officer2PosArr);
+                    officerPosArr[1][0] = (MAPSIZE - CHARSIZE);
+                    officerPosArr[1][1] = 0;
+                    display.setObjectPosition(Officer2, officerPosArr[1]);
                     Counter2.hide();
                     Officer2.hide();
                 }
