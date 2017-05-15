@@ -110,19 +110,14 @@ function Interactions()
         if (calculator.reached(thiefPosArr, CHARSIZE, bombPos, ITEMSIZE)) {
             display.hideBomb();
             game.scorePoints();
-            display.flashPolicia();
+            display.flashOfficers();
             display.flash(CurrLevel);
             if (currLevel > 1) {
                 currLevel = currLevel - 1;
                 officerMoveRate[0] = SPEEDTABLE[currLevel][0];
                 officerMoveRate[1] = SPEEDTABLE[currLevel][1];
-                if (currLevel < TWOPOLICEMENLEVEL) {
-                    officerPosArr[1][0] = (MAPSIZE - CHARSIZE);
-                    officerPosArr[1][1] = 0;
-                    display.setObjectPosition(Officer2, officerPosArr[1]);
-                    Counter2.hide();
-                    Officer2.hide();
-                }
+                if (currLevel < TWOPOLICEMENLEVEL)
+                    display.hideOfficer2();
             }
             CurrLevel.html(currLevel);
             display.feedBackBomb();

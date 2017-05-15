@@ -23,7 +23,7 @@ function Setup()
         setOfficersStartCoords();
         time = STANDARDTIME;
         pressedKey = false;
-        thiefMoveRate = calculator.regraDeTres(STANDTHIEFMOVRATE, MAPSIZE);
+        thiefMoveRate = calculator.crossMultiply(STANDTHIEFMOVRATE, MAPSIZE);
         officerMoveRate[0] = SPEEDTABLE[1][0];
         officerMoveRate[1] = SPEEDTABLE[1][1];
         thiefPosArr[0] = 0;

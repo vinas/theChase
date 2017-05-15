@@ -96,11 +96,10 @@ function Game()
     function changeLevel()
     {
         currLevel = currLevel + 1;
-        if (currLevel < 1) {
+        if (currLevel < 1)
             currLevel = 1;
-        } else if (currLevel ==  TWOPOLICEMENLEVEL) {
+        if (currLevel == TWOPOLICEMENLEVEL)
             display.show2ndPoliceman();
-        }
         display.updateDificultyDisplay();
         display.changeBackground();
         interactions.changePoliceMoveRate();

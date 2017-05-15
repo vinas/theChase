@@ -8,8 +8,8 @@ function Calculator()
     this.sortBomb = sortBomb;
     this.getRandomCoords = getRandomCoords;
     this.calculateMessagePosition = calculateMessagePosition;
-    this.regraDeTres = regraDeTres;
-    this.set2ndPolicemanPosition = set2ndPolicemanPosition;
+    this.crossMultiply = crossMultiply;
+    this.setOfficer2StartPos = setOfficer2StartPos;
     
     return this;
 
@@ -108,37 +108,30 @@ function Calculator()
             );
     }
 
-    function calculateMessagePosition(arrPosObjeto)
+    function calculateMessagePosition(objPosArr)
     {
-        var posLeft = parseInt(arrPosObjeto[0]),
-            posTop = parseInt(arrPosObjeto[1]) + CHARSIZE,
-            ninety = regraDeTres(90, MAPSIZE),
-            thirty = regraDeTres(30, MAPSIZE);
-        if ((posLeft + ninety) >= MAPSIZE)
-            posLeft = parseInt(arrPosObjeto[0]) - ((posLeft + ninety) - MAPSIZE);
-        if ((posTop + thirty) >= MAPSIZE)
-            posTop = parseInt(arrPosObjeto[1]) - thirty;
-        return new Array(posLeft, posTop);
+        var leftPos = parseInt(objPosArr[0]),
+            topPos = parseInt(objPosArr[1]) + CHARSIZE,
+            ninety = crossMultiply(90, MAPSIZE),
+            thirty = crossMultiply(30, MAPSIZE);
+        if ((leftPos + ninety) >= MAPSIZE)
+            leftPos = parseInt(objPosArr[0]) - ((leftPos + ninety) - MAPSIZE);
+        if ((topPos + thirty) >= MAPSIZE)
+            topPos = parseInt(objPosArr[1]) - thirty;
+        return new Array(leftPos, topPos);
     }
 
-    function regraDeTres(atual, MAPSIZE)
+    function crossMultiply(actual)
     {
-        return Math.floor((atual / 500) * MAPSIZE);
+        return Math.floor((actual / 500) * MAPSIZE);
     }
 
-    function set2ndPolicemanPosition()
+    function setOfficer2StartPos()
     {
-        if (thiefPosArr[0] > (MAPSIZE / 2)) {
-            officerPosArr[1][0] = 0;
-        } else if (thiefPosArr[0] < (MAPSIZE / 2)) {
-            officerPosArr[1][0] = (MAPSIZE - CHARSIZE);
-        }
-        if (thiefPosArr[1] > (MAPSIZE / 2)) {
-            officerPosArr[1][1] = 0;
-        } else if (thiefPosArr[1] < (MAPSIZE / 2)) {
-            officerPosArr[1][1] = (MAPSIZE - CHARSIZE);
-        }
-        setObjectPosition(Officer2, officerPosArr[1]);
+        var midMap = MAPSIZE / 2,
+            tolerance = MAPSIZE - CHARSIZE;
+        officerPosArr[1][0] = (thiefPosArr[0] >= midMap) ? 0 : tolerance;
+        officerPosArr[1][0] = (thiefPosArr[1] >= midMap) ? 0 : tolerance;
     }
 
     /**** PRIVATE METHODS ****/
@@ -173,14 +166,15 @@ function Calculator()
 
     function setDirectionAxis(officer, officerPos, relativePositions)
     {
-        var diffX = checaPosGeoX(officerPos, relativePositions[0]);
-        var diffY = checaPosGeoY(officerPos, relativePositions[1]);
-        if (officer == 0) {
-            if (diffX > diffY)
-                return 'horizontal';
-            if (diffX < diffY)
-                return 'vertical';
-        } else {
+        var diffX = checaPosGeoX(officerPos, relativePositions[0]),
+            diffY = checaPosGeoY(officerPos, relativePositions[1]);
+        if (diffX != diffY) {
+            if (officer == 0) {
+                if (diffX > diffY)
+                    return 'horizontal';
+                if (diffX < diffY)
+                    return 'vertical';
+            }
             if (diffX > diffY)
                 return 'vertical';
             if (diffX < diffY)

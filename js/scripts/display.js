@@ -38,7 +38,7 @@ function Display()
             'background_v2.jpg'
         );
 
-    this.flashPolicia = flashPolicia;
+    this.flashOfficers = flashOfficers;
     this.flash = flash;
     this.feedBackBomb = feedBackBomb;
     this.feedBackClock = feedBackClock;
@@ -67,8 +67,15 @@ function Display()
     this.restorePolicemen = restorePolicemen;
     this.relocateCharacters = relocateCharacters;
     this.setObjectPosition = setObjectPosition;
+    this.hideOfficer2 = hideOfficer2;
 
     return this;
+
+    function hideOfficer2()
+    {
+        Counter2.hide();
+        Officer2.hide();
+    }
 
     function setObjectPosition(obj, posArr)
     {
@@ -116,7 +123,6 @@ function Display()
             Counter2.html(molotovTime);
             Counter2.show();
         }
-        return;
     }
 
     function hideMolotov()
@@ -149,52 +155,51 @@ function Display()
         flash(PointsCounter);
     }
 
-    function flashPolicia()
+    function flashOfficers()
     {
         flash(Officer1);
+        if (currLevel > TWOPOLICEMENLEVEL)
+            flash(Officer2);
     }
 
     function flash(obj, color) {
+        var counter = 0;
         color = (!color) ? '#FFD61F' : color;
-        obj.css("background-color", color);
-        setTimeout(function() {
-            obj.css("background-color", "");
-            setTimeout(function() {
-                obj.css("background-color", color);
+
+        blink();
+
+        function blink()
+        {
+            counter++;
+            obj.css('background-color', (counter % 2 == 0) ? color : '');
+            if (counter < 7) 
                 setTimeout(function() {
-                    obj.css("background-color", "");
-                    setTimeout(function() {
-                        obj.css("background-color", color);
-                        setTimeout(function() {
-                            obj.css("background-color", "");
-                        }, 100);
-                    }, 100);
+                    blink();
                 }, 100);
-            }, 100);
-        }, 100);
+        }
     }
 
     function burnDaPolice()
     {
-        Officer1.attr("src", "img/guarda_fogo_02.gif");
+        Officer1.attr('src', 'img/guarda_fogo_02.gif');
         showFeedBack(Officer1, "can't move", false);
         if (currLevel >= TWOPOLICEMENLEVEL) {
-            Officer2.attr("src", "img/guarda_fogo_02.gif");
+            Officer2.attr('src', 'img/guarda_fogo_02.gif');
             showFeedBack2(Officer2, "can't move", false);
         }
     }
 
     function feedBackBomb()
     {
-        showFeedBack(Officer1, "slow", true);
+        showFeedBack(Officer1, 'slow', true);
         if (currLevel >= TWOPOLICEMENLEVEL) {
-            showFeedBack2(Officer2, "slow", true);
+            showFeedBack2(Officer2, 'slow', true);
         }
     }
 
     function feedBackClock()
     {
-        showFeedBack(Thief, "time +10", true);
+        showFeedBack(Thief, 'time +10', true);
     }
 
     function displayMoney() {
@@ -274,9 +279,9 @@ function Display()
 
     function startPressedTimmer(button)
     {
-        button.attr("src", "img/start_over.png");
+        button.attr('src', 'img/start_over.png');
         setTimeout(function() {
-           button.attr("src", "img/start.png");
+           button.attr('src', 'img/start.png');
         }, 300);
     }
 
@@ -284,9 +289,10 @@ function Display()
     {
         police = Officer2;
         if (molotovTime > 0) {
-            police.attr("src", "img/guarda_fogo_02.gif")
+            police.attr('src', 'img/guarda_fogo_02.gif')
         }
-        calculator.set2ndPolicemanPosition();
+        calculator.setOfficer2StartPos();
+        setObjectPosition(Officer2, officerPosArr[1]);
         police.show();
     }
 
@@ -348,7 +354,7 @@ function Display()
         Legenda.html(message);
         
         setTimeout(function() {
-            Legenda.html("");
+            Legenda.html('');
             setTimeout(function() {
                 if (follow) {
                     objectPosition = calculator.getObjectPosition(object);
@@ -357,7 +363,7 @@ function Display()
                 }
                 Legenda.html(message);
                 setTimeout(function() {
-                    Legenda.html("");
+                    Legenda.html('');
                     setTimeout(function() {
                         if (follow) {
                             objectPosition = calculator.getObjectPosition(object);
