@@ -2,8 +2,9 @@ function Display()
 {
     var Money = $('#dinheiro'),
         PointsCounter = $('#points'),
-        Legenda = $('#actionLegenda'),
-        Legenda2 =  $('#actionLegenda2'),
+        Subtitle1 = $('#actionSubtitle1'),
+        Subtitle2 =  $('#actionSubtitle2'),
+        Subtitle3 =  $('#actionSubtitle3'),
         Busted = $('#busted'),
         TimeUp = $('#timeUp');
  
@@ -163,18 +164,18 @@ function Display()
     }
 
     function flash(obj, color) {
-        var counter = 0;
+        var flashCount = 0;
         color = (!color) ? '#FFD61F' : color;
 
-        blink();
+        flashThis();
 
-        function blink()
+        function flashThis()
         {
-            counter++;
-            obj.css('background-color', (counter % 2 == 0) ? color : '');
-            if (counter < 7) 
+            obj.css('background-color', (flashCount % 2 == 0) ? color : '');
+            flashCount++;
+            if (flashCount < 6) 
                 setTimeout(function() {
-                    blink();
+                    flashThis();
                 }, 100);
         }
     }
@@ -182,24 +183,24 @@ function Display()
     function burnDaPolice()
     {
         Officer1.attr('src', 'img/guarda_fogo_02.gif');
-        showFeedBack(Officer1, "can't move", false);
+        showFeedBack(Officer1, Subtitle1, "can't move");
         if (currLevel >= TWOPOLICEMENLEVEL) {
             Officer2.attr('src', 'img/guarda_fogo_02.gif');
-            showFeedBack2(Officer2, "can't move", false);
+            showFeedBack(Officer2, Subtitle2, "can't move");
         }
     }
 
     function feedBackBomb()
     {
-        showFeedBack(Officer1, 'slow', true);
+        showFeedBack(Officer1, Subtitle1, 'slow');
         if (currLevel >= TWOPOLICEMENLEVEL) {
-            showFeedBack2(Officer2, 'slow', true);
+            showFeedBack(Officer2, Subtitle1, 'slow');
         }
     }
 
     function feedBackClock()
     {
-        showFeedBack(Thief, 'time +10', true);
+        showFeedBack(Thief, Subtitle3, 'time +10');
     }
 
     function displayMoney() {
@@ -212,7 +213,7 @@ function Display()
         PointsCounter.html("0");
         BackgroundImg.attr("src", "img/background_v2.jpg");
         Officer1.attr("src", "img/guarda.gif");
-        Legenda.html('');
+        Subtitle1.html('');
         CurrLevel.html(currLevel);
         Time.html(time);
     }
@@ -345,73 +346,33 @@ function Display()
         return backgrounds[rand];
     }
 
-    function showFeedBack(object, message, follow)
+    function showFeedBack(refObj, subtitleObj, message)
     {
-        objectPosition = calculator.getObjectPosition(object);
-        messagePosition = calculator.calculateMessagePosition(objectPosition);
-        
-        Legenda.offset({ top: messagePosition[1], left: messagePosition[0]});
-        Legenda.html(message);
-        
-        setTimeout(function() {
-            Legenda.html('');
-            setTimeout(function() {
-                if (follow) {
-                    objectPosition = calculator.getObjectPosition(object);
-                    messagePosition = calculator.calculateMessagePosition(objectPosition);
-                    Legenda.offset({ top: messagePosition[1], left: messagePosition[0]});
-                }
-                Legenda.html(message);
-                setTimeout(function() {
-                    Legenda.html('');
-                    setTimeout(function() {
-                        if (follow) {
-                            objectPosition = calculator.getObjectPosition(object);
-                            messagePosition = calculator.calculateMessagePosition(objectPosition);
-                            Legenda.offset({ top: messagePosition[1], left: messagePosition[0]});
-                        }
-                        Legenda.html(message);
-                        setTimeout(function() {
-                            Legenda.html("");
-                        }, 500);
-                    }, 300);
-                }, 800);
-            }, 300);
-        }, 800);
-    }
+        var objectPosition,
+            messagePosition,
+            counter = 0,
+            interval;
 
-    function showFeedBack2(object, message, follow) {
-        objectPosition = calculator.getObjectPosition(object);
-        messagePosition = calculator.calculateMessagePosition(objectPosition);
-        
-        Legenda2.offset({ top: messagePosition[1], left: messagePosition[0]});
-        Legenda2.html(message);
-        
-        setTimeout(function() {
-            Legenda2.html("");
-            setTimeout(function() {
-                if (follow) {
-                    objectPosition = calculator.getObjectPosition(object);
-                    messagePosition = calculator.calculateMessagePosition(objectPosition);
-                    Legenda2.offset({ top: messagePosition[1], left: messagePosition[0]});
-                }
-                Legenda2.html(message);
+        blinkMsg();
+
+        function blinkMsg()
+        {
+            positionSubtitle();
+            interval = (counter % 2 == 0) ? 800 : 300; 
+            subtitleObj.html((counter % 2 == 0) ? message : '');
+            counter++;
+            if (counter < 6)
                 setTimeout(function() {
-                    Legenda2.html("");
-                    setTimeout(function() {
-                        if (follow) {
-                            objectPosition = calculator.getObjectPosition(object);
-                            messagePosition = calculator.calculateMessagePosition(objectPosition);
-                            Legenda2.offset({ top: messagePosition[1], left: messagePosition[0]});
-                        }
-                        Legenda2.html(message);
-                        setTimeout(function() {
-                            Legenda2.html("");
-                        }, 500);
-                    }, 300);
-                }, 800);
-            }, 300);
-        }, 800);
+                    blinkMsg();
+                }, interval);
+        }
+
+        function positionSubtitle()
+        {
+            objectPosition = calculator.getObjectPosition(refObj);
+            messagePosition = calculator.calculateMessagePosition(objectPosition);
+            subtitleObj.offset({ top: messagePosition[1], left: messagePosition[0]});
+        }
     }
 
     function preloadImages(images) {
