@@ -22,24 +22,24 @@ function Movement()
     function moveThief()
     {
         var direction = interactions.getDirection();
-        setThiefHorDirection(direction);
-        thiefPosArr = calculator.setNextPosition(
+        display.setThiefHorDirection(direction);
+        thiefPosArr = calc.nextThiefPosition(
                 thiefPosArr,
                 thiefMoveRate,
                 direction
             );
-        display.setObjectPosition(Thief, thiefPosArr);
+        display.displayObjectOn(Thief, thiefPosArr);
     }
 
     function moveOfficer(whichOfficer)
     {
         var officer;
         officer = (whichOfficer == 0) ? Officer1 : Officer2;
-        calculator.setNewOfficerPos(
+        calc.nextOfficerPos(
                 whichOfficer,
                 officer
             );
-        display.setObjectPosition(officer, officerPosArr[whichOfficer]);
+        display.displayObjectOn(officer, officerPosArr[whichOfficer]);
     }
 
 }

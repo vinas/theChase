@@ -1,33 +1,45 @@
 function Calculator()
 {
-    this.reached = reached;
-    this.setNewOfficerPos = setNewOfficerPos;
-    this.setNextPosition = setNextPosition;
-    this.sortMolotov = sortMolotov;
-    this.getObjectPosition = getObjectPosition;
-    this.sortBomb = sortBomb;
-    this.getRandomCoords = getRandomCoords;
-    this.calculateMessagePosition = calculateMessagePosition;
     this.crossMultiply = crossMultiply;
-    this.setOfficer2StartPos = setOfficer2StartPos;
+    this.getObjectPosition = getObjectPosition;
+    this.messagePos = messagePos;
+    this.nextOfficerPos = nextOfficerPos;
+    this.nextThiefPosition = nextThiefPosition;
+    this.officer2StartPos = officer2StartPos;
+    this.randomCoords = randomCoords;
+    this.reached = reached;
+    this.sortBomb = sortBomb;
+    this.sortMolotov = sortMolotov;
     
     return this;
 
-    function reached(hunter, hunterSize, prey, preySize)
+    function crossMultiply(actual)
     {
-        return (
-                (
-                    (hunter[0] >= (prey[0] - hunterSize))
-                    && (hunter[0] < (prey[0] + preySize))
-                )
-                && (
-                    (hunter[1] >= (prey[1] - hunterSize))
-                    && (hunter[1] < (prey[1] + preySize))
-                )
+        return Math.floor((actual / 500) * MAPSIZE);
+    }
+
+    function getObjectPosition(obj)
+    {
+        return new Array(
+                obj.css("left").replace(new RegExp("px", 'g'), ""),
+                obj.css("top").replace(new RegExp("px", 'g'), "")
             );
     }
-    
-    function setNewOfficerPos(whichOfficer, officer)
+
+    function messagePos(objPosArr)
+    {
+        var leftPos = parseInt(objPosArr[0]),
+            topPos = parseInt(objPosArr[1]) + CHARSIZE,
+            ninety = crossMultiply(90, MAPSIZE),
+            thirty = crossMultiply(30, MAPSIZE);
+        if ((leftPos + ninety) >= MAPSIZE)
+            leftPos = parseInt(objPosArr[0]) - ((leftPos + ninety) - MAPSIZE);
+        if ((topPos + thirty) >= MAPSIZE)
+            topPos = parseInt(objPosArr[1]) - thirty;
+        return new Array(leftPos, topPos);
+    }
+
+    function nextOfficerPos(whichOfficer, officer)
     {
         var relativePositions = getRelativePositions(officerPosArr[whichOfficer]);
         var directionAxis = setDirectionAxis(whichOfficer, officerPosArr[whichOfficer], relativePositions);
@@ -50,7 +62,7 @@ function Calculator()
         }
     }
 
-    function setNextPosition(posArr, movRate, direction)
+    function nextThiefPosition(posArr, movRate, direction)
     {
         var level;
         switch (direction) {
@@ -74,59 +86,7 @@ function Calculator()
         return posArr;
     }
 
-    function sortMolotov()
-    {
-        if ((!isMolotovVisible) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
-            display.displayMolotov();
-        } else if ((isMolotovVisible) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
-            display.hideMolotov();
-        }
-    }
-
-    function getObjectPosition(object)
-    {
-        return new Array(
-                object.css("left").replace(new RegExp("px", 'g'), ""),
-                object.css("top").replace(new RegExp("px", 'g'), "")
-            );
-    }
-
-    function sortBomb()
-    {
-        if ((currLevel > 1) && (!isBombVisible) && (Math.floor((Math.random() * 100) + 1) <= 5)) {
-            display.displayBomb();
-        } else if ((isBombVisible) && (Math.floor((Math.random() * 100) + 1) <= 10)) {
-            display.hideBomb();
-        }
-    }
-
-    function getRandomCoords()
-    {
-        return new Array(
-                Math.floor((Math.random() * (MAPSIZE - ITEMSIZE))),
-                Math.floor((Math.random() * (MAPSIZE - ITEMSIZE)))
-            );
-    }
-
-    function calculateMessagePosition(objPosArr)
-    {
-        var leftPos = parseInt(objPosArr[0]),
-            topPos = parseInt(objPosArr[1]) + CHARSIZE,
-            ninety = crossMultiply(90, MAPSIZE),
-            thirty = crossMultiply(30, MAPSIZE);
-        if ((leftPos + ninety) >= MAPSIZE)
-            leftPos = parseInt(objPosArr[0]) - ((leftPos + ninety) - MAPSIZE);
-        if ((topPos + thirty) >= MAPSIZE)
-            topPos = parseInt(objPosArr[1]) - thirty;
-        return new Array(leftPos, topPos);
-    }
-
-    function crossMultiply(actual)
-    {
-        return Math.floor((actual / 500) * MAPSIZE);
-    }
-
-    function setOfficer2StartPos()
+    function officer2StartPos()
     {
         var midMap = MAPSIZE / 2,
             tolerance = MAPSIZE - CHARSIZE;
@@ -134,40 +94,75 @@ function Calculator()
         officerPosArr[1][0] = (thiefPosArr[1] >= midMap) ? 0 : tolerance;
     }
 
-    /**** PRIVATE METHODS ****/
+    function randomCoords()
+    {
+        return new Array(
+                Math.floor((Math.random() * (MAPSIZE - ITEMSIZE))),
+                Math.floor((Math.random() * (MAPSIZE - ITEMSIZE)))
+            );
+    }
+
+    function reached(hunter, hunterSize, prey, preySize)
+    {
+        return (
+                (
+                    (hunter[0] >= (prey[0] - hunterSize))
+                    && (hunter[0] < (prey[0] + preySize))
+                )
+                && (
+                    (hunter[1] >= (prey[1] - hunterSize))
+                    && (hunter[1] < (prey[1] + preySize))
+                )
+            );
+    }
+
+    function sortBomb()
+    {
+        if ((currLevel > 1) && (!isBombVisible) && (areChancesAmoung(5))) {
+            display.displayBomb();
+        } else if ((isBombVisible) && (areChancesAmoung(10))) {
+            display.hideBomb();
+        }
+    }
+
+    function sortMolotov()
+    {
+        if (areChancesAmoung(10))
+            return true;
+        return false;
+    }
+
 
     function getRelativePositions(officerPos)
     {
         var position = [];
-        position[0] = definirPosRelXAlvo(officerPos);
-        position[1] = definirPosRelYAlvo(officerPos);
+        position[0] = getTargetHorRelPos(officerPos);
+        position[1] = getTargetVerRelPos(officerPos);
         return position;
     }
 
-    // Define a posição relativa X do alvo
-    function definirPosRelXAlvo(officerPos)
+    function getTargetHorRelPos(officerPos)
     {
         if (officerPos[0] > thiefPosArr[0])
             return 'left';
-        if (officerPos[0] == thiefPosArr[0])
-            return 'same';
-        return 'right';
+        if (officerPos[0] < thiefPosArr[0])
+            return 'right';
+        return 'same';
     }
 
-    // Define a posição relativa Y do alvo
-    function definirPosRelYAlvo(officerPos)
+    function getTargetVerRelPos(officerPos)
     {
         if (officerPos[1] > thiefPosArr[1])
            return 'up';
-        if (officerPos[1] == thiefPosArr[1])
-            return 'same';
-        return 'down';
+        if (officerPos[1] < thiefPosArr[1])
+            return 'down';
+        return 'same';
     }
 
     function setDirectionAxis(officer, officerPos, relativePositions)
     {
-        var diffX = checaPosGeoX(officerPos, relativePositions[0]),
-            diffY = checaPosGeoY(officerPos, relativePositions[1]);
+        var diffX = getDiffModuleOnX(officerPos, relativePositions[0]),
+            diffY = getDiffModuleOnY(officerPos, relativePositions[1]);
         if (diffX != diffY) {
             if (officer == 0) {
                 if (diffX > diffY)
@@ -185,8 +180,7 @@ function Calculator()
         return 'vertical';
     }
 
-    // Checa dif (em coords) entre o Policia e a posição x do alvo
-    function checaPosGeoX(officerPosArr, relativeX)
+    function getDiffModuleOnX(officerPosArr, relativeX)
     {
         if (relativeX == 'right')
            return thiefPosArr[0] - officerPosArr[0];
@@ -195,8 +189,7 @@ function Calculator()
         return 0;
     }
 
-    // Checa dif (em coords) entre o Policia e a posição y do alvo
-    function checaPosGeoY(officerPosArr, relativeY)
+    function getDiffModuleOnY(officerPosArr, relativeY)
     {
         if (relativeY == 'up')
             return officerPosArr[1] - thiefPosArr[1];
@@ -212,6 +205,11 @@ function Calculator()
         if (pos <= (-CHARSIZE + CROSSBORDERTOLERANCE))
             return pos + (MAPSIZE - CROSSBORDERTOLERANCE);
         return pos;
+    }
+
+    function areChancesAmoung(percetage)
+    {
+        return (Math.floor((Math.random() * 100) + 1) <= percetage);
     }
 
 }

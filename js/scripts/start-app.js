@@ -12,7 +12,7 @@ $(document).on("ready", function() {
     eventHandlers = EventHandlers();
     movement = Movement();
     interactions = Interactions();
-    calculator = Calculator();
+    calc = Calculator();
     display = Display();
     resizer = Resizer();
     game = Game();

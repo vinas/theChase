@@ -67,7 +67,7 @@ function Display()
     this.handleMolotovCounter = handleMolotovCounter;
     this.restorePolicemen = restorePolicemen;
     this.relocateCharacters = relocateCharacters;
-    this.setObjectPosition = setObjectPosition;
+    this.displayObjectOn = displayObjectOn;
     this.hideOfficer2 = hideOfficer2;
 
     return this;
@@ -76,9 +76,10 @@ function Display()
     {
         Counter2.hide();
         Officer2.hide();
+        Officer2.attr("src", "img/guarda.gif");
     }
 
-    function setObjectPosition(obj, posArr)
+    function displayObjectOn(obj, posArr)
     {
         obj.css("left", posArr[0]);
         obj.css("top", posArr[1]);
@@ -86,9 +87,9 @@ function Display()
 
     function relocateCharacters()
     {
-        setObjectPosition(Thief, thiefPosArr);
-        setObjectPosition(Officer1, officerPosArr[0]);
-        setObjectPosition(Officer2, officerPosArr[1]);
+        displayObjectOn(Thief, thiefPosArr);
+        displayObjectOn(Officer1, officerPosArr[0]);
+        displayObjectOn(Officer2, officerPosArr[1]);
     }
 
     function restorePolicemen()
@@ -104,7 +105,7 @@ function Display()
     function handleMolotovCounter()
     {
         molotovTime = molotovTime - 1;
-        setObjectPosition(
+        displayObjectOn(
             Counter1,
             new Array(
                 (officerPosArr[0][0] - 5),
@@ -114,7 +115,7 @@ function Display()
         Counter1.html(molotovTime);
         Counter1.show();
         if (currLevel >= TWOPOLICEMENLEVEL) {
-            setObjectPosition(
+            displayObjectOn(
                 Counter2,
                 new Array(
                     (officerPosArr[1][0] - 5),
@@ -204,7 +205,7 @@ function Display()
     }
 
     function displayMoney() {
-        moneyPos = calculator.getRandomCoords();
+        moneyPos = calc.randomCoords();
         displayItem(Money, moneyPos);
     }
 
@@ -221,7 +222,7 @@ function Display()
     function displayClock()
     {
         if ((time == DISPLAYCLOCKAT) && (!isClockVisible)) {
-            clockPos = calculator.getRandomCoords();
+            clockPos = calc.randomCoords();
             displayItem(Clock, clockPos);
             isClockVisible = true;
         }
@@ -292,8 +293,8 @@ function Display()
         if (molotovTime > 0) {
             police.attr('src', 'img/guarda_fogo_02.gif')
         }
-        calculator.setOfficer2StartPos();
-        setObjectPosition(Officer2, officerPosArr[1]);
+        calc.officer2StartPos();
+        displayObjectOn(Officer2, officerPosArr[1]);
         police.show();
     }
 
@@ -317,7 +318,7 @@ function Display()
 
     function displayBomb()
     {
-        bombPos = calculator.getRandomCoords();
+        bombPos = calc.randomCoords();
         displayItem(Bomb, bombPos);
         isBombVisible = true;
     }
@@ -330,7 +331,7 @@ function Display()
 
     function displayMolotov()
     {
-        molotovPos = calculator.getRandomCoords();
+        molotovPos = calc.randomCoords();
         displayItem(Molotov, molotovPos);
         isMolotovVisible = true;
     }
@@ -369,8 +370,8 @@ function Display()
 
         function positionSubtitle()
         {
-            objectPosition = calculator.getObjectPosition(refObj);
-            messagePosition = calculator.calculateMessagePosition(objectPosition);
+            objectPosition = calc.getObjectPosition(refObj);
+            messagePosition = calc.messagePos(objectPosition);
             subtitleObj.offset({ top: messagePosition[1], left: messagePosition[0]});
         }
     }
@@ -383,7 +384,7 @@ function Display()
 
     function displayItem(obj, arrPosition)
     {
-        setObjectPosition(obj, arrPosition);
+        displayObjectOn(obj, arrPosition);
         obj.show();
     }
 

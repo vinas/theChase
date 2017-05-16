@@ -35,7 +35,7 @@ function Interactions()
     function checkGotBusted()
     {
         if (
-            (calculator.reached(
+            (calc.reached(
                     officerPosArr[0],
                     (CHARSIZE - CATCHTOLERANCE),
                     thiefPosArr,
@@ -44,7 +44,7 @@ function Interactions()
             )
             || (
                 (currLevel >= TWOPOLICEMENLEVEL)
-                && (calculator.reached(
+                && (calc.reached(
                         officerPosArr[1],
                         (CHARSIZE - CATCHTOLERANCE),
                         thiefPosArr,
@@ -75,7 +75,7 @@ function Interactions()
 
     function gotMoney()
     {
-        if (calculator.reached(thiefPosArr, CHARSIZE, moneyPos, ITEMSIZE)) {
+        if (calc.reached(thiefPosArr, CHARSIZE, moneyPos, ITEMSIZE)) {
             game.scorePoints();
             time = time + BONUSTIME;
             display.flash(Time);
@@ -85,7 +85,7 @@ function Interactions()
 
     function gotClock()
     {
-        if (calculator.reached(thiefPosArr, CHARSIZE, clockPos, ITEMSIZE)) {
+        if (calc.reached(thiefPosArr, CHARSIZE, clockPos, ITEMSIZE)) {
             game.scorePoints();
             time = time + 10;
             Clock.hide();
@@ -96,7 +96,7 @@ function Interactions()
 
     function gotMolotov()
     {
-        if (calculator.reached(thiefPosArr, CHARSIZE, molotovPos, ITEMSIZE)) {
+        if (calc.reached(thiefPosArr, CHARSIZE, molotovPos, ITEMSIZE)) {
             //$.ionSound.play("heehee");
             molotovTime = MOLOTOVPAUSE;
             game.scorePoints();
@@ -107,7 +107,7 @@ function Interactions()
 
     function gotBomb()
     {
-        if (calculator.reached(thiefPosArr, CHARSIZE, bombPos, ITEMSIZE)) {
+        if (calc.reached(thiefPosArr, CHARSIZE, bombPos, ITEMSIZE)) {
             display.hideBomb();
             game.scorePoints();
             display.flashOfficers();

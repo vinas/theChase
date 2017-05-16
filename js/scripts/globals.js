@@ -3,7 +3,7 @@ var setup,
     eventHandlers,
     movement,
     interactions,
-    calculator,
+    calc,
     display,
     resizer;
 

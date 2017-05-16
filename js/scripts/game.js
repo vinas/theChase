@@ -74,7 +74,7 @@ function Game()
                 }
                 display.displayClock();
                 handleMolotov();
-                calculator.sortBomb();
+                calc.sortBomb();
                 Time.html(time);
                 time = time - 1;
             } else {
@@ -86,7 +86,12 @@ function Game()
 
     function handleMolotov()
     {
-        calculator.sortMolotov();
+        if (calc.sortMolotov())
+            if (!isMolotovVisible) {
+                display.displayMolotov();
+            } else {
+                display.hideMolotov();
+            }
         if (molotovTime > 0)
             display.handleMolotovCounter();
         if (molotovTime == 0)
