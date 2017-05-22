@@ -35,20 +35,23 @@ function Interactions()
     function checkGotBusted()
     {
         if (
-            (calc.reached(
-                    officerPosArr[0],
-                    (CHARSIZE - CATCHTOLERANCE),
-                    thiefPosArr,
-                    (CHARSIZE - CATCHTOLERANCE)
-                )
-            )
-            || (
-                (currLevel >= TWOPOLICEMENLEVEL)
-                && (calc.reached(
-                        officerPosArr[1],
+            (molotovTime <= 0)
+            && (
+                (calc.reached(
+                        officerPosArr[0],
                         (CHARSIZE - CATCHTOLERANCE),
                         thiefPosArr,
                         (CHARSIZE - CATCHTOLERANCE)
+                    )
+                )
+                || (
+                    (calc.isTwoPolicemenLevel())
+                    && (calc.reached(
+                            officerPosArr[1],
+                            (CHARSIZE - CATCHTOLERANCE),
+                            thiefPosArr,
+                            (CHARSIZE - CATCHTOLERANCE)
+                        )
                     )
                 )
             )
@@ -79,7 +82,7 @@ function Interactions()
             game.scorePoints();
             time = time + BONUSTIME;
             display.flash(Time);
-            display.displayMoney();
+            display.money();
         }
     }
 
@@ -90,7 +93,7 @@ function Interactions()
             time = time + 10;
             Clock.hide();
             isClockVisible = false;
-            display.feedBackClock();
+            display.clockFeedback();
         }
     }
 
@@ -120,7 +123,7 @@ function Interactions()
                     display.hideOfficer2();
             }
             CurrLevel.html(currLevel);
-            display.feedBackBomb();
+            display.bombFeedback();
         }
     }
 

@@ -39,38 +39,125 @@ function Display()
             'background_v2.jpg'
         );
 
-    this.flashOfficers = flashOfficers;
-    this.flash = flash;
-    this.feedBackBomb = feedBackBomb;
-    this.feedBackClock = feedBackClock;
-    this.displayMoney = displayMoney;
-    this.displayGameInfo = displayGameInfo;
-    this.displayClock = displayClock;
-    this.timeUp = timeUp;
+    this.bomb = bomb;
+    this.bombFeedback = bombFeedback;
+    this.burnDaPolice = burnDaPolice;
     this.busted = busted;
+    this.clock = clock;
+    this.clockFeedback = clockFeedback;
+    this.gameInfo = gameInfo;
+    this.flash = flash;
+    this.flashOfficers = flashOfficers;
+
+    this.molotovCounter = molotovCounter;
     this.hideInGameElements = hideInGameElements;
+    this.hideMolotov = hideMolotov;
+    this.hideBomb = hideBomb;
+    this.hideOfficer2 = hideOfficer2;
+
+    this.money = money;
+    this.molotov = molotov;
+    this.timeUp = timeUp;
     this.showInGameElements = showInGameElements;
     this.hideGameValues = hideGameValues;
     this.loading = loading;
     this.startPressedTimmer = startPressedTimmer;
     this.show2ndPoliceman = show2ndPoliceman;
-    this.changeBackground = changeBackground;
+    this.setNewBackground = setNewBackground;
     this.mirrorObj = mirrorObj;
-    this.displayBomb = displayBomb;
-    this.hideBomb = hideBomb;
-    this.displayMolotov = displayMolotov;
     this.updatePointsDisplay = updatePointsDisplay;
     this.updateDificultyDisplay = updateDificultyDisplay;
     this.setThiefHorDirection = setThiefHorDirection;
-    this.burnDaPolice = burnDaPolice;
-    this.hideMolotov = hideMolotov;
-    this.handleMolotovCounter = handleMolotovCounter;
     this.restorePolicemen = restorePolicemen;
     this.relocateCharacters = relocateCharacters;
-    this.displayObjectOn = displayObjectOn;
-    this.hideOfficer2 = hideOfficer2;
+    this.objectAt = objectAt;
 
     return this;
+
+    function bomb()
+    {
+        bombPos = calc.randomCoords();
+        displayItem(Bomb, bombPos);
+        isBombVisible = true;
+    }
+
+    function bombFeedback()
+    {
+        showFeedBack(Officer1, Subtitle1, 'slow');
+        if (calc.isTwoPolicemenLevel()) {
+            showFeedBack(Officer2, Subtitle1, 'slow');
+        }
+    }
+
+    function burnDaPolice()
+    {
+        Officer1.attr('src', 'img/guarda_fogo_02.gif');
+        showFeedBack(Officer1, Subtitle1, "can't move");
+        if (calc.isTwoPolicemenLevel()) {
+            Officer2.attr('src', 'img/guarda_fogo_02.gif');
+            showFeedBack(Officer2, Subtitle2, "can't move");
+        }
+    }
+
+    function busted()
+    {
+        Busted.show();
+    }
+
+    function clock()
+    {
+        if ((time == DISPLAYCLOCKAT) && (!isClockVisible)) {
+            clockPos = calc.randomCoords();
+            displayItem(Clock, clockPos);
+            isClockVisible = true;
+        }
+    }
+
+    function clockFeedback()
+    {
+        showFeedBack(Thief, Subtitle3, 'time +10');
+    }
+
+    function gameInfo()
+    {
+        PointsCounter.html("0");
+        BackgroundImg.attr("src", "img/background_v2.jpg");
+        Officer1.attr("src", "img/guarda.gif");
+        Subtitle1.html('');
+        CurrLevel.html(currLevel);
+        Time.html(time);
+    }
+
+    function flash(obj, color) {
+        var flashCount = 0;
+        color = (!color) ? '#FFD61F' : color;
+
+        flashThis();
+
+        function flashThis()
+        {
+            obj.css('background-color', (flashCount % 2 == 0) ? color : '');
+            flashCount++;
+            if (flashCount < 6) 
+                setTimeout(function() {
+                    flashThis();
+                }, 100);
+        }
+    }
+
+    function flashOfficers()
+    {
+        flash(Officer1);
+        if (currLevel > TWOPOLICEMENLEVEL)
+            flash(Officer2);
+    }
+
+
+
+    function money() {
+        moneyPos = calc.randomCoords();
+        displayItem(Money, moneyPos);
+    }
 
     function hideOfficer2()
     {
@@ -79,7 +166,7 @@ function Display()
         Officer2.attr("src", "img/guarda.gif");
     }
 
-    function displayObjectOn(obj, posArr)
+    function objectAt(obj, posArr)
     {
         obj.css("left", posArr[0]);
         obj.css("top", posArr[1]);
@@ -87,25 +174,24 @@ function Display()
 
     function relocateCharacters()
     {
-        displayObjectOn(Thief, thiefPosArr);
-        displayObjectOn(Officer1, officerPosArr[0]);
-        displayObjectOn(Officer2, officerPosArr[1]);
+        objectAt(Thief, thiefPosArr);
+        objectAt(Officer1, officerPosArr[0]);
+        objectAt(Officer2, officerPosArr[1]);
     }
 
     function restorePolicemen()
     {
         Officer1.attr("src", "img/guarda.gif");
         Counter1.hide();
-        if (currLevel >= TWOPOLICEMENLEVEL) {
+        if (calc.isTwoPolicemenLevel()) {
             Officer2.attr("src", "img/guarda.gif");
             Counter2.hide();
         }
     }
 
-    function handleMolotovCounter()
+    function molotovCounter()
     {
-        molotovTime = molotovTime - 1;
-        displayObjectOn(
+        objectAt(
             Counter1,
             new Array(
                 (officerPosArr[0][0] - 5),
@@ -114,8 +200,8 @@ function Display()
         );
         Counter1.html(molotovTime);
         Counter1.show();
-        if (currLevel >= TWOPOLICEMENLEVEL) {
-            displayObjectOn(
+        if (calc.isTwoPolicemenLevel()) {
+            objectAt(
                 Counter2,
                 new Array(
                     (officerPosArr[1][0] - 5),
@@ -155,82 +241,6 @@ function Display()
     {
         PointsCounter.html(points);
         flash(PointsCounter);
-    }
-
-    function flashOfficers()
-    {
-        flash(Officer1);
-        if (currLevel > TWOPOLICEMENLEVEL)
-            flash(Officer2);
-    }
-
-    function flash(obj, color) {
-        var flashCount = 0;
-        color = (!color) ? '#FFD61F' : color;
-
-        flashThis();
-
-        function flashThis()
-        {
-            obj.css('background-color', (flashCount % 2 == 0) ? color : '');
-            flashCount++;
-            if (flashCount < 6) 
-                setTimeout(function() {
-                    flashThis();
-                }, 100);
-        }
-    }
-
-    function burnDaPolice()
-    {
-        Officer1.attr('src', 'img/guarda_fogo_02.gif');
-        showFeedBack(Officer1, Subtitle1, "can't move");
-        if (currLevel >= TWOPOLICEMENLEVEL) {
-            Officer2.attr('src', 'img/guarda_fogo_02.gif');
-            showFeedBack(Officer2, Subtitle2, "can't move");
-        }
-    }
-
-    function feedBackBomb()
-    {
-        showFeedBack(Officer1, Subtitle1, 'slow');
-        if (currLevel >= TWOPOLICEMENLEVEL) {
-            showFeedBack(Officer2, Subtitle1, 'slow');
-        }
-    }
-
-    function feedBackClock()
-    {
-        showFeedBack(Thief, Subtitle3, 'time +10');
-    }
-
-    function displayMoney() {
-        moneyPos = calc.randomCoords();
-        displayItem(Money, moneyPos);
-    }
-
-    function displayGameInfo()
-    {
-        PointsCounter.html("0");
-        BackgroundImg.attr("src", "img/background_v2.jpg");
-        Officer1.attr("src", "img/guarda.gif");
-        Subtitle1.html('');
-        CurrLevel.html(currLevel);
-        Time.html(time);
-    }
-
-    function displayClock()
-    {
-        if ((time == DISPLAYCLOCKAT) && (!isClockVisible)) {
-            clockPos = calc.randomCoords();
-            displayItem(Clock, clockPos);
-            isClockVisible = true;
-        }
-    }
-
-    function busted()
-    {
-        Busted.show();
     }
 
     function timeUp()
@@ -294,11 +304,11 @@ function Display()
             police.attr('src', 'img/guarda_fogo_02.gif')
         }
         calc.officer2StartPos();
-        displayObjectOn(Officer2, officerPosArr[1]);
+        objectAt(Officer2, officerPosArr[1]);
         police.show();
     }
 
-    function changeBackground()
+    function setNewBackground()
     {
         BackgroundImg.attr(
             "src",
@@ -316,20 +326,13 @@ function Display()
         objeto.css("filter", "fliph");
     }
 
-    function displayBomb()
-    {
-        bombPos = calc.randomCoords();
-        displayItem(Bomb, bombPos);
-        isBombVisible = true;
-    }
-
     function hideBomb()
     {
         Bomb.hide();
         isBombVisible = false;
     }
 
-    function displayMolotov()
+    function molotov()
     {
         molotovPos = calc.randomCoords();
         displayItem(Molotov, molotovPos);
@@ -384,7 +387,7 @@ function Display()
 
     function displayItem(obj, arrPosition)
     {
-        displayObjectOn(obj, arrPosition);
+        objectAt(obj, arrPosition);
         obj.show();
     }
 

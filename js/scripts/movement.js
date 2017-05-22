@@ -14,7 +14,7 @@ function Movement()
     {
         if (molotovTime <= 0) {
             moveOfficer(0);
-            if (currLevel >= TWOPOLICEMENLEVEL)
+            if (calc.isTwoPolicemenLevel())
                 moveOfficer(1);
         }
     }
@@ -28,7 +28,7 @@ function Movement()
                 thiefMoveRate,
                 direction
             );
-        display.displayObjectOn(Thief, thiefPosArr);
+        display.objectAt(Thief, thiefPosArr);
     }
 
     function moveOfficer(whichOfficer)
@@ -39,7 +39,7 @@ function Movement()
                 whichOfficer,
                 officer
             );
-        display.displayObjectOn(officer, officerPosArr[whichOfficer]);
+        display.objectAt(officer, officerPosArr[whichOfficer]);
     }
 
 }

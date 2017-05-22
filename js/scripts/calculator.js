@@ -2,6 +2,7 @@ function Calculator()
 {
     this.crossMultiply = crossMultiply;
     this.getObjectPosition = getObjectPosition;
+    this.isTwoPolicemenLevel = isTwoPolicemenLevel;
     this.messagePos = messagePos;
     this.nextOfficerPos = nextOfficerPos;
     this.nextThiefPosition = nextThiefPosition;
@@ -24,6 +25,11 @@ function Calculator()
                 obj.css("left").replace(new RegExp("px", 'g'), ""),
                 obj.css("top").replace(new RegExp("px", 'g'), "")
             );
+    }
+
+    function isTwoPolicemenLevel()
+    {
+        return (currLevel >= TWOPOLICEMENLEVEL);
     }
 
     function messagePos(objPosArr)
@@ -118,8 +124,8 @@ function Calculator()
 
     function sortBomb()
     {
-        if ((currLevel > 1) && (!isBombVisible) && (areChancesAmoung(5))) {
-            display.displayBomb();
+        if ((currLevel > 1) && (!isBombVisible) && (areChancesAmoung(80))) {
+            display.bomb();
         } else if ((isBombVisible) && (areChancesAmoung(10))) {
             display.hideBomb();
         }

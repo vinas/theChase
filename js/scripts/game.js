@@ -38,8 +38,8 @@ function Game()
         display.hideInGameElements();
         display.relocateCharacters();
         display.showInGameElements();
-        display.displayMoney();
-        display.displayGameInfo();
+        display.money();
+        display.gameInfo();
         lastChangedLevel = 0; 
         gameOn = true;
     }
@@ -72,7 +72,7 @@ function Game()
                 if (time <= 3) {
                     display.flash(Time);
                 }
-                display.displayClock();
+                display.clock();
                 handleMolotov();
                 calc.sortBomb();
                 Time.html(time);
@@ -86,16 +86,21 @@ function Game()
 
     function handleMolotov()
     {
-        if (calc.sortMolotov())
+        if (calc.sortMolotov()) {
             if (!isMolotovVisible) {
-                display.displayMolotov();
-            } else {
-                display.hideMolotov();
+                display.molotov();
+                return ;
             }
-        if (molotovTime > 0)
-            display.handleMolotovCounter();
-        if (molotovTime == 0)
-            display.restorePolicemen();
+            display.hideMolotov();
+            return;
+        }
+        if (molotovTime > 1) {
+            molotovTime = molotovTime - 1;
+            display.molotovCounter();
+            return;
+        }
+        molotovTime = 0;
+        display.restorePolicemen();
     }
 
     function changeLevel()
@@ -106,7 +111,7 @@ function Game()
         if (currLevel == TWOPOLICEMENLEVEL)
             display.show2ndPoliceman();
         display.updateDificultyDisplay();
-        display.changeBackground();
+        display.setNewBackground();
         interactions.changePoliceMoveRate();
     }
 
