@@ -13,8 +13,8 @@ function Resizer()
 
     function calculateMeasurements()
     {
-        
-        MAPSIZE = document.getElementById(fundo).style.width.replace(new RegExp("px", 'g'), "");
+
+        MAPSIZE = $("#fundo").css("width").replace(new RegExp("px", 'g'), "");
         CROSSBORDERTOLERANCE = calc.crossMultiply(CROSSBORDERTOLERANCE, MAPSIZE);
         MINMOVINGRATE = calc.crossMultiply(MINMOVINGRATE, MAPSIZE);
         CATCHTOLERANCE = calc.crossMultiply(CATCHTOLERANCE, MAPSIZE);
