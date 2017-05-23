@@ -1,4 +1,3 @@
-
 function EventHandlers()
 {
     this.load = load;
@@ -16,7 +15,7 @@ function EventHandlers()
                 );
                 justOpened.val(0);
             } else {
-                display.startPressedTimmer($(this));
+                display.startPressedTimmer();
                 game.resetGame();
             }
         });

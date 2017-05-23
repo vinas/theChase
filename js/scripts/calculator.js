@@ -22,8 +22,8 @@ function Calculator()
     function getObjectPosition(obj)
     {
         return new Array(
-                obj.css("left").replace(new RegExp("px", 'g'), ""),
-                obj.css("top").replace(new RegExp("px", 'g'), "")
+                obj.style.left.replace(new RegExp("px", 'g'), ""),
+                obj.style.top.replace(new RegExp("px", 'g'), "")
             );
     }
 

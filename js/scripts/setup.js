@@ -47,25 +47,25 @@ function Setup()
         
         function setCharacters()
         {
-            Thief = $('#thief');
-            Officer1 = $('#officer1');
-            Officer2 = $('#officer2');
+            Thief = document.getElementById('thief');
+            Officer1 = document.getElementById('officer1');
+            Officer2 = document.getElementById('officer2');
         }
 
         function setGameItems()
         {
-            Molotov = $('#molotov');
-            Clock = $('#relogio');
-            Bomb = $('#bomba');
-            Counter1 = $('#contador');
-            Counter2 = $('#contador2');
+            Molotov = document.getElementById('molotov');
+            Clock = document.getElementById('relogio');
+            Bomb = document.getElementById('bomba');
+            Counter1 = document.getElementById('contador');
+            Counter2 = document.getElementById('contador2');
         }
 
         function setDisplayItems()
         {
-            BackgroundImg = $('#backgroundImage');
-            CurrLevel = $('#fase');
-            Time = $('#time');
+            BackgroundImg = document.getElementById('backgroundImage');
+            CurrLevel = document.getElementById('fase');
+            Time = document.getElementById('time');
         }
 
     }

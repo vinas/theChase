@@ -122,7 +122,7 @@ function Interactions()
                 if (currLevel < TWOPOLICEMENLEVEL)
                     display.hideOfficer2();
             }
-            CurrLevel.html(currLevel);
+            CurrLevel.innerHTML = currLevel;
             display.bombFeedback();
         }
     }

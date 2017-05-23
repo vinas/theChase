@@ -1,13 +1,13 @@
 function Display()
 {
-    var Money = $('#dinheiro'),
-        PointsCounter = $('#points'),
-        Subtitle1 = $('#actionSubtitle1'),
-        Subtitle2 =  $('#actionSubtitle2'),
-        Subtitle3 =  $('#actionSubtitle3'),
-        Busted = $('#busted'),
-        TimeUp = $('#timeUp');
- 
+    var Money = document.getElementById('dinheiro'),
+        PointsCounter = document.getElementById('points'),
+        Subtitle1 = document.getElementById('actionSubtitle1'),
+        Subtitle2 = document.getElementById('actionSubtitle2'),
+        Subtitle3 = document.getElementById('actionSubtitle3'),
+        Busted = document.getElementById('busted'),
+        TimeUp = document.getElementById('timeUp');
+
      var ImgsToPreload = new Array(
              'img/detalhes.gif',
              'img/start_over.png',
@@ -91,17 +91,17 @@ function Display()
 
     function burnDaPolice()
     {
-        Officer1.attr('src', 'img/guarda_fogo_02.gif');
+        Officer1.setAttribute('src', 'img/guarda_fogo_02.gif');
         showFeedBack(Officer1, Subtitle1, "can't move");
         if (calc.isTwoPolicemenLevel()) {
-            Officer2.attr('src', 'img/guarda_fogo_02.gif');
+            Officer2.setAttribute('src', 'img/guarda_fogo_02.gif');
             showFeedBack(Officer2, Subtitle2, "can't move");
         }
     }
 
     function busted()
     {
-        Busted.show();
+        Busted.style.display = 'block';
     }
 
     function clock()
@@ -120,12 +120,12 @@ function Display()
 
     function gameInfo()
     {
-        PointsCounter.html("0");
-        BackgroundImg.attr("src", "img/background_v2.jpg");
-        Officer1.attr("src", "img/guarda.gif");
-        Subtitle1.html('');
-        CurrLevel.html(currLevel);
-        Time.html(time);
+        PointsCounter.innerHTML = '0';
+        BackgroundImg.setAttribute('src', 'img/background_v2.jpg');
+        Officer1.setAttribute('src', 'img/guarda.gif');
+        Subtitle1.innerHTML = '';
+        CurrLevel.innerHTML = currLevel;
+        Time.innerHTML = time;
     }
 
     function flash(obj, color) {
@@ -136,7 +136,7 @@ function Display()
 
         function flashThis()
         {
-            obj.css('background-color', (flashCount % 2 == 0) ? color : '');
+            obj.style.backgroundColor = (flashCount % 2 == 0) ? color : '';
             flashCount++;
             if (flashCount < 6) 
                 setTimeout(function() {
@@ -161,15 +161,15 @@ function Display()
 
     function hideOfficer2()
     {
-        Counter2.hide();
-        Officer2.hide();
-        Officer2.attr("src", "img/guarda.gif");
+        Counter2.style.display = 'none';
+        Officer2.style.display = 'none';
+        Officer2.setAttribute("src", "img/guarda.gif");
     }
 
     function objectAt(obj, posArr)
     {
-        obj.css("left", posArr[0]);
-        obj.css("top", posArr[1]);
+        obj.style.left = posArr[0];
+        obj.style.top = posArr[1];
     }
 
     function relocateCharacters()
@@ -181,11 +181,11 @@ function Display()
 
     function restorePolicemen()
     {
-        Officer1.attr("src", "img/guarda.gif");
-        Counter1.hide();
+        Officer1.setAttribute("src", "img/guarda.gif");
+        Counter1.style.display = 'none';
         if (calc.isTwoPolicemenLevel()) {
-            Officer2.attr("src", "img/guarda.gif");
-            Counter2.hide();
+            Officer2.setAttribute("src", "img/guarda.gif");
+            Counter2.style.display = 'none';
         }
     }
 
@@ -198,8 +198,8 @@ function Display()
                 (officerPosArr[0][1] - 5)
             )
         );
-        Counter1.html(molotovTime);
-        Counter1.show();
+        Counter1.innerHTML = molotovTime;
+        Counter1.style.display = 'block';
         if (calc.isTwoPolicemenLevel()) {
             objectAt(
                 Counter2,
@@ -208,14 +208,14 @@ function Display()
                     (officerPosArr[1][1] - 5)
                 )
             );
-            Counter2.html(molotovTime);
-            Counter2.show();
+            Counter2.innerHTML = molotovTime;
+            Counter2.style.display = 'block';
         }
     }
 
     function hideMolotov()
     {
-        Molotov.hide();
+        Molotov.style.display = 'none';
         isMolotovVisible = false;
     }
 
@@ -233,54 +233,54 @@ function Display()
 
     function updateDificultyDisplay()
     {
-        CurrLevel.html(currLevel);
+        CurrLevel.innerHTML = currLevel;
         flash(CurrLevel);
     }
 
     function updatePointsDisplay()
     {
-        PointsCounter.html(points);
+        PointsCounter.innerHTML = points;
         flash(PointsCounter);
     }
 
     function timeUp()
     {
-        TimeUp.show();
+        TimeUp.style.display = 'block';
     }
 
     function hideInGameElements()
     {
         $("#instructionsBar").hide();
         $("#presentation").hide();
-        Clock.hide();
-        Molotov.hide();
-        Bomb.hide();
-        Counter1.hide();
-        Counter2.hide();
-        Busted.hide();
-        TimeUp.hide();
-        Officer2.hide();
+        Clock.style.display = 'none';
+        Molotov.style.display = 'none';
+        Bomb.style.display = 'none';
+        Counter1.style.display = 'none';
+        Counter2.style.display = 'none';
+        Busted.style.display = 'none';
+        TimeUp.style.display = 'none';
+        Officer2.style.display = 'none';
     }
 
     function showInGameElements()
     {
         $(".backgroundTap").show();
-        Thief.show();
-        Officer1.show();
-        Money.show();
+        Thief.style.display = 'block';
+        Officer1.style.display = 'block';
+        Money.style.display = 'block';
         $("#scoreBar").show();
     }
 
     function hideGameValues()
     {
         $(".backgroundTap").hide();
-        Thief.hide();
-        Officer1.hide();
-        Officer2.hide();
-        Money.hide();
-        Clock.hide();
-        Molotov.hide();
-        Bomb.hide();
+        Thief.style.display = 'none';
+        Officer1.style.display = 'none';
+        Officer2.style.display = 'none';
+        Money.style.display = 'none';
+        Clock.style.display = 'none';
+        Molotov.style.display = 'none';
+        Bomb.style.display = 'none';
     }
 
     function loading() {
@@ -289,11 +289,12 @@ function Display()
         $("#resetGame").show();
     }
 
-    function startPressedTimmer(button)
+    function startPressedTimmer()
     {
-        button.attr('src', 'img/start_over.png');
+        var button = document.getElementById('resetGame');
+        button.setAttribute('src', 'img/start_over.png');
         setTimeout(function() {
-           button.attr('src', 'img/start.png');
+           button.setAttribute('src', 'img/start.png');
         }, 300);
     }
 
@@ -301,16 +302,16 @@ function Display()
     {
         police = Officer2;
         if (molotovTime > 0) {
-            police.attr('src', 'img/guarda_fogo_02.gif')
+            police.setAttribute('src', 'img/guarda_fogo_02.gif')
         }
         calc.officer2StartPos();
         objectAt(Officer2, officerPosArr[1]);
-        police.show();
+        police.style.display = 'block';
     }
 
     function setNewBackground()
     {
-        BackgroundImg.attr(
+        BackgroundImg.setAttribute(
             "src",
             "img/"+sortBackground()
         );
@@ -318,17 +319,17 @@ function Display()
 
     function mirrorObj(objeto, escala)
     {
-        objeto.css("-moz-transform", "scaleX("+escala+")");
-        objeto.css("-webkit-transform", "scaleX("+escala+")");
-        objeto.css("-o-transform", "scaleX("+escala+")");
-        objeto.css("transform", "scaleX("+escala+")");
-        objeto.css("-ms-filter", "fliph");
-        objeto.css("filter", "fliph");
+        objeto.style.MozTransform = "scaleX("+escala+")";
+        objeto.style.webkitTransform = "scaleX("+escala+")";
+        objeto.style.OTransform = "scaleX("+escala+")";
+        objeto.style.transform = "scaleX("+escala+")";
+        objeto.style.msFilter = "fliph";
+        objeto.style.filter = "fliph";
     }
 
     function hideBomb()
     {
-        Bomb.hide();
+        Bomb.style.display = 'none';
         isBombVisible = false;
     }
 
@@ -344,7 +345,7 @@ function Display()
     function sortBackground()
     {
         var rand = Math.floor(Math.random() * backgrounds.length);
-        while (BackgroundImg.attr("src") == "url(img/"+backgrounds[rand]+")") {
+        while (BackgroundImg.getAttribute("src") == "url(img/"+backgrounds[rand]+")") {
             rand = Math.floor(Math.random() * backgrounds.length);
         }
         return backgrounds[rand];
@@ -363,7 +364,7 @@ function Display()
         {
             positionSubtitle();
             interval = (counter % 2 == 0) ? 800 : 300; 
-            subtitleObj.html((counter % 2 == 0) ? message : '');
+            subtitleObj.innerHTML = (counter % 2 == 0) ? message : '';
             counter++;
             if (counter < 6)
                 setTimeout(function() {
@@ -375,7 +376,7 @@ function Display()
         {
             objectPosition = calc.getObjectPosition(refObj);
             messagePosition = calc.messagePos(objectPosition);
-            subtitleObj.offset({ top: messagePosition[1], left: messagePosition[0]});
+            objectAt(subtitleObj, messagePosition);
         }
     }
 
@@ -388,7 +389,7 @@ function Display()
     function displayItem(obj, arrPosition)
     {
         objectAt(obj, arrPosition);
-        obj.show();
+        obj.style.display = 'block';
     }
 
 }

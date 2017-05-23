@@ -135,8 +135,8 @@ function Resizer()
     function resizeGamePlayElements()
     {
         $("#fundo").css("height", MAPSIZE);
-        BackgroundImg.attr("width", MAPSIZE+"px");
-        BackgroundImg.attr("height", MAPSIZE+"px");
+        BackgroundImg.style.width = MAPSIZE+"px";
+        BackgroundImg.style.height = MAPSIZE+"px";
         $(".personagem").css("width", CHARSIZE+"px");
         $(".personagem").css("height", CHARSIZE+"px");
         $(".item").css("width", ITEMSIZE+"px");

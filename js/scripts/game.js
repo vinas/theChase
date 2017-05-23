@@ -75,7 +75,7 @@ function Game()
                 display.clock();
                 handleMolotov();
                 calc.sortBomb();
-                Time.html(time);
+                Time.innerHTML = time;
                 time = time - 1;
             } else {
                 endGame("timeUp");

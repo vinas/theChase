@@ -6,7 +6,7 @@ $(document).on("keydown", function(e) {
     pressedKey = e.which;
 });
 
-$(document).on("ready", function() {
+document.addEventListener("DOMContentLoaded", function(event) {
 
     setup = Setup();
     eventHandlers = EventHandlers();
@@ -18,5 +18,4 @@ $(document).on("ready", function() {
     game = Game();
 
     game.init();
-
 });
