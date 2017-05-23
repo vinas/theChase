@@ -55,7 +55,7 @@ body {
 	height: 25;
 }
 
-.barraInfo {
+#barraInfo {
 	background-color: #575757;
 	position: absolute;
 	float: left;
@@ -103,7 +103,7 @@ body {
 	display: none;
 }
 
-.busted {
+#busted {
 	position: absolute;
 	float: left;
 	color: #FFFFFF;
@@ -114,7 +114,7 @@ body {
 	height: 500px;
 }
 
-.timeUp {
+#timeUp {
 	position: absolute;
 	float: left;
 	color: #FFFFFF;
@@ -254,26 +254,26 @@ body {
 	margin-right: auto;
 }
 
-.setas {
+#setas {
 	float: left;
 	position: absolute;
 	padding-left: 8px;
 }
 
-.slideLabel {
+#slideLabel {
 	float: left;
 	position: absolute;
 	padding-left: 70px;
 	font-size: 18px;
 }
 
-.thiefInstruction {
+#thiefInstruction {
 	float: left;
 	position: absolute;
 	padding-left: 130px;
 }
 
-.collectLabel {
+#collectLabel {
 	float: left;
 	position: absolute;
 	padding-left: 270px;
@@ -293,7 +293,7 @@ body {
 	position: absolute;
 }
 
-.items {
+#items {
 	padding-top: 5px;
 }
 
@@ -301,7 +301,7 @@ body {
 	display: none;
 }
 
-.loginButton {
+#loginButton {
 	position: absolute;
 	float: left;
 	top: 407px;
@@ -343,7 +343,7 @@ body {
 	display: none;
 }
 
-.barLeft {
+#barLeft {
 	float: left;
 	padding-top: 10px;
 	position: absolute;

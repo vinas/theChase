@@ -124,7 +124,7 @@ function Calculator()
 
     function sortBomb()
     {
-        if ((currLevel > 1) && (!isBombVisible) && (areChancesAmoung(80))) {
+        if ((currLevel > 1) && (!isBombVisible) && (areChancesAmoung(5))) {
             display.bomb();
         } else if ((isBombVisible) && (areChancesAmoung(10))) {
             display.hideBomb();

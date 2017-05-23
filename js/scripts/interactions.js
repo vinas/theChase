@@ -1,3 +1,11 @@
+$(document).on("dblclick", function() {
+    return false;
+});
+
+$(document).on("keydown", function(e) {
+    pressedKey = e.which;
+});
+
 function Interactions()
 {
     this.checkGotItem = checkGotItem;

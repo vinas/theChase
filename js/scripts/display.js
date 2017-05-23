@@ -250,8 +250,8 @@ function Display()
 
     function hideInGameElements()
     {
-        $("#instructionsBar").hide();
-        $("#presentation").hide();
+        document.getElementById('instructionsBar').style.display = 'none';
+        document.getElementById('presentation').style.display = 'none';
         Clock.style.display = 'none';
         Molotov.style.display = 'none';
         Bomb.style.display = 'none';
@@ -264,16 +264,14 @@ function Display()
 
     function showInGameElements()
     {
-        $(".backgroundTap").show();
+        document.getElementById('scoreBar').style.display = 'block';
         Thief.style.display = 'block';
         Officer1.style.display = 'block';
         Money.style.display = 'block';
-        $("#scoreBar").show();
     }
 
     function hideGameValues()
     {
-        $(".backgroundTap").hide();
         Thief.style.display = 'none';
         Officer1.style.display = 'none';
         Officer2.style.display = 'none';
@@ -285,8 +283,8 @@ function Display()
 
     function loading() {
         preloadImages(ImgsToPreload);
-        $("#loading").hide();
-        $("#resetGame").show();
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('resetGame').style.display = 'block';
     }
 
     function startPressedTimmer()

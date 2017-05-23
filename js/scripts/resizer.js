@@ -13,7 +13,8 @@ function Resizer()
 
     function calculateMeasurements()
     {
-        MAPSIZE = $("#fundo").css("width").replace(new RegExp("px", 'g'), "");
+        
+        MAPSIZE = document.getElementById(fundo).style.width.replace(new RegExp("px", 'g'), "");
         CROSSBORDERTOLERANCE = calc.crossMultiply(CROSSBORDERTOLERANCE, MAPSIZE);
         MINMOVINGRATE = calc.crossMultiply(MINMOVINGRATE, MAPSIZE);
         CATCHTOLERANCE = calc.crossMultiply(CATCHTOLERANCE, MAPSIZE);
@@ -46,43 +47,71 @@ function Resizer()
     {
         resizeGamePlayElements();
 
-        $(".presentation").css("height", MAPSIZE);
-        $("#presentationImage").attr("width", MAPSIZE+"px");
-        $("#presentationImage").attr("height", MAPSIZE+"px");
+        document.getElementById('presentation').style.height = MAPSIZE+'px';
+        document.getElementById('presentationImage').style.width = MAPSIZE+'px';
+        document.getElementById('presentationImage').style.height = MAPSIZE+'px';
 
-        $(".endGameImage").css("width", MAPSIZE+"px");
-        $(".endGameImage").css("height", MAPSIZE+"px");
+        document.getElementById('bustedEndGameImage').style.width = MAPSIZE+'px';
+        document.getElementById('bustedEndGameImage').style.height = MAPSIZE+'px';
+        document.getElementById('timeUpEndGameImage').style.width = MAPSIZE+'px';
+        document.getElementById('timeUpEndGameImage').style.height = MAPSIZE+'px';
 
-        $(".setas").attr("width", calc.crossMultiply(48, MAPSIZE)+"px");
-        $(".setas").attr("height", calc.crossMultiply(70, MAPSIZE)+"px");
-        $(".setas").attr("padding-left", calc.crossMultiply(8, MAPSIZE)+"px");
+        document.getElementById('setas').style.width = calc.crossMultiply(48, MAPSIZE)+'px';
+        document.getElementById('setas').style.height = calc.crossMultiply(70, MAPSIZE)+'px';
+        document.getElementById('setas').style.paddingLeft = calc.crossMultiply(8, MAPSIZE)+'px';
 
-        $(".thiefInstruction").attr("width", calc.crossMultiply(99, MAPSIZE)+"px");
-        $(".thiefInstruction").attr("height", calc.crossMultiply(86, MAPSIZE)+"px");
+        document.getElementById('thiefInstruction').style.width = calc.crossMultiply(99, MAPSIZE)+'px';
+        document.getElementById('thiefInstruction').style.height = calc.crossMultiply(86, MAPSIZE)+'px';
+        document.getElementById('thiefInstruction').style.paddingLeft = calc.crossMultiply(130, MAPSIZE)+'px';
+
+        document.getElementById('timeBox').style.paddingLeft = calc.crossMultiply(10, MAPSIZE)+'px';
+        document.getElementById('scoreBox').style.paddingLeft = calc.crossMultiply(120, MAPSIZE)+'px';
+        document.getElementById('dificultyBox').style.paddingLeft = calc.crossMultiply(240, MAPSIZE)+'px';
+        document.getElementById('dificultyBox').style.width = calc.crossMultiply(95, MAPSIZE)+'px';
+
+        document.getElementById('barraInfo').style.width = MAPSIZE+'px';
+        document.getElementById('barraInfo').style.height = calc.crossMultiply(100, MAPSIZE)+'px';
+        document.getElementById('barraInfo').style.top = MAPSIZE+'px';
+        document.getElementById('barraInfo').style.borderBottomWidth = calc.crossMultiply(5, MAPSIZE)+'px';
+        document.getElementById('barraInfo').style.paddingTop = calc.crossMultiply(5, MAPSIZE)+'px';
+        document.getElementById('barraInfo').style.paddingBottom = calc.crossMultiply(5, MAPSIZE)+'px';
+
+        document.getElementById('busted').style.width = MAPSIZE+'px';
+        document.getElementById('busted').style.height = MAPSIZE+'px';
+        document.getElementById('timeUp').style.width = MAPSIZE+'px';
+        document.getElementById('timeUp').style.height = MAPSIZE+'px';
+
+        document.getElementById('slideLabel').style.fontSize = calc.crossMultiply(18, MAPSIZE)+'px';
+        document.getElementById('slideLabel').style.paddingLeft = calc.crossMultiply(70, MAPSIZE)+'px';
+
+        document.getElementById('collectLabel').style.paddingLeft = calc.crossMultiply(250, MAPSIZE)+'px';
+        document.getElementById('collectLabel').style.fontSize = calc.crossMultiply(18, MAPSIZE)+'px';
+        document.getElementById('collectLabel').style.width = calc.crossMultiply(115, MAPSIZE)+'px';
+
+        document.getElementById('items').style.paddingTop = calc.crossMultiply(5, MAPSIZE)+'px';
+
+        document.getElementById('loginButton').style.top = calc.crossMultiply(407, MAPSIZE)+'px';
+        document.getElementById('loginButton').style.left = calc.crossMultiply(63, MAPSIZE)+'px';
+        document.getElementById('loginButton').style.width = calc.crossMultiply(180, MAPSIZE)+'px';
+        document.getElementById('loginButton').style.height = calc.crossMultiply(55, MAPSIZE)+'px';
+        document.getElementById('loginButton').style.fontSize = calc.crossMultiply(18, MAPSIZE)+'px';
+
+        document.getElementById('loginStatus').style.left = calc.crossMultiply(73, MAPSIZE)+'px';
+        document.getElementById('loginStatus').style.top = calc.crossMultiply(359, MAPSIZE)+'px';
+        document.getElementById('loginStatus').style.fontSize = calc.crossMultiply(20, MAPSIZE)+'px';
+
+        document.getElementById('barLeft').style.fontSize = calc.crossMultiply(10, MAPSIZE)+'px';
 
         $(".barItem").attr("width", calc.crossMultiply(25, MAPSIZE)+"px");
         $(".barItem").attr("height", calc.crossMultiply(25, MAPSIZE)+"px");
         $(".barItem").css("padding-right", calc.crossMultiply(14, MAPSIZE)+"px");
         $(".barItem").css("padding-top", calc.crossMultiply(10, MAPSIZE)+"px");
-        
-        $("#timeBox").css("padding-left", calc.crossMultiply(10, MAPSIZE)+"px");
-        $("#scoreBox").css("padding-left", calc.crossMultiply(120, MAPSIZE)+"px");
-        $("#dificultyBox").css("padding-left", calc.crossMultiply(240, MAPSIZE)+"px");
-        $("#dificultyBox").css("width", calc.crossMultiply(95, MAPSIZE)+"px");
 
         $(".actionButton").attr("width", calc.crossMultiply(100, MAPSIZE)+"px");
         $(".actionButton").attr("height", calc.crossMultiply(100, MAPSIZE)+"px");
 
-        $(".barraInfo").css("top", MAPSIZE);
-        $(".barraInfo").css("width", MAPSIZE);
-        $(".barraInfo").css("height", calc.crossMultiply(100, MAPSIZE)+"px");
-        $(".barraInfo").css("border-bottom-width", calc.crossMultiply(5, MAPSIZE)+"px");
-        $(".barraInfo").css("padding-top", calc.crossMultiply(5, MAPSIZE)+"px");
-        $(".barraInfo").css("padding-bottom", calc.crossMultiply(5, MAPSIZE)+"px");
-
         $(".mostrador").css("font-size", calc.crossMultiply(32, MAPSIZE)+"px");
         $(".mostrador").css("padding-top", calc.crossMultiply(8, MAPSIZE)+"px");
-
         $(".tituloMostrador").css("font-size", calc.crossMultiply(17, MAPSIZE)+"px");
 
         $(".action").css("font-size", calc.crossMultiply(14, MAPSIZE)+"px");
@@ -91,36 +120,6 @@ function Resizer()
         $(".action").css("max-width", calc.crossMultiply(90, MAPSIZE)+"px");
 
         $(".contador").css("font-size", calc.crossMultiply(14, MAPSIZE)+"px");
-        
-        $(".busted").css("width", MAPSIZE+"px");
-        $(".busted").css("height", MAPSIZE+"px");
-        $(".timeUp").css("width", MAPSIZE+"px");
-        $(".timeUp").css("height", MAPSIZE+"px");
-
-        $(".userName").css("padding-left", calc.crossMultiply(10, MAPSIZE)+"px");
-        $(".userName").css("padding-top", calc.crossMultiply(15, MAPSIZE)+"px");
-        $(".userName").css("font-size", calc.crossMultiply(19, MAPSIZE)+"px");
-
-        $(".slideLabel").css("font-size", calc.crossMultiply(18, MAPSIZE)+"px");
-        $(".slideLabel").css("padding-left", calc.crossMultiply(70, MAPSIZE)+"px");
-
-        $(".thiefInstruction").css("padding-left", calc.crossMultiply(130, MAPSIZE)+"px");
-
-        $(".collectLabel").css("padding-left", calc.crossMultiply(250, MAPSIZE)+"px");
-        $(".collectLabel").css("font-size", calc.crossMultiply(18, MAPSIZE)+"px");
-        $(".collectLabel").css("width", calc.crossMultiply(115, MAPSIZE)+"px");
-
-        $(".items").css("padding-top", calc.crossMultiply(5, MAPSIZE)+"px");
-
-        $(".loginButton").css("top", calc.crossMultiply(407, MAPSIZE)+"px");
-        $(".loginButton").css("left", calc.crossMultiply(63, MAPSIZE)+"px");
-        $(".loginButton").css("width", calc.crossMultiply(180, MAPSIZE)+"px");
-        $(".loginButton").css("height", calc.crossMultiply(55, MAPSIZE)+"px");
-        $(".loginButton").css("font-size", calc.crossMultiply(18, MAPSIZE)+"px");
-
-        $("#loginStatus").css("left", calc.crossMultiply(73, MAPSIZE)+"px");
-        $("#loginStatus").css("top", calc.crossMultiply(359, MAPSIZE)+"px");
-        $("#loginStatus").css("font-size", calc.crossMultiply(20, MAPSIZE)+"px");
 
         $(".buttonWeeklyRanking").css("left", calc.crossMultiply(252, MAPSIZE)+"px");
         $(".buttonWeeklyRanking").css("top", calc.crossMultiply(404, MAPSIZE)+"px");
@@ -128,8 +127,6 @@ function Resizer()
         $(".buttonWeeklyRanking").css("height", calc.crossMultiply(49, MAPSIZE)+"px");
         $(".buttonWeeklyRanking").css("font-size", calc.crossMultiply(16, MAPSIZE)+"px");
         $(".buttonWeeklyRanking").css("padding-top", calc.crossMultiply(7, MAPSIZE)+"px");
-
-        $(".barLeft").css("padding-top", calc.crossMultiply(10, MAPSIZE)+"px");
     }
 
     function resizeGamePlayElements()
