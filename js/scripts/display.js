@@ -41,7 +41,6 @@ function Display()
 
     this.bomb = bomb;
     this.bombFeedback = bombFeedback;
-    this.burnDaPolice = burnDaPolice;
     this.busted = busted;
     this.clock = clock;
     this.clockFeedback = clockFeedback;
@@ -57,6 +56,7 @@ function Display()
 
     this.money = money;
     this.molotov = molotov;
+    this.molotovFeedBack = molotovFeedBack;
     this.timeUp = timeUp;
     this.showInGameElements = showInGameElements;
     this.hideGameValues = hideGameValues;
@@ -87,16 +87,6 @@ function Display()
         showFeedBack(Officer1, Subtitle1, 'slow');
         if (calc.isTwoPolicemenLevel()) {
             showFeedBack(Officer2, Subtitle1, 'slow');
-        }
-    }
-
-    function burnDaPolice()
-    {
-        Officer1.setAttribute('src', 'img/guarda_fogo_02.gif');
-        showFeedBack(Officer1, Subtitle1, "can't move");
-        if (calc.isTwoPolicemenLevel()) {
-            Officer2.setAttribute('src', 'img/guarda_fogo_02.gif');
-            showFeedBack(Officer2, Subtitle2, "can't move");
         }
     }
 
@@ -253,6 +243,16 @@ function Display()
         TimeUp.style.display = 'block';
     }
 
+    function burnDaPolice()
+    {
+        Officer1.setAttribute('src', 'img/guarda_fogo_02.gif');
+        showFeedBack(Officer1, Subtitle1, "can't move");
+        if (calc.isTwoPolicemenLevel()) {
+            Officer2.setAttribute('src', 'img/guarda_fogo_02.gif');
+            showFeedBack(Officer2, Subtitle2, "can't move");
+        }
+    }
+
     function hideInGameElements()
     {
         document.getElementById('instructionsBar').style.display = 'none';
@@ -343,7 +343,63 @@ function Display()
         isMolotovVisible = true;
     }
 
+    function molotovFeedBack()
+    {
+        //$.ionSound.play("heehee");
+        molotovTime = MOLOTOVPAUSE;
+        game.scorePoints();
+        hideMolotov();
+        throwMolotov(officerPosArr[0]);
+    }
 
+
+    function throwMolotov(targetPos)
+    {
+        var deltaX = targetPos[0] - molotovPos[0],
+            deltaY = targetPos[1] - molotovPos[1],
+            shooterPosX = molotovPos[0],
+            shooterPosY = molotovPos[1],
+            inclination = (deltaX != 0) ? (deltaY/deltaX).toFixed(4) : 0,
+            //variationRate = carlosFormula(standardSpeed, inclination);
+            variationRate = carlosFormula(40, inclination);
+
+        moveMolotov();
+
+        function moveMolotov()
+        {
+            if ((!reached(molotovPos, ITEMSIZE, targetPos, CHARSIZE)) && (!isNaN(variationRate))) {
+                setNewMolotovPos();
+                displayItem(Molotov, molotovPos)
+                setTimeout(function() {
+                    moveMolotov();
+                }, 10);
+                return;
+            } 
+            hideMolotov();
+            burnDaPolice();
+
+        }
+
+        function carlosFormula(standardSpeed, inclination)
+        {
+            return Math.sqrt(standardSpeed / (parseFloat(Math.pow(inclination,2)+1)));
+        }        
+
+        function setNewMolotovPos()
+        {
+            if (molotovPos[0] != targetPos[0]) {
+                molotovPos[0] = setBulletNewCoord(molotovPos[0], targetPos[0], variationRate);
+                molotovPos[1] = Math.round(inclination * (molotovPos[0] - shooterPosX) + shooterPosY);
+                return;
+            }
+            molotovPos[1] = setBulletNewCoord(molotovPos[1], targetPos[1], variationRate);
+        }
+
+        function setBulletNewCoord(sourceCoord, destCoord)
+        {
+            return (sourceCoord < destCoord) ? sourceCoord + variationRate : sourceCoord - variationRate;
+        }
+    }
 
     function sortBackground()
     {

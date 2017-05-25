@@ -99,11 +99,7 @@ function Interactions()
     function gotMolotov()
     {
         if (calc.reached(thiefPosArr, CHARSIZE, molotovPos, ITEMSIZE)) {
-            //$.ionSound.play("heehee");
-            molotovTime = MOLOTOVPAUSE;
-            game.scorePoints();
-            display.hideMolotov();
-            display.burnDaPolice();
+            display.molotovFeedBack();
         }
     }
 
