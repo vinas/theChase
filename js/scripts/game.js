@@ -1,7 +1,6 @@
 function Game()
 {
     var gameOn = false;
-    var lastChangedLevel = 0;
 
     this.endGame = endGame;
     this.loading = loading;
@@ -21,11 +20,11 @@ function Game()
         gameClock();
     }
 
-    function endGame(motivo) {
+    function endGame(reason) {
         gameOn = false;
-        if (motivo == "busted") {
+        if (reason == "busted") {
             display.busted();
-        } else if (motivo == "timeUp") {
+        } else if (reason == "timeUp") {
             display.timeUp();
         }
         display.hideGameValues();
@@ -40,17 +39,13 @@ function Game()
         display.showInGameElements();
         display.money();
         display.gameInfo();
-        lastChangedLevel = 0; 
         gameOn = true;
     }
 
     function scorePoints() {
         points = points + POINTUNITY;
         display.updatePointsDisplay();
-        if ((points != 0) && (points >= (lastChangedLevel + PTSTOCHANGELEVEL))) {
-            lastChangedLevel = points;
-            changeLevel();
-        }
+        handleLevelChange();
     }
 
     /**** PRIVATE METHODS ****/
@@ -72,9 +67,9 @@ function Game()
                 if (time <= 3) {
                     display.flash(Time);
                 }
-                display.clock();
+                handleClockDisplay();
                 handleMolotov();
-                calc.sortBomb();
+                handleBomb();
                 Time.innerHTML = time;
                 time = time - 1;
             } else {
@@ -82,6 +77,13 @@ function Game()
             }
         }
         setTimeout(gameClock, 1000);
+    }
+
+    function handleClockDisplay()
+    {
+        if ((time == DISPLAYCLOCKAT) && (!isClockVisible)) {
+            display.clock();
+        }
     }
 
     function handleMolotov()
@@ -103,16 +105,26 @@ function Game()
         display.restorePolicemen();
     }
 
-    function changeLevel()
+    function handleBomb()
     {
-        currLevel = currLevel + 1;
-        if (currLevel < 1)
-            currLevel = 1;
-        if (currLevel == TWOPOLICEMENLEVEL)
-            display.show2ndPoliceman();
-        display.updateDificultyDisplay();
-        display.setNewBackground();
-        interactions.changePoliceMoveRate();
+        if (currLevel > 1) {
+            var action = calc.sortBomb();
+            if (action)
+                display[action]();
+        }
+    }
+
+    function handleLevelChange()
+    {
+        if (calc.isLevelChange()) {
+            lastChangedLevel = points;
+            currLevel = currLevel + 1;
+            if (currLevel == TWOPOLICEMENLEVEL)
+                display.show2ndPoliceman();
+            display.updateDificultyDisplay();
+            display.setNewBackground();
+            interactions.changePoliceMoveRate();
+        }
     }
 
 }

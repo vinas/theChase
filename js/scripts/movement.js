@@ -33,13 +33,8 @@ function Movement()
 
     function moveOfficer(whichOfficer)
     {
-        var officer;
-        officer = (whichOfficer == 0) ? Officer1 : Officer2;
-        calc.nextOfficerPos(
-                whichOfficer,
-                officer
-            );
-        display.objectAt(officer, officerPosArr[whichOfficer]);
+        calc.nextOfficerPos(whichOfficer);
+        display.objectAt((whichOfficer == 0) ? Officer1 : Officer2, officerPosArr[whichOfficer]);
     }
 
 }

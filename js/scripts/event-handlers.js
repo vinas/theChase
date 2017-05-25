@@ -6,6 +6,14 @@ function EventHandlers()
 
     function load()
     {
+        $(document).on("dblclick", function() {
+            return false;
+        });
+
+        $(document).on("keydown", function(e) {
+            pressedKey = e.which;
+        });
+
         $("#resetGame").on("tap", function() {
             justOpened = $("#justOpened");
             if (justOpened.val() == 1) {

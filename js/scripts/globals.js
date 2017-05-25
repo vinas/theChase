@@ -55,7 +55,8 @@ var pressedKey,
     officerMoveRate = new Array(0, 0),
     currLevel,
     time,
-    molotovTime;
+    molotovTime,
+    lastChangedLevel;
 
 // Game elements' position arrays
 var officerPosArr = new Array(new Array(0, 0), new Array(0, 0)),

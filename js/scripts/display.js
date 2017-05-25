@@ -71,6 +71,7 @@ function Display()
     this.restorePolicemen = restorePolicemen;
     this.relocateCharacters = relocateCharacters;
     this.objectAt = objectAt;
+    this.hideClock = hideClock;
 
     return this;
 
@@ -106,11 +107,9 @@ function Display()
 
     function clock()
     {
-        if ((time == DISPLAYCLOCKAT) && (!isClockVisible)) {
-            clockPos = calc.randomCoords();
-            displayItem(Clock, clockPos);
-            isClockVisible = true;
-        }
+        clockPos = calc.randomCoords();
+        displayItem(Clock, clockPos);
+        isClockVisible = true;
     }
 
     function clockFeedback()
@@ -170,6 +169,12 @@ function Display()
     {
         obj.style.left = posArr[0];
         obj.style.top = posArr[1];
+    }
+
+    function hideClock()
+    {
+        Clock.style.display = 'none';
+        isClockVisible = false;
     }
 
     function relocateCharacters()

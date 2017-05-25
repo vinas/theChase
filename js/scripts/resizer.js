@@ -20,6 +20,11 @@ function Resizer()
         CATCHTOLERANCE = calc.crossMultiply(CATCHTOLERANCE, MAPSIZE);
         CHARSIZE = calc.crossMultiply(CHARSIZE, MAPSIZE);
         ITEMSIZE = calc.crossMultiply(ITEMSIZE, MAPSIZE);
+        setSpeedTable();
+    }
+
+    function setSpeedTable()
+    {
         SPEEDTABLE = new Array(
             new Array(0, 0),
             new Array(MINMOVINGRATE, 0),
@@ -131,9 +136,10 @@ function Resizer()
 
     function resizeGamePlayElements()
     {
-        $("#fundo").css("height", MAPSIZE);
+        document.getElementById('fundo').style.height = MAPSIZE+'px';
         BackgroundImg.style.width = MAPSIZE+"px";
         BackgroundImg.style.height = MAPSIZE+"px";
+
         $(".personagem").css("width", CHARSIZE+"px");
         $(".personagem").css("height", CHARSIZE+"px");
         $(".item").css("width", ITEMSIZE+"px");

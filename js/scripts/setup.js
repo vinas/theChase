@@ -28,6 +28,7 @@ function Setup()
         officerMoveRate[1] = SPEEDTABLE[1][1];
         thiefPosArr[0] = 0;
         thiefPosArr[1] = 0;
+        lastChangedLevel = 0;
     }
 
     function setAll()
@@ -55,7 +56,7 @@ function Setup()
         function setGameItems()
         {
             Molotov = document.getElementById('molotov');
-            Clock = document.getElementById('relogio');
+            Clock = document.getElementById('clock');
             Bomb = document.getElementById('bomba');
             Counter1 = document.getElementById('contador');
             Counter2 = document.getElementById('contador2');

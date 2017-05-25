@@ -1,11 +1,3 @@
-$(document).on("dblclick", function() {
-    return false;
-});
-
-$(document).on("keydown", function(e) {
-    pressedKey = e.which;
-});
-
 function Interactions()
 {
     this.checkGotItem = checkGotItem;
@@ -99,8 +91,7 @@ function Interactions()
         if (calc.reached(thiefPosArr, CHARSIZE, clockPos, ITEMSIZE)) {
             game.scorePoints();
             time = time + 10;
-            Clock.hide();
-            isClockVisible = false;
+            display.hideClock();
             display.clockFeedback();
         }
     }
@@ -120,7 +111,6 @@ function Interactions()
     {
         if (calc.reached(thiefPosArr, CHARSIZE, bombPos, ITEMSIZE)) {
             display.hideBomb();
-            game.scorePoints();
             display.flashOfficers();
             display.flash(CurrLevel);
             if (currLevel > 1) {
