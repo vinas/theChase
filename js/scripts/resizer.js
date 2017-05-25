@@ -95,7 +95,7 @@ function Resizer()
 
         document.getElementById('items').style.paddingTop = calc.crossMultiply(5, MAPSIZE)+'px';
 
-        document.getElementById('loginButton').style.top = calc.crossMultiply(407, MAPSIZE)+'px';
+        /*document.getElementById('loginButton').style.top = calc.crossMultiply(407, MAPSIZE)+'px';
         document.getElementById('loginButton').style.left = calc.crossMultiply(63, MAPSIZE)+'px';
         document.getElementById('loginButton').style.width = calc.crossMultiply(180, MAPSIZE)+'px';
         document.getElementById('loginButton').style.height = calc.crossMultiply(55, MAPSIZE)+'px';
@@ -103,7 +103,7 @@ function Resizer()
 
         document.getElementById('loginStatus').style.left = calc.crossMultiply(73, MAPSIZE)+'px';
         document.getElementById('loginStatus').style.top = calc.crossMultiply(359, MAPSIZE)+'px';
-        document.getElementById('loginStatus').style.fontSize = calc.crossMultiply(20, MAPSIZE)+'px';
+        document.getElementById('loginStatus').style.fontSize = calc.crossMultiply(20, MAPSIZE)+'px';*/
 
         document.getElementById('barLeft').style.fontSize = calc.crossMultiply(10, MAPSIZE)+'px';
 
