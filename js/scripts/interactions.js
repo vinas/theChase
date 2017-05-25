@@ -99,6 +99,8 @@ function Interactions()
     function gotMolotov()
     {
         if (calc.reached(thiefPosArr, CHARSIZE, molotovPos, ITEMSIZE)) {
+            molotovTime = MOLOTOVPAUSE;
+            game.scorePoints();
             display.molotovFeedBack();
         }
     }

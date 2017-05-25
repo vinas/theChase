@@ -345,13 +345,8 @@ function Display()
 
     function molotovFeedBack()
     {
-        //$.ionSound.play("heehee");
-        molotovTime = MOLOTOVPAUSE;
-        game.scorePoints();
-        hideMolotov();
         throwMolotov(officerPosArr[0]);
     }
-
 
     function throwMolotov(targetPos)
     {
