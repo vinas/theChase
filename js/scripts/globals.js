@@ -43,6 +43,7 @@ var STANDARDTIME = 20,
     STANDTHIEFMOVRATE = 6,
     STANDGAMEREFRESHRATE = 40,
     SWIPEDISTANCE = 20,
+    THROWSPEED = 40,
     SPEEDTABLE;
 
 // Functional game variables

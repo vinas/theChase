@@ -23,7 +23,7 @@ function Setup()
         setOfficersStartCoords();
         time = STANDARDTIME;
         pressedKey = false;
-        thiefMoveRate = calc.crossMultiply(STANDTHIEFMOVRATE, MAPSIZE);
+        thiefMoveRate = calc.crossMultiply(STANDTHIEFMOVRATE);
         officerMoveRate[0] = SPEEDTABLE[1][0];
         officerMoveRate[1] = SPEEDTABLE[1][1];
         thiefPosArr[0] = 0;
@@ -40,8 +40,8 @@ function Setup()
 
         function applySettings()
         {
-            $.mobile.ajaxEnabled = false;
-            $.mobile.loadingMessage = false;
+            /*$.mobile.ajaxEnabled = false;
+            $.mobile.loadingMessage = false;*/
             $.event.special.swipe.horizontalDistanceThreshold = SWIPEDISTANCE;
             $.event.special.swipe.verticalDistanceThreshold = SWIPEDISTANCE;
         }

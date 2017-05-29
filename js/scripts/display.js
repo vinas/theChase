@@ -348,6 +348,11 @@ function Display()
         throwMolotov(officerPosArr[0]);
     }
 
+    function throwItem(item, targetPos)
+    {
+
+    }
+
     function throwMolotov(targetPos)
     {
         var deltaX = targetPos[0] - molotovPos[0],
@@ -355,8 +360,7 @@ function Display()
             shooterPosX = molotovPos[0],
             shooterPosY = molotovPos[1],
             inclination = (deltaX != 0) ? (deltaY/deltaX).toFixed(4) : 0,
-            //variationRate = carlosFormula(standardSpeed, inclination);
-            variationRate = carlosFormula(40, inclination);
+            variationRate = carlosFormula(THROWSPEED, inclination);
 
         moveMolotov();
 
@@ -435,8 +439,10 @@ function Display()
     }
 
     function preloadImages(images) {
+        var img;
         for (i = 0; i < images.length; i++) {
-            $('<img/>')[0].src = images[i];
+            img = new Image();
+            img.src = images[i];
         }
     }
 

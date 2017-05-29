@@ -42,8 +42,8 @@ function Calculator()
     {
         var leftPos = parseInt(objPosArr[0]),
             topPos = parseInt(objPosArr[1]) + CHARSIZE,
-            ninety = crossMultiply(90, MAPSIZE),
-            thirty = crossMultiply(30, MAPSIZE);
+            ninety = crossMultiply(90),
+            thirty = crossMultiply(30);
         if ((leftPos + ninety) >= MAPSIZE)
             leftPos = parseInt(objPosArr[0]) - ((leftPos + ninety) - MAPSIZE);
         if ((topPos + thirty) >= MAPSIZE)
