@@ -37,6 +37,7 @@ function EventHandlers()
         }).on("swipedown", function() {
             pressedKey = 40;
         });
+        
         $("#presentation").on("swipeleft", function() {
             if ($("#justOpened").val() == 0) {
             presentation = $(this);

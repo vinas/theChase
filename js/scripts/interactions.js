@@ -108,9 +108,7 @@ function Interactions()
     function gotBomb()
     {
         if (calc.reached(thiefPosArr, CHARSIZE, bombPos, ITEMSIZE)) {
-            display.hideBomb();
-            display.flashOfficers();
-            display.flash(CurrLevel);
+            display.bombFeedback();
             if (currLevel > 1) {
                 currLevel = currLevel - 1;
                 officerMoveRate[0] = SPEEDTABLE[currLevel][0];
@@ -119,7 +117,6 @@ function Interactions()
                     display.hideOfficer2();
             }
             CurrLevel.innerHTML = currLevel;
-            display.bombFeedback();
         }
     }
 

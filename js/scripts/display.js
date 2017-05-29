@@ -84,10 +84,7 @@ function Display()
 
     function bombFeedback()
     {
-        showFeedBack(Officer1, Subtitle1, 'slow');
-        if (calc.isTwoPolicemenLevel()) {
-            showFeedBack(Officer2, Subtitle1, 'slow');
-        }
+        throwItem(Bomb, officerPosArr[0]);
     }
 
     function busted()
@@ -345,38 +342,55 @@ function Display()
 
     function molotovFeedBack()
     {
-        throwMolotov(officerPosArr[0]);
+        throwItem(Molotov, officerPosArr[0]);
     }
 
     function throwItem(item, targetPos)
     {
+        var itemPos, callback;
+        switch (item.id) {
+            case 'molotov':
+                itemPos = molotovPos;
+                callback = 'molotov';
+                break;
+            case 'bomb':
+                itemPos = bombPos;
+                callback = 'bomb';
+        }
 
-    }
-
-    function throwMolotov(targetPos)
-    {
-        var deltaX = targetPos[0] - molotovPos[0],
-            deltaY = targetPos[1] - molotovPos[1],
-            shooterPosX = molotovPos[0],
-            shooterPosY = molotovPos[1],
+        var deltaX = targetPos[0] - itemPos[0],
+            deltaY = targetPos[1] - itemPos[1],
+            shooterPosX = itemPos[0],
+            shooterPosY = itemPos[1],
             inclination = (deltaX != 0) ? (deltaY/deltaX).toFixed(4) : 0,
             variationRate = carlosFormula(THROWSPEED, inclination);
 
-        moveMolotov();
+        moveItem();
 
-        function moveMolotov()
+        function moveItem()
         {
-            if ((!reached(molotovPos, ITEMSIZE, targetPos, CHARSIZE)) && (!isNaN(variationRate))) {
-                setNewMolotovPos();
-                displayItem(Molotov, molotovPos)
+            if ((!reached(itemPos, ITEMSIZE, targetPos, CHARSIZE)) && (!isNaN(variationRate))) {
+                setNewItemPos();
+                displayItem(item, itemPos)
                 setTimeout(function() {
-                    moveMolotov();
+                    moveItem();
                 }, 10);
                 return;
-            } 
-            hideMolotov();
-            burnDaPolice();
+            }
 
+            if (callback == 'molotov') {
+                hideMolotov();
+                burnDaPolice();
+                return;
+            }
+
+            hideBomb();
+            flashOfficers();
+            flash(CurrLevel);
+            showFeedBack(Officer1, Subtitle1, 'slow');
+            if (calc.isTwoPolicemenLevel()) {
+                showFeedBack(Officer2, Subtitle1, 'slow');
+            }
         }
 
         function carlosFormula(standardSpeed, inclination)
@@ -384,17 +398,17 @@ function Display()
             return Math.sqrt(standardSpeed / (parseFloat(Math.pow(inclination,2)+1)));
         }        
 
-        function setNewMolotovPos()
+        function setNewItemPos()
         {
-            if (molotovPos[0] != targetPos[0]) {
-                molotovPos[0] = setBulletNewCoord(molotovPos[0], targetPos[0], variationRate);
-                molotovPos[1] = Math.round(inclination * (molotovPos[0] - shooterPosX) + shooterPosY);
+            if (itemPos[0] != targetPos[0]) {
+                itemPos[0] = setItemNewCoord(itemPos[0], targetPos[0], variationRate);
+                itemPos[1] = Math.round(inclination * (itemPos[0] - shooterPosX) + shooterPosY);
                 return;
             }
-            molotovPos[1] = setBulletNewCoord(molotovPos[1], targetPos[1], variationRate);
+            itemPos[1] = setItemNewCoord(itemPos[1], targetPos[1], variationRate);
         }
 
-        function setBulletNewCoord(sourceCoord, destCoord)
+        function setItemNewCoord(sourceCoord, destCoord)
         {
             return (sourceCoord < destCoord) ? sourceCoord + variationRate : sourceCoord - variationRate;
         }
