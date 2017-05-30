@@ -91,7 +91,7 @@ function Game()
         if (calc.sortMolotov()) {
             if (!isMolotovVisible) {
                 display.molotov();
-                return ;
+                return;
             }
             display.hideMolotov();
             return;
@@ -101,8 +101,10 @@ function Game()
             display.molotovCounter();
             return;
         }
-        molotovTime = 0;
-        display.restorePolicemen();
+        if (molotovTime == 1) {
+            molotovTime = 0;
+            display.restorePolicemen();
+        }
     }
 
     function handleBomb()
@@ -120,7 +122,7 @@ function Game()
             lastChangedLevel = points;
             currLevel = currLevel + 1;
             if (currLevel == TWOPOLICEMENLEVEL)
-                display.show2ndPoliceman();
+                display.officer2();
             display.updateDificultyDisplay();
             display.setNewBackground();
             interactions.changePoliceMoveRate();

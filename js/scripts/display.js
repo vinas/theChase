@@ -62,7 +62,7 @@ function Display()
     this.hideGameValues = hideGameValues;
     this.loading = loading;
     this.startPressedTimmer = startPressedTimmer;
-    this.show2ndPoliceman = show2ndPoliceman;
+    this.officer2 = officer2;
     this.setNewBackground = setNewBackground;
     this.mirrorObj = mirrorObj;
     this.updatePointsDisplay = updatePointsDisplay;
@@ -317,7 +317,7 @@ function Display()
         }, 300);
     }
 
-    function show2ndPoliceman()
+    function officer2()
     {
         police = Officer2;
         if (molotovTime > 0) {
