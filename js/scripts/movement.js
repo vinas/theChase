@@ -40,14 +40,14 @@ function Movement()
 
     function throwItem(item, targetPos, callback)
     {
-        var itemPos = setItemPosObj(),
+        var itemPos = getItemPosObj(),
             shooterPosX = itemPos[0],
             shooterPosY = itemPos[1],
             variationRate = calc.variationRate(itemPos, targetPos);
 
         moveItem();
 
-        function setItemPosObj()
+        function getItemPosObj()
         {
             switch (item.id) {
                 case 'molotov':

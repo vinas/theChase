@@ -101,7 +101,7 @@ function Interactions()
         if (calc.reached(thiefPosArr, CHARSIZE, molotovPos, ITEMSIZE)) {
             molotovTime = MOLOTOVPAUSE;
             game.scorePoints();
-            display.molotovFeedBack();
+            display.molotovFeedback();
         }
     }
 

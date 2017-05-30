@@ -35,6 +35,11 @@ function Display()
             'bkg_04.jpg',
             'bkg_05.jpg',
             'bkg_06.jpg',
+            'bkg_07.jpg',
+            'bkg_08.jpg',
+            'bkg_09.jpg',
+            'bkg_10.jpg',
+            'bkg_11.jpg',
             'background_01.jpg',
             'background_v2.jpg'
         );
@@ -56,7 +61,7 @@ function Display()
 
     this.money = money;
     this.molotov = molotov;
-    this.molotovFeedBack = molotovFeedBack;
+    this.molotovFeedback = molotovFeedback;
     this.timeUp = timeUp;
     this.showInGameElements = showInGameElements;
     this.hideGameValues = hideGameValues;
@@ -92,9 +97,9 @@ function Display()
             hideBomb();
             flashOfficers();
             flash(CurrLevel);
-            showFeedBack(Officer1, Subtitle1, 'slow');
+            showFeedback(Officer1, Subtitle1, 'slow');
             if (calc.isTwoPolicemenLevel()) {
-                showFeedBack(Officer2, Subtitle1, 'slow');
+                showFeedback(Officer2, Subtitle1, 'slow');
             }
         }
     }
@@ -113,7 +118,7 @@ function Display()
 
     function clockFeedback()
     {
-        showFeedBack(Thief, Subtitle3, 'time +10');
+        showFeedback(Thief, Subtitle3, 'time +10');
     }
 
     function gameInfo()
@@ -255,10 +260,10 @@ function Display()
     function burnDaPolice()
     {
         Officer1.setAttribute('src', 'img/guarda_fogo_02.gif');
-        showFeedBack(Officer1, Subtitle1, "can't move");
+        showFeedback(Officer1, Subtitle1, "can't move");
         if (calc.isTwoPolicemenLevel()) {
             Officer2.setAttribute('src', 'img/guarda_fogo_02.gif');
-            showFeedBack(Officer2, Subtitle2, "can't move");
+            showFeedback(Officer2, Subtitle2, "can't move");
         }
     }
 
@@ -352,11 +357,11 @@ function Display()
         isMolotovVisible = true;
     }
 
-    function molotovFeedBack()
+    function molotovFeedback()
     {
-        movement.throwItem(Molotov, officerPosArr[0], endMolotovFeedBack);
+        movement.throwItem(Molotov, officerPosArr[0], endMolotovFeedback);
 
-        function endMolotovFeedBack()
+        function endMolotovFeedback()
         {
             hideMolotov();
             burnDaPolice();
@@ -372,7 +377,7 @@ function Display()
         return backgrounds[rand];
     }
 
-    function showFeedBack(refObj, subtitleObj, message)
+    function showFeedback(refObj, subtitleObj, message)
     {
         var objectPosition,
             messagePosition,

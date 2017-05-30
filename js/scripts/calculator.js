@@ -157,15 +157,15 @@ function Calculator()
     function setNewItemPos(shooterPosX, shooterPosY, itemPos, targetPos, variation)
     {
         if (itemPos[0] != targetPos[0]) {
-            itemPos[0] = setItemNewCoord(itemPos[0], targetPos[0], variation);
+            itemPos[0] = setItemNewCoord(itemPos[0], targetPos[0]);
             itemPos[1] = Math.round(inclination(itemPos, targetPos) * (itemPos[0] - shooterPosX) + shooterPosY);
             return;
         }
-        itemPos[1] = setItemNewCoord(itemPos[1], targetPos[1], variation);
+        itemPos[1] = setItemNewCoord(itemPos[1], targetPos[1]);
 
         function setItemNewCoord(sourceCoord, destCoord)
         {
-            return (sourceCoord < destCoord) ? sourceCoord + variation : sourceCoord - variation;
+            return (sourceCoord > destCoord) ? sourceCoord - variation : sourceCoord + variation;
         }
     }
 
