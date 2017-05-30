@@ -40,8 +40,11 @@ function Setup()
 
         function applySettings()
         {
-            /*$.mobile.ajaxEnabled = false;
-            $.mobile.loadingMessage = false;*/
+            $.mobile.ajaxEnabled = false;
+            $.mobile.loader.prototype.options.disabled = true;
+            $.mobile.loading('hide');
+            $.mobile.loading().hide();
+            $.mobile.loadingMessage = false;
             $.event.special.swipe.horizontalDistanceThreshold = SWIPEDISTANCE;
             $.event.special.swipe.verticalDistanceThreshold = SWIPEDISTANCE;
         }

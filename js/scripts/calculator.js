@@ -2,16 +2,19 @@ function Calculator()
 {
     this.crossMultiply = crossMultiply;
     this.getObjectPosition = getObjectPosition;
+    this.inclination = inclination;
     this.isTwoPolicemenLevel = isTwoPolicemenLevel;
     this.isLevelChange = isLevelChange;
     this.messagePos = messagePos;
     this.nextOfficerPos = nextOfficerPos;
     this.nextThiefPosition = nextThiefPosition;
+    this.newThrowItemPos = newThrowItemPos;
     this.officer2StartPos = officer2StartPos;
     this.randomCoords = randomCoords;
     this.reached = reached;
     this.sortBomb = sortBomb;
     this.sortMolotov = sortMolotov;
+    this.thowVariationRate = thowVariationRate;
 
     return this;
 
@@ -217,6 +220,34 @@ function Calculator()
     function areChancesAmoung(percetage)
     {
         return (Math.floor((Math.random() * 100) + 1) <= percetage);
+    }
+
+    function thowVariationRate(itemPos, targetPos)
+    {
+        return Math.sqrt(THROWSPEED / (parseFloat(Math.pow(inclination(itemPos, targetPos),2)+1)));
+    }
+
+    function inclination(itemPos, targetPos)
+    {
+        var deltaX = targetPos[0] - itemPos[0],
+            deltaY = targetPos[1] - itemPos[1];
+        return (deltaX != 0) ? (deltaY/deltaX).toFixed(4) : 0;
+    }
+
+    function newThrowItemPos(shooterPosX, shooterPosY, itemPos, targetPos)
+    {
+        var variationRate = thowVariationRate(itemPos, targetPos);
+        if (itemPos[0] != targetPos[0]) {
+            itemPos[0] = setItemNewCoord(itemPos[0], targetPos[0], variationRate);
+            itemPos[1] = Math.round(inclination(itemPos, targetPos) * (itemPos[0] - shooterPosX) + shooterPosY);
+            return;
+        }
+        itemPos[1] = setItemNewCoord(itemPos[1], targetPos[1], variationRate);
+
+        function setItemNewCoord(sourceCoord, destCoord)
+        {
+            return (sourceCoord < destCoord) ? sourceCoord + variationRate : sourceCoord - variationRate;
+        }
     }
 
 }
