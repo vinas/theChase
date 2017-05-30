@@ -12,6 +12,8 @@ function Calculator()
     this.reached = reached;
     this.sortBomb = sortBomb;
     this.sortMolotov = sortMolotov;
+    this.variationRate = variationRate;
+    this.setNewItemPos = setNewItemPos;
 
     return this;
 
@@ -147,6 +149,33 @@ function Calculator()
         return false;
     }
 
+    function variationRate(itemPos, targetPos)
+    {
+        return Math.sqrt(THROWSPEED / (parseFloat(Math.pow(inclination(itemPos, targetPos),2)+1)));
+    }
+
+    function setNewItemPos(shooterPosX, shooterPosY, itemPos, targetPos, variation)
+    {
+        if (itemPos[0] != targetPos[0]) {
+            itemPos[0] = setItemNewCoord(itemPos[0], targetPos[0], variation);
+            itemPos[1] = Math.round(inclination(itemPos, targetPos) * (itemPos[0] - shooterPosX) + shooterPosY);
+            return;
+        }
+        itemPos[1] = setItemNewCoord(itemPos[1], targetPos[1], variation);
+
+        function setItemNewCoord(sourceCoord, destCoord)
+        {
+            return (sourceCoord < destCoord) ? sourceCoord + variation : sourceCoord - variation;
+        }
+    }
+
+
+    function inclination(itemPos, targetPos)
+    {
+        var deltaX = targetPos[0] - itemPos[0],
+            deltaY = targetPos[1] - itemPos[1];
+        return (deltaX != 0) ? (deltaY/deltaX).toFixed(4) : 0;
+    }
 
     function getRelativePositions(officer)
     {
