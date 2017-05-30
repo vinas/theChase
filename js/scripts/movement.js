@@ -40,14 +40,9 @@ function Movement()
 
     function throwItem(item, targetPos, callback)
     {
-        var itemPos = getItemPosObj(),
-            shooterPosX = itemPos[0],
-            shooterPosY = itemPos[1],
-            variationRate = calc.variationRate(itemPos, targetPos);
+        var itemPos = setItemPos();
 
-        moveItem();
-
-        function getItemPosObj()
+        function setItemPos()
         {
             switch (item.id) {
                 case 'molotov':
@@ -57,10 +52,18 @@ function Movement()
             }
         }
 
+        var shooterPosX = itemPos[0],
+            shooterPosY = itemPos[1];
+
+        var inclination = calc.inclination(itemPos, targetPos),
+            variationRate = calc.variationRate(inclination);
+
+        moveItem();
+
         function moveItem()
         {
             if ((!reached(itemPos, ITEMSIZE, targetPos, CHARSIZE)) && (!isNaN(variationRate))) {
-                calc.setNewItemPos(shooterPosX, shooterPosY, itemPos, targetPos, variationRate);
+                setNewItemPos();
                 display.objectAt(item, itemPos);
                 setTimeout(function() {
                     moveItem();
@@ -70,5 +73,19 @@ function Movement()
             callback();
         }
 
+        function setNewItemPos()
+        {
+            if (itemPos[0] != targetPos[0]) {
+                itemPos[0] = setItemNewCoord(itemPos[0], targetPos[0], variationRate);
+                itemPos[1] = Math.round(inclination * (itemPos[0] - shooterPosX) + shooterPosY);
+                return;
+            }
+            itemPos[1] = setItemNewCoord(itemPos[1], targetPos[1], variationRate);
+        }
+
+        function setItemNewCoord(sourceCoord, destCoord, variation)
+        {
+            return (sourceCoord < destCoord) ? sourceCoord + variation : sourceCoord - variation;
+        }
     }
 }
