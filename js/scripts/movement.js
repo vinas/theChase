@@ -38,32 +38,19 @@ function Movement()
         display.objectAt((whichOfficer == 0) ? Officer1 : Officer2, officerPosArr[whichOfficer]);
     }
 
-    function throwItem(item, targetPos, callback)
+    function throwItem(item, itemPos, targetPos, callback)
     {
-        var itemPos = setItemPos();
-
-        function setItemPos()
-        {
-            switch (item.id) {
-                case 'molotov':
-                    return molotovPos;
-                case 'bomb':
-                    return bombPos;
-            }
-        }
-
         var shooterPosX = itemPos[0],
-            shooterPosY = itemPos[1];
-
-        var inclination = calc.inclination(itemPos, targetPos),
-            variationRate = calc.variationRate(inclination);
+            shooterPosY = itemPos[1],
+            inclination = calc.inclination(itemPos, targetPos),
+            variationRate = calc.variationRate(THROWSPEED, inclination);
 
         moveItem();
 
         function moveItem()
         {
             if ((!reached(itemPos, ITEMSIZE, targetPos, CHARSIZE)) && (!isNaN(variationRate))) {
-                setNewItemPos();
+                itemPos = calc.setNewThrowItemPos(shooterPosX, shooterPosY, itemPos, targetPos, inclination, variationRate);
                 display.objectAt(item, itemPos);
                 setTimeout(function() {
                     moveItem();
@@ -71,21 +58,6 @@ function Movement()
                 return;
             }
             callback();
-        }
-
-        function setNewItemPos()
-        {
-            if (itemPos[0] != targetPos[0]) {
-                itemPos[0] = setItemNewCoord(itemPos[0], targetPos[0], variationRate);
-                itemPos[1] = Math.round(inclination * (itemPos[0] - shooterPosX) + shooterPosY);
-                return;
-            }
-            itemPos[1] = setItemNewCoord(itemPos[1], targetPos[1], variationRate);
-        }
-
-        function setItemNewCoord(sourceCoord, destCoord, variation)
-        {
-            return (sourceCoord < destCoord) ? sourceCoord + variation : sourceCoord - variation;
         }
     }
 }

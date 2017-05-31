@@ -90,7 +90,7 @@ function Display()
 
     function bombFeedback()
     {
-        movement.throwItem(Bomb, officerPosArr[0], endBombFeedback);
+        movement.throwItem(Bomb, bombPos, officerPosArr[0], endBombFeedback);
 
         function endBombFeedback()
         {
@@ -359,7 +359,7 @@ function Display()
 
     function molotovFeedback()
     {
-        movement.throwItem(Molotov, officerPosArr[0], endMolotovFeedback);
+        movement.throwItem(Molotov, molotovPos, officerPosArr[0], endMolotovFeedback);
 
         function endMolotovFeedback()
         {

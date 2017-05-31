@@ -10,6 +10,7 @@ function Calculator()
     this.officer2StartPos = officer2StartPos;
     this.randomCoords = randomCoords;
     this.reached = reached;
+    this.setNewThrowItemPos = setNewThrowItemPos;
     this.sortBomb = sortBomb;
     this.sortMolotov = sortMolotov;
     this.variationRate = variationRate;
@@ -132,6 +133,23 @@ function Calculator()
             );
     }
 
+    function setNewThrowItemPos(shooterX, shooterY, item, target, incline, variation)
+    {
+        if (item[0] != target[0]) {
+            item[0] = setItemNewCoord(item[0], target[0]);
+            item[1] = Math.round(incline * (item[0] - shooterX) + shooterY);
+        } else {
+            item[1] = setItemNewCoord(item[1], target[1]);    
+        }
+        return item;
+
+        function setItemNewCoord(sourceCoord, destCoord)
+        {
+            return (sourceCoord < destCoord) ? sourceCoord + variation : sourceCoord - variation;
+        }
+
+    }
+
     function sortBomb()
     {
         if ((!isBombVisible) && (areChancesAmoung(5))) {
@@ -149,9 +167,9 @@ function Calculator()
         return false;
     }
 
-    function variationRate(incl)
+    function variationRate(speed, incline)
     {
-        return Math.sqrt(THROWSPEED / (parseFloat(Math.pow(incl,2)+1)));
+        return Math.sqrt(speed / (parseFloat(Math.pow(incline,2)+1)));
     }
 
     function inclination(itemPos, targetPos)

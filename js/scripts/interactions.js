@@ -34,29 +34,7 @@ function Interactions()
 
     function checkGotBusted()
     {
-        if (
-            (molotovTime <= 0)
-            && (
-                (calc.reached(
-                        officerPosArr[0],
-                        (CHARSIZE - CATCHTOLERANCE),
-                        thiefPosArr,
-                        (CHARSIZE - CATCHTOLERANCE)
-                    )
-                )
-                || (
-                    (calc.isTwoPolicemenLevel())
-                    && (calc.reached(
-                            officerPosArr[1],
-                            (CHARSIZE - CATCHTOLERANCE),
-                            thiefPosArr,
-                            (CHARSIZE - CATCHTOLERANCE)
-                        )
-                    )
-                )
-            )
-        )
-            game.endGame('busted');
+        if (molotovTime <= 0 && wasThiefCought()) game.endGame('busted');
     }
 
     function changePoliceMoveRate()
@@ -118,6 +96,28 @@ function Interactions()
             }
             CurrLevel.innerHTML = currLevel;
         }
+    }
+
+    function wasThiefCought()
+    {
+        return (calc.reached(
+                    officerPosArr[0],
+                    (CHARSIZE - CATCHTOLERANCE),
+                    thiefPosArr,
+                    (CHARSIZE - CATCHTOLERANCE)
+                )
+            )
+            || (
+                (calc.isTwoPolicemenLevel())
+                && (calc.reached(
+                        officerPosArr[1],
+                        (CHARSIZE - CATCHTOLERANCE),
+                        thiefPosArr,
+                        (CHARSIZE - CATCHTOLERANCE)
+                    )
+                )
+            );
+
     }
 
 }
