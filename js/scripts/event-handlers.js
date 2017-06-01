@@ -17,6 +17,7 @@ function EventHandlers()
         $("#resetGame").on("tap", function() {
             justOpened = $("#justOpened");
             if (justOpened.val() == 1) {
+                handleSounds();
                 $("#presentationImage").attr(
                     "src",
                     "img/detalhes.gif"
@@ -51,7 +52,29 @@ function EventHandlers()
                 );
             }
         });
+    }
 
+    function handleSounds()
+    {
+        loadSounEvents();
+        setup.prepareSoundsForMobile();
+    }
+
+    function loadSounEvents()
+    {
+        loadingTheme.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+
+        musicTheme.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+
+        endGameSound.addEventListener('ended', function() {
+            loadingTheme.play();
+        });
     }
 
 }

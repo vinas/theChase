@@ -57,7 +57,7 @@ function Interactions()
     function gotMoney()
     {
         if (calc.reached(thiefPosArr, CHARSIZE, moneyPos, ITEMSIZE)) {
-            display.play('coin1.wav');
+            coinSound.play();
             game.scorePoints();
             time = time + BONUSTIME;
             display.flash(Time);

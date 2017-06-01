@@ -8,26 +8,6 @@ function Display()
         Busted = document.getElementById('busted'),
         TimeUp = document.getElementById('timeUp');
 
-     var ImgsToPreload = new Array(
-             'img/detalhes.gif',
-             'img/start_over.png',
-             'img/guarda_fogo_02.gif',
-             'img/background_01.jpg',
-             'img/background_v2.jpg',
-             'img/bkg_01.jpg',
-             'img/bkg_02.jpg',
-             'img/bkg_03.jpg',
-             'img/bkg_04.jpg',
-             'img/bkg_05.jpg',
-             'img/bkg_06.jpg',
-             'img/busted.png',
-             'img/timeisup_01.png',
-             'img/start.png',
-             'img/molotov_v2.png',
-             'img/money2.png',
-             'img/bomb_v2.png'
-         );
-
     var backgrounds = new Array(
             'bkg_01.jpg',
             'bkg_02.jpg',
@@ -65,7 +45,7 @@ function Display()
     this.timeUp = timeUp;
     this.showInGameElements = showInGameElements;
     this.hideGameValues = hideGameValues;
-    this.loading = loading;
+    this.resetButton = resetButton;
     this.startPressedTimmer = startPressedTimmer;
     this.show2ndPoliceman = show2ndPoliceman;
     this.setNewBackground = setNewBackground;
@@ -78,7 +58,6 @@ function Display()
     this.objectAt = objectAt;
     this.hideClock = hideClock;
     this.burnDaPolice = burnDaPolice;
-    this.play = play;
 
     return this;
 
@@ -95,7 +74,7 @@ function Display()
 
         function endBombFeedback()
         {
-            play('bomb.mp3');
+            bombSound.play();
             hideBomb();
             flashOfficers();
             flash(CurrLevel);
@@ -120,7 +99,7 @@ function Display()
 
     function clockFeedback()
     {
-        play('crank-1.mp3');
+        clockSound.play();
         showFeedback(Thief, Subtitle3, 'time +10');
     }
 
@@ -303,8 +282,7 @@ function Display()
         Bomb.style.display = 'none';
     }
 
-    function loading() {
-        preloadImages(ImgsToPreload);
+    function resetButton() {
         document.getElementById('loading').style.display = 'none';
         document.getElementById('resetGame').style.display = 'block';
     }
@@ -366,7 +344,7 @@ function Display()
 
         function endMolotovFeedback()
         {
-            play('bomb.mp3');
+            bombSound.play();
             hideMolotov();
             burnDaPolice();
         }
@@ -410,24 +388,10 @@ function Display()
         }
     }
 
-    function preloadImages(images) {
-        var img;
-        for (i = 0; i < images.length; i++) {
-            img = new Image();
-            img.src = images[i];
-        }
-    }
-
     function displayItem(obj, arrPosition)
     {
         objectAt(obj, arrPosition);
         obj.style.display = 'block';
-    }
-
-    function play(file)
-    {
-        var audio = new Audio('audio/'+file);
-        audio.play();
     }
 
 }

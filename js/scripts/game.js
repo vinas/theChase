@@ -1,11 +1,5 @@
 function Game()
 {
-    var gameOn = false,
-        musicTheme = new Audio('audio/8bit_sparks.mp3'),
-        endGameTheme = new Audio('audio/endGame.mp3'),
-        loadingTheme = new Audio('audio/looperman.mp3');
-
-
     this.endGame = endGame;
     this.loading = loading;
     this.init = init;
@@ -16,35 +10,22 @@ function Game()
 
     function init()
     {
-        loadingTheme.addEventListener('ended', function() {
-            this.currentTime = 0;
-            this.play();
-        }, false);
-
-        musicTheme.addEventListener('ended', function() {
-            this.currentTime = 0;
-            this.play();
-        }, false);
-
+        setup.setVisualElements();
+        resizer.resizeMapAndItems();
         setup.setAll();
         eventHandlers.load();
-        display.loading();
-        resizer.resizeMapAndItems();
+        setup.loadContent();
+        display.resetButton();
         gameLoop();
         gameClock();
-        loadingTheme.play();
     }
 
     function endGame(reason) {
         gameOn = false;
         musicTheme.pause();
-        endGameTheme.currentTime = 0;
-        endGameTheme.play();
-        if (reason == "busted") {
-            display.busted();
-        } else if (reason == "timeUp") {
-            display.timeUp();
-        }
+        endGameSound.currentTime = 0;
+        endGameSound.play();
+        display[reason]();
         display.hideGameValues();
         setup.clearGameValues();
     }
@@ -58,7 +39,7 @@ function Game()
         display.money();
         display.gameInfo();
         loadingTheme.pause();
-        endGameTheme.pause();
+        endGameSound.pause();
         musicTheme.currentTime = 0;
         musicTheme.play();
         gameOn = true;

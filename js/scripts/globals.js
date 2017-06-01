@@ -46,8 +46,17 @@ var STANDARDTIME = 20,
     THROWSPEED = 40,
     SPEEDTABLE;
 
+// Sounds
+var musicTheme = new Audio('audio/8bit_sparks.mp3'),
+    endGameSound = new Audio('audio/endGame.mp3'),
+    loadingTheme = new Audio('audio/looperman.mp3'),
+    bombSound = new Audio('audio/bomb.mp3'),
+    clockSound = new Audio('audio/crank-1.mp3'),
+    coinSound = new Audio('audio/coin1.wav');
+
 // Functional game variables
-var pressedKey,
+var gameOn = false,
+    pressedKey,
     points,
     isClockVisible,
     isMolotovVisible,
