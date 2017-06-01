@@ -363,6 +363,7 @@ function Display()
 
         function endMolotovFeedback()
         {
+            play('heehee.mp3');
             hideMolotov();
             burnDaPolice();
         }
@@ -418,6 +419,12 @@ function Display()
     {
         objectAt(obj, arrPosition);
         obj.style.display = 'block';
+    }
+
+    function play(file)
+    {
+        var audio = new Audio('audio/'+file);
+        audio.play();
     }
 
 }

@@ -77,6 +77,7 @@ function Interactions()
     function gotMolotov()
     {
         if (calc.reached(thiefPosArr, CHARSIZE, molotovPos, ITEMSIZE)) {
+            console.log('aqui');
             molotovTime = MOLOTOVPAUSE;
             game.scorePoints();
             display.molotovFeedback();
@@ -117,7 +118,6 @@ function Interactions()
                     )
                 )
             );
-
     }
 
 }
