@@ -78,6 +78,7 @@ function Display()
     this.objectAt = objectAt;
     this.hideClock = hideClock;
     this.burnDaPolice = burnDaPolice;
+    this.play = play;
 
     return this;
 
@@ -94,6 +95,7 @@ function Display()
 
         function endBombFeedback()
         {
+            play('bomb.mp3');
             hideBomb();
             flashOfficers();
             flash(CurrLevel);
@@ -118,6 +120,7 @@ function Display()
 
     function clockFeedback()
     {
+        play('crank-1.mp3');
         showFeedback(Thief, Subtitle3, 'time +10');
     }
 
@@ -363,7 +366,7 @@ function Display()
 
         function endMolotovFeedback()
         {
-            play('heehee.mp3');
+            play('bomb.mp3');
             hideMolotov();
             burnDaPolice();
         }
