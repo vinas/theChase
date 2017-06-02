@@ -1,8 +1,7 @@
 // App Objects
 var setup,
-    eventHandlers,
+    events,
     movement,
-    interactions,
     calc,
     display,
     resizer;

@@ -13,7 +13,7 @@ function Game()
         setup.setVisualElements();
         resizer.resizeMapAndItems();
         setup.setAll();
-        eventHandlers.load();
+        events.loadEventHandlers();
         setup.loadContent();
         display.resetButton();
         gameLoop();
@@ -56,9 +56,9 @@ function Game()
     function gameLoop()
     {
         if (gameOn) {
-            movement.moveItAll();
-            interactions.checkGotItem();
-            interactions.checkGotBusted();
+            display.moveItAll();
+            events.checkGotItem();
+            events.checkGotBusted();
         }
         setTimeout(gameLoop, STANDGAMEREFRESHRATE);
     }
@@ -126,7 +126,7 @@ function Game()
                 display.show2ndPoliceman();
             display.updateDificultyDisplay();
             display.setNewBackground();
-            interactions.changePoliceMoveRate();
+            events.changePoliceMoveRate();
         }
     }
 

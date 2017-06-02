@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
     setup = Setup();
-    eventHandlers = EventHandlers();
-    movement = Movement();
-    interactions = Interactions();
+    events = Events();
     calc = Calculator();
     display = Display();
     resizer = Resizer();
