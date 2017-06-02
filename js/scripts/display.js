@@ -24,25 +24,20 @@ function Display()
             'background_v2.jpg'
         );
 
-    this.bomb = bomb;
     this.bombFeedback = bombFeedback;
-    this.busted = busted;
     this.clock = clock;
     this.clockFeedback = clockFeedback;
     this.gameInfo = gameInfo;
     this.flash = flash;
-    this.flashOfficers = flashOfficers;
 
     this.molotovCounter = molotovCounter;
     this.hideInGameElements = hideInGameElements;
     this.hideMolotov = hideMolotov;
-    this.hideBomb = hideBomb;
     this.hideOfficer2 = hideOfficer2;
 
     this.money = money;
     this.molotov = molotov;
     this.molotovFeedback = molotovFeedback;
-    this.timeUp = timeUp;
     this.showInGameElements = showInGameElements;
     this.hideGameValues = hideGameValues;
     this.resetButton = resetButton;
@@ -52,14 +47,12 @@ function Display()
     this.mirrorObj = mirrorObj;
     this.updatePointsDisplay = updatePointsDisplay;
     this.updateDificultyDisplay = updateDificultyDisplay;
-    this.setThiefHorDirection = setThiefHorDirection;
     this.restorePolicemen = restorePolicemen;
     this.relocateCharacters = relocateCharacters;
-    this.objectAt = objectAt;
     this.hideClock = hideClock;
-    this.burnDaPolice = burnDaPolice;
     this.moveItAll = moveItAll;
-    this.throwItem = throwItem;
+    this.busted = busted;
+    this.timeUp = timeUp;
 
     return this;
 
