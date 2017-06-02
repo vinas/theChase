@@ -1,7 +1,6 @@
 function Game()
 {
     this.endGame = endGame;
-    this.loading = loading;
     this.init = init;
     this.resetGame = resetGame;
     this.scorePoints = scorePoints;

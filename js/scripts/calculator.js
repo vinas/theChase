@@ -1,7 +1,6 @@
 function Calculator()
 {
     this.crossMultiply = crossMultiply;
-    this.getObjectPosition = getObjectPosition;
     this.isTwoPolicemenLevel = isTwoPolicemenLevel;
     this.isLevelChange = isLevelChange;
     this.messagePos = messagePos;
@@ -21,14 +20,6 @@ function Calculator()
     function crossMultiply(actual)
     {
         return Math.floor((actual / 500) * MAPSIZE);
-    }
-
-    function getObjectPosition(obj)
-    {
-        return new Array(
-                obj.style.left.replace(new RegExp("px", 'g'), ""),
-                obj.style.top.replace(new RegExp("px", 'g'), "")
-            );
     }
 
     function isTwoPolicemenLevel()
