@@ -169,8 +169,8 @@ function Setup()
         Molotov = document.getElementById('molotov');
         Clock = document.getElementById('clock');
         Bomb = document.getElementById('bomb');
-        Counter1 = document.getElementById('contador');
-        Counter2 = document.getElementById('contador2');
+        Counter1 = document.getElementById('counter1');
+        Counter2 = document.getElementById('counter2');
     }
 
     function setDisplayItems()

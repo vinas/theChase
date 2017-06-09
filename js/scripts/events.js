@@ -135,8 +135,8 @@ function Events()
             var justOpened = document.getElementById('justOpened');
             if (justOpened.value == 1) {
                 handleSounds();
-                var presentationImage = document.getElementById('presentationImage');
-                presentationImage.setAttribute('src', 'img/detalhes.gif');
+                document.getElementById('presentationImage')
+                    .setAttribute('src', 'img/detalhes.gif');
                 justOpened.value = 0;
                 return;
             }

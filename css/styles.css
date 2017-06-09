@@ -16,7 +16,7 @@ body {
 	overflow-y: hidden;
 }
 
-.fundo {
+.background {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -94,7 +94,7 @@ body {
 
 }
 
-.contador {
+.counter1 {
 	position: absolute;
 	float: left;
 	font-size: 14px;

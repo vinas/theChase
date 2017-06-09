@@ -1,6 +1,6 @@
 function Display()
 {
-    var Money = document.getElementById('dinheiro'),
+    var Money = document.getElementById('money'),
         PointsCounter = document.getElementById('points'),
         Subtitle1 = document.getElementById('actionSubtitle1'),
         Subtitle2 = document.getElementById('actionSubtitle2'),
