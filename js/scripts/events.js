@@ -123,42 +123,40 @@ function Events()
 
     function loadEventHandlers()
     {
-        $(document).on("dblclick", function() {
+        document.addEventListener('dblclick', function() {
             return false;
         });
 
-        $(document).on("keydown", function(e) {
+        document.addEventListener('keydown', function(e) {
             pressedKey = e.which;
         });
 
-        $("#resetGame").on("tap", function() {
-            justOpened = $("#justOpened");
-            if (justOpened.val() == 1) {
+        document.getElementById('resetGame').addEventListener('click', function() {
+            var justOpened = document.getElementById('justOpened');
+            if (justOpened.value == 1) {
                 handleSounds();
-                $("#presentationImage").attr(
-                    "src",
-                    "img/detalhes.gif"
-                );
-                justOpened.val(0);
-            } else {
-                display.startPressedTimmer();
-                game.resetGame();
+                var presentationImage = document.getElementById('presentationImage');
+                presentationImage.setAttribute('src', 'img/detalhes.gif');
+                justOpened.value = 0;
+                return;
             }
+            display.startPressedTimmer();
+            game.resetGame();
         });
 
-        $("#fundo, #thief, #officer1, #officer2, .item").on("swipeleft", function() {
+        $('#fundo, #thief, #officer1, #officer2, .item').on('swipeleft', function() {
             pressedKey = 37;
-        }).on("swiperight", function() {
+        }).on('swiperight', function() {
             pressedKey = 39;
-        }).on("swipeup", function() {
+        }).on('swipeup', function() {
             pressedKey = 38;
-        }).on("swipedown", function() {
+        }).on('swipedown', function() {
             pressedKey = 40;
         });
         
-        $("#presentation").on("swipeleft", function() {
-            if ($("#justOpened").val() == 0) {
-            presentation = $(this);
+        $('#presentation').on('swipeleft', function() {
+            if (document.getElementById('justOpened').value == 0) {
+                var presentation = $(this);
                 presentation.animate({
                         left: parseInt(presentation.css('left'),10) == 0 ?
                         -presentation.outerWidth() :
