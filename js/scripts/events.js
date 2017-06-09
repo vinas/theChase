@@ -144,7 +144,7 @@ function Events()
             game.resetGame();
         });
 
-        $('#fundo, #thief, #officer1, #officer2, .item').on('swipeleft', function() {
+        $(document).on('swipeleft', function() {
             pressedKey = 37;
         }).on('swiperight', function() {
             pressedKey = 39;
@@ -158,7 +158,7 @@ function Events()
             if (document.getElementById('justOpened').value == 0) {
                 var presentation = $(this);
                 presentation.animate({
-                        left: parseInt(presentation.css('left'),10) == 0 ?
+                        left: parseInt(presentation.css('left'), 10) == 0 ?
                         -presentation.outerWidth() :
                         0
                     },
