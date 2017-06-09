@@ -66,8 +66,7 @@ function Display()
     {
         if (molotovTime <= 0) {
             moveOfficer(0);
-            if (calc.isTwoPolicemenLevel())
-                moveOfficer(1);
+            if (calc.isTwoPolicemenLevel()) moveOfficer(1);
         }
     }
 
@@ -174,18 +173,18 @@ function Display()
         {
             obj.style.backgroundColor = (flashCount % 2 == 0) ? color : '';
             flashCount++;
-            if (flashCount < 6) 
+            if (flashCount < 6) {
                 setTimeout(function() {
                     flashThis();
                 }, 100);
+            }
         }
     }
 
     function flashOfficers()
     {
         flash(Officer1);
-        if (currLevel > TWOPOLICEMENLEVEL)
-            flash(Officer2);
+        if (currLevel > TWOPOLICEMENLEVEL) flash(Officer2);
     }
 
 
@@ -403,10 +402,10 @@ function Display()
 
     function sortBackground()
     {
-        var rand = Math.floor(Math.random() * backgrounds.length);
-        while (BackgroundImg.getAttribute("src") == "url(img/"+backgrounds[rand]+")") {
+        var rand;
+        do {
             rand = Math.floor(Math.random() * backgrounds.length);
-        }
+        } while (BackgroundImg.getAttribute("src") == "url(img/"+backgrounds[rand]+")");
         return backgrounds[rand];
     }
 
@@ -425,10 +424,11 @@ function Display()
             interval = (counter % 2 == 0) ? 800 : 300; 
             subtitleObj.innerHTML = (counter % 2 == 0) ? message : '';
             counter++;
-            if (counter < 6)
+            if (counter < 6) {
                 setTimeout(function() {
                     blinkMsg();
                 }, interval);
+            }
         }
 
         function positionSubtitle()
