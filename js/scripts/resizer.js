@@ -15,36 +15,35 @@ function Resizer()
     {
         MAPSIZE = document.getElementById('background').clientWidth;
         CROSSBORDERTOLERANCE = calc.crossMultiply(CROSSBORDERTOLERANCE);
-        MINMOVINGRATE = calc.crossMultiply(MINMOVINGRATE);
         CATCHTOLERANCE = calc.crossMultiply(CATCHTOLERANCE);
         CHARSIZE = calc.crossMultiply(CHARSIZE);
         ITEMSIZE = calc.crossMultiply(ITEMSIZE);
         THROWSPEED = calc.crossMultiply(THROWSPEED);
-        setSpeedTable();
+        SPEEDTABLE = setSpeedTable(calc.crossMultiply(MINMOVINGRATE));
     }
 
-    function setSpeedTable()
+    function setSpeedTable(minMoveRate)
     {
-        SPEEDTABLE = new Array(
+        return new Array(
             new Array(0, 0),
-            new Array(MINMOVINGRATE, 0),
-            new Array(MINMOVINGRATE + calc.crossMultiply(1), 0),
-            new Array(MINMOVINGRATE + calc.crossMultiply(2), MINMOVINGRATE),
-            new Array(MINMOVINGRATE + calc.crossMultiply(3), MINMOVINGRATE),
-            new Array(MINMOVINGRATE + calc.crossMultiply(3), MINMOVINGRATE + calc.crossMultiply(1)),
-            new Array(MINMOVINGRATE + calc.crossMultiply(3), MINMOVINGRATE + calc.crossMultiply(2)),
-            new Array(MINMOVINGRATE + calc.crossMultiply(3), MINMOVINGRATE + calc.crossMultiply(3)),
-            new Array(MINMOVINGRATE + calc.crossMultiply(4), MINMOVINGRATE + calc.crossMultiply(3)),
-            new Array(MINMOVINGRATE + calc.crossMultiply(4), MINMOVINGRATE + calc.crossMultiply(4)),
-            new Array(MINMOVINGRATE + calc.crossMultiply(5), MINMOVINGRATE + calc.crossMultiply(4)),
-            new Array(MINMOVINGRATE + calc.crossMultiply(5), MINMOVINGRATE + calc.crossMultiply(5)),
-            new Array(MINMOVINGRATE + calc.crossMultiply(6), MINMOVINGRATE + calc.crossMultiply(5)),
-            new Array(MINMOVINGRATE + calc.crossMultiply(6), MINMOVINGRATE + calc.crossMultiply(6)),
-            new Array(MINMOVINGRATE + calc.crossMultiply(6), MINMOVINGRATE + calc.crossMultiply(6)),
-            new Array(MINMOVINGRATE + calc.crossMultiply(6), MINMOVINGRATE + calc.crossMultiply(6)),
-            new Array(MINMOVINGRATE + calc.crossMultiply(6), MINMOVINGRATE + calc.crossMultiply(6)),
-            new Array(MINMOVINGRATE + calc.crossMultiply(6), MINMOVINGRATE + calc.crossMultiply(6)),
-            new Array(MINMOVINGRATE + calc.crossMultiply(6), MINMOVINGRATE + calc.crossMultiply(6))
+            new Array(minMoveRate, 0),
+            new Array(minMoveRate + calc.crossMultiply(1), 0),
+            new Array(minMoveRate + calc.crossMultiply(2), minMoveRate),
+            new Array(minMoveRate + calc.crossMultiply(3), minMoveRate),
+            new Array(minMoveRate + calc.crossMultiply(3), minMoveRate + calc.crossMultiply(1)),
+            new Array(minMoveRate + calc.crossMultiply(3), minMoveRate + calc.crossMultiply(2)),
+            new Array(minMoveRate + calc.crossMultiply(3), minMoveRate + calc.crossMultiply(3)),
+            new Array(minMoveRate + calc.crossMultiply(4), minMoveRate + calc.crossMultiply(3)),
+            new Array(minMoveRate + calc.crossMultiply(4), minMoveRate + calc.crossMultiply(4)),
+            new Array(minMoveRate + calc.crossMultiply(5), minMoveRate + calc.crossMultiply(4)),
+            new Array(minMoveRate + calc.crossMultiply(5), minMoveRate + calc.crossMultiply(5)),
+            new Array(minMoveRate + calc.crossMultiply(6), minMoveRate + calc.crossMultiply(5)),
+            new Array(minMoveRate + calc.crossMultiply(6), minMoveRate + calc.crossMultiply(6)),
+            new Array(minMoveRate + calc.crossMultiply(7), minMoveRate + calc.crossMultiply(6)),
+            new Array(minMoveRate + calc.crossMultiply(7), minMoveRate + calc.crossMultiply(7)),
+            new Array(minMoveRate + calc.crossMultiply(8), minMoveRate + calc.crossMultiply(7)),
+            new Array(minMoveRate + calc.crossMultiply(8), minMoveRate + calc.crossMultiply(8)),
+            new Array(minMoveRate + calc.crossMultiply(9), minMoveRate + calc.crossMultiply(8))
         );
     }
 
