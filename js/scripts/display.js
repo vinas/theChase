@@ -53,6 +53,8 @@ function Display()
     this.moveItAll = moveItAll;
     this.busted = busted;
     this.timeUp = timeUp;
+    this.bomb = bomb;
+    this.hideBomb = hideBomb;
 
     return this;
 

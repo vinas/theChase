@@ -229,10 +229,10 @@ function Calculator()
 
     function adjustCrossBorder(pos)
     {
-        if (pos > (MAPSIZE - CHARSIZE))
+        if (pos > MAPSIZE)
             return -CROSSBORDERTOLERANCE;
         if (pos <= (-CHARSIZE + CROSSBORDERTOLERANCE))
-            return pos + (MAPSIZE - CROSSBORDERTOLERANCE);
+            return MAPSIZE;
         return pos;
     }
 

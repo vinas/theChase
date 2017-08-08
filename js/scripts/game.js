@@ -111,6 +111,7 @@ function Game()
     {
         if (currLevel > 1) {
             var action = calc.sortBomb();
+            console.log('action - ', action);
             if (action)
                 display[action]();
         }
