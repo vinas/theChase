@@ -53,6 +53,7 @@ function Resizer()
 
         var presentationImage = document.getElementById('presentationImage'),
             bustedEndGameImage = document.getElementById('bustedEndGameImage'),
+            timeUpEndGameImage = document.getElementById('timeUpEndGameImage'),
             setas = document.getElementById('setas'),
             thiefInstruction = document.getElementById('thiefInstruction'),
             dificultyBox = document.getElementById('dificultyBox'),
@@ -75,8 +76,8 @@ function Resizer()
 
         bustedEndGameImage.style.width = MAPSIZE+'px';
         bustedEndGameImage.style.height = MAPSIZE+'px';
-        bustedEndGameImage.style.width = MAPSIZE+'px';
-        bustedEndGameImage.style.height = MAPSIZE+'px';
+        timeUpEndGameImage.style.width = MAPSIZE+'px';
+        timeUpEndGameImage.style.height = MAPSIZE+'px';
 
         setas.style.width = calc.crossMultiply(48)+'px';
         setas.style.height = calc.crossMultiply(70)+'px';

@@ -232,7 +232,7 @@ function Calculator()
         if (pos > MAPSIZE)
             return -CROSSBORDERTOLERANCE;
         if (pos <= (-CHARSIZE + CROSSBORDERTOLERANCE))
-            return MAPSIZE;
+            return MAPSIZE - CROSSBORDERTOLERANCE;
         return pos;
     }
 
