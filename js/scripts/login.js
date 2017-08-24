@@ -8,7 +8,7 @@ function Login() {
     return this;
 
     function checkFbLogin() {
-        window.location.href = 'https://www.facebook.com/v2.10/dialog/oauth?client_id=725598060832930&redirect_uri=http://thechase.besaba.com/';
+        window.location.href = 'https://www.facebook.com/v2.10/dialog/oauth?client_id=725598060832930&redirect_uri=http://unusualdev.com/thechase/';
     }
 
     function checkForFbAccessCode() {
@@ -19,7 +19,7 @@ function Login() {
     function getFbAccessToken(code) {
         if (code)
             $.get(
-                'https://graph.facebook.com/v2.10/oauth/access_token?client_id=725598060832930&redirect_uri=http://thechase.besaba.com/&client_secret=e217cc077e95f1a727147cdc69b2ab03&code='+code,
+                'https://graph.facebook.com/v2.10/oauth/access_token?client_id=725598060832930&redirect_uri=http://unusualdev.com/thechase/&client_secret=e217cc077e95f1a727147cdc69b2ab03&code='+code,
                 fetchUserInfo
             );
     }
