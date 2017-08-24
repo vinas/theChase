@@ -144,6 +144,10 @@ function Events()
             game.resetGame();
         });
 
+        document.getElementById('login').addEventListener('click', function() {
+            login.checkFbLogin();
+        });
+
         $(document).on('swipeleft', function() {
             pressedKey = 37;
         }).on('swiperight', function() {

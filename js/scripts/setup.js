@@ -31,18 +31,46 @@ function Setup()
             'img/bomb_v2.png'
         );
         preloadImages(ImgsToPreload);
-        setSounds();
+        setSounds(handleLogin);
     }
 
+    function handleLogin() {
+        var accessCode = login.checkForFbAccessCode(),
+            loginAttempts = 0;
+        if (accessCode && !user.fbId) {
+            display.loadingButton();
+            login.getFbAccessToken(accessCode);
+            waitForUserInfo();
+            return;
+        } else {
+            display.loginButton();
+        }
 
-    function setSounds()
-    {
+        function waitForUserInfo() {
+            setTimeout(function() {
+                if (user.fbId) {
+                    display.startButton();
+                    return;
+                }
+                loginAttempts++;
+                if (loginAttempts < 32) {
+                    waitForUserInfo();
+                    return;
+                }
+                display.loginButton();
+            }, 250);
+        }
+    }
+
+    function setSounds(callback) {
         musicTheme = new Audio('audio/8bit_sparks.mp3');
         endGameSound = new Audio('audio/endGame.mp3');
         loadingTheme = new Audio('audio/looperman.mp3');
         bombSound = new Audio('audio/bomb.mp3');
         clockSound = new Audio('audio/crank-1.mp3');
         coinSound = new Audio('audio/coin1.wav');
+
+        callback();
     }
 
     function preloadImages(images)

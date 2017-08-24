@@ -6,6 +6,9 @@ var setup,
     display,
     resizer;
 
+// Login
+var user = {};
+
 // Characters
 var Thief,
     Officer1,

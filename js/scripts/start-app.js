@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     display = Display();
     resizer = Resizer();
     game = Game();
+    login = Login();
 
     game.init();
 });

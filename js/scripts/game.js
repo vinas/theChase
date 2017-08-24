@@ -14,7 +14,6 @@ function Game()
         setup.setAll();
         events.loadEventHandlers();
         setup.loadContent();
-        display.resetButton();
         gameLoop();
         gameClock();
     }
@@ -71,8 +70,6 @@ function Game()
                 }
                 handleClockDisplay();
                 handleMolotov();
-                handleBomb();
-                Time.innerHTML = time;
                 time = time - 1;
             } else {
                 endGame("timeUp");
