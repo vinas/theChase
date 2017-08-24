@@ -160,6 +160,7 @@ function Display()
 
     function busted()
     {
+        document.getElementById('endGameMessage').innerHTML = getBustedMessage();
         Busted.style.display = 'block';
     }
 
@@ -498,5 +499,18 @@ function Display()
             );
     }
 
-
+    function getBustedMessage() {
+        var messages = [];
+        messages.push("sorry pal!");
+        messages.push("better luck next time!");
+        messages.push("holy f*ck, "+user.firstName+"!");
+        messages.push("not this time, "+user.firstName+"!");
+        messages.push(user.firstName+", "+user.firstName+"... never giver up!");
+        messages.push("aren't you tired of trying?");
+        messages.push("give up "+user.firstName+"!");
+        messages.push("could be better");
+        messages.push("now aren't you cute, "+user.firstName+"?");
+        messages.push("leave it "+user.firstName+"!");
+        return messages[Math.floor(Math.random() * messages.length)];
+    }
 }
