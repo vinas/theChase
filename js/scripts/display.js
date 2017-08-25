@@ -327,6 +327,7 @@ function Display()
     {
         document.getElementById('instructionsBar').style.display = 'none';
         document.getElementById('presentation').style.display = 'none';
+        document.getElementById('ranking').style.display = 'none';
         Clock.style.display = 'none';
         Molotov.style.display = 'none';
         Bomb.style.display = 'none';
@@ -510,7 +511,7 @@ function Display()
         messages.push("give up "+user.firstName+"!");
         messages.push("could be better");
         messages.push("now aren't you cute, "+user.firstName+"?");
-        messages.push("leave it "+user.firstName+"!");
+        messages.push("leave it, "+user.firstName+"!");
         return messages[Math.floor(Math.random() * messages.length)];
     }
 }

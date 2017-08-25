@@ -148,6 +148,21 @@ function Events()
             login.checkFbLogin();
         });
 
+        document.getElementById('rankingButton').addEventListener('click', function() {
+            document.getElementById('ranking').style.display = 'block';
+            $.get(
+                    '/api/Games/getRanking/1',
+                    function(res) {
+                        var rankingItems = JSON.parse(res);
+                        var output = "<br/><br/>";
+                        for (i = 0; i < rankingItems.length; i++) {
+                            output += rankingItems[i].name + " - " + rankingItems[i].score + "<br/>";
+                        }
+                        document.getElementById('ranking').innerHTML = output;
+                    }
+                );
+        });
+
         $(document).on('swipeleft', function() {
             pressedKey = 37;
         }).on('swiperight', function() {

@@ -70,6 +70,8 @@ function Resizer()
         document.getElementById('scoreBox').style.paddingLeft = calc.crossMultiply(120)+'px';
         document.getElementById('items').style.paddingTop = calc.crossMultiply(5)+'px';
         document.getElementById('barLeft').style.fontSize = calc.crossMultiply(10)+'px';
+        document.getElementById('ranking').style.width = MAPSIZE+'px';
+        document.getElementById('ranking').style.height = MAPSIZE+'px';
 
         presentationImage.style.width = MAPSIZE+'px';
         presentationImage.style.height = MAPSIZE+'px';
@@ -138,12 +140,12 @@ function Resizer()
 
         setClassProp('counter1', 'font-size', calc.crossMultiply(14)+'px');
 
-        setClassProp('buttonWeeklyRanking', 'left', calc.crossMultiply(252)+'px');
-        setClassProp('buttonWeeklyRanking', 'top', calc.crossMultiply(404)+'px');
-        setClassProp('buttonWeeklyRanking', 'width', calc.crossMultiply(181)+'px');
-        setClassProp('buttonWeeklyRanking', 'height', calc.crossMultiply(49)+'px');
-        setClassProp('buttonWeeklyRanking', 'font-size', calc.crossMultiply(16)+'px');
-        setClassProp('buttonWeeklyRanking', 'padding-top', calc.crossMultiply(7)+'px');
+        setClassProp('rankingButton', 'left', calc.crossMultiply(252)+'px');
+        setClassProp('rankingButton', 'top', calc.crossMultiply(404)+'px');
+        setClassProp('rankingButton', 'width', calc.crossMultiply(181)+'px');
+        setClassProp('rankingButton', 'height', calc.crossMultiply(49)+'px');
+        setClassProp('rankingButton', 'font-size', calc.crossMultiply(16)+'px');
+        setClassProp('rankingButton', 'padding-top', calc.crossMultiply(7)+'px');
     }
 
     function resizeGamePlayElements()

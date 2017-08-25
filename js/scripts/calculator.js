@@ -14,8 +14,19 @@ function Calculator()
     this.sortMolotov = sortMolotov;
     this.variationRate = variationRate;
     this.inclination = inclination;
+    this.formattedDateTime = formattedDateTime;
 
     return this;
+
+    function formattedDateTime() {
+        var currentdate = new Date(); 
+        return addZero(currentdate.getDate()) + "/"
+            + addZero(currentdate.getMonth()+1)  + "/" 
+            + currentdate.getFullYear() + " @ "  
+            + addZero(currentdate.getHours()) + ":"  
+            + addZero(currentdate.getMinutes()) + ":" 
+            + addZero(currentdate.getSeconds());
+    }
 
     function crossMultiply(actual)
     {
@@ -241,4 +252,10 @@ function Calculator()
         return (Math.floor((Math.random() * 100) + 1) <= percetage);
     }
 
+    function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
 }
