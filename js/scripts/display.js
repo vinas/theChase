@@ -58,8 +58,27 @@ function Display()
     this.loadingButton = loadingButton;
     this.loginButton = loginButton;
     this.startButton = startButton;
+    this.errorNotMobile = errorNotMobile;
+    this.ranking = ranking;
 
     return this;
+
+    function ranking(content) {
+        var rankingItems = JSON.parse(content);
+        var output = '<div class="rankingTitle">Ranking <label class="obs">&nbsp;until 01/09/2017</label></div>';
+        var order;
+        for (i = 0; i < rankingItems.length; i++) {
+            order = i + 1;
+            output += '<div class="rankingItem">' + order + setOrdinal(order) + ' - ' + rankingItems[i].name + ' - ' + rankingItems[i].score + '</div>';
+        }
+        document.getElementById('ranking').innerHTML = output;
+    }
+
+    function errorNotMobile() {
+        document.getElementById('barraInfo').style.display = 'none';
+        document.getElementById('presentation').style.display = 'none';
+        document.getElementById('background').innerHTML = '<br/><br/>&nbsp;&nbsp;&nbsp;Only playable on mobile devices!<br/><br/>=(';
+    }
 
     function loadingButton() {
         document.getElementById('login').style.display = 'none';
@@ -506,12 +525,19 @@ function Display()
         messages.push("better luck next time!");
         messages.push("holy f*ck, "+user.firstName+"!");
         messages.push("not this time, "+user.firstName+"!");
-        messages.push(user.firstName+", "+user.firstName+"... never giver up!");
+        messages.push(user.firstName+", "+user.firstName+"... never gives up!");
         messages.push("aren't you tired of trying?");
         messages.push("give up "+user.firstName+"!");
         messages.push("could be better");
         messages.push("now aren't you cute, "+user.firstName+"?");
         messages.push("leave it, "+user.firstName+"!");
         return messages[Math.floor(Math.random() * messages.length)];
+    }
+
+    function setOrdinal(order) {
+        if (order > 3) return 'th';
+        if (order == 1) return 'st';
+        if (order == 2) return 'nd';
+        if (order == 3) return 'rd';
     }
 }

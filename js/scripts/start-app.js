@@ -8,5 +8,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     game = Game();
     login = Login();
 
-    game.init();
+    if (setup.isMobile()) {
+        game.init();
+    } else {
+        display.errorNotMobile();
+    }
 });

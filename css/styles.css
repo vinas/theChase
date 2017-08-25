@@ -16,6 +16,10 @@ body {
 	overflow-y: hidden;
 }
 
+.obs {
+	font-size: small;
+}
+
 .background {
 	position: absolute;
 	top: 0;
@@ -24,6 +28,7 @@ body {
 	height: 500;
 	background-color: #000000;
 	color: #FFFFFF;
+	text-align: center;
 }
 
 #backgroundImage {
@@ -40,6 +45,8 @@ body {
 	padding: 2.5%;
 	text-align: center;
 	font-weight: bold;
+	font-size: small;
+
 }
 
 .presentation {
@@ -88,6 +95,13 @@ body {
 	padding-top: 8px;
 }
 
+.rankingTitle {
+	font-size: x-large;
+	color: #FFD61F;
+	padding-top: 3%;
+	padding-bottom: 2.5%;
+}
+
 .tituloMostrador {
 	font-size: 17px;
 	color: #FFD61F;
@@ -113,6 +127,10 @@ body {
 	color: #FFFF00;
 	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 	display: none;
+}
+
+.rankingItem {
+	padding-top: 1%;
 }
 
 #busted {
