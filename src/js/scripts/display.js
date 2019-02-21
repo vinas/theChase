@@ -50,7 +50,6 @@ function Display()
     this.restorePolicemen = restorePolicemen;
     this.relocateCharacters = relocateCharacters;
     this.hideClock = hideClock;
-    this.moveItAll = moveItAll;
     this.busted = busted;
     this.timeUp = timeUp;
     this.bomb = bomb;
@@ -60,6 +59,7 @@ function Display()
     this.startButton = startButton;
     this.errorNotMobile = errorNotMobile;
     this.ranking = ranking;
+    this.objectAt = objectAt;
 
     return this;
 
@@ -96,38 +96,6 @@ function Display()
         hideElement('loading');
         hideElement('login');
         showElement('resetGame');
-    }
-
-    function moveItAll()
-    {
-        moveThief();
-        movePolice();
-    }
-
-    function movePolice()
-    {
-        if (molotovTime <= 0) {
-            moveOfficer(0);
-            if (calc.isTwoPolicemenLevel()) moveOfficer(1);
-        }
-    }
-
-    function moveThief()
-    {
-        var direction = events.getDirection();
-        setThiefHorDirection(direction);
-        thiefPosArr = calc.nextThiefPosition(
-                thiefPosArr,
-                thiefMoveRate,
-                direction
-            );
-        objectAt(Thief, thiefPosArr);
-    }
-
-    function moveOfficer(whichOfficer)
-    {
-        calc.nextOfficerPos(whichOfficer);
-        objectAt((whichOfficer == 0) ? Officer1 : Officer2, officerPosArr[whichOfficer]);
     }
 
     function throwItem(item, itemPos, targetPos, callback)

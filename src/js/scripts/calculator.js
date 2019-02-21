@@ -28,23 +28,19 @@ function Calculator()
             + addZero(currentdate.getSeconds());
     }
 
-    function crossMultiply(actual)
-    {
+    function crossMultiply(actual) {
         return Math.floor((actual / 500) * MAPSIZE);
     }
 
-    function isTwoPolicemenLevel()
-    {
+    function isTwoPolicemenLevel() {
         return (currLevel >= TWOPOLICEMENLEVEL);
     }
 
-    function isLevelChange()
-    {
+    function isLevelChange() {
         return ((points != 0) && (points >= (lastChangedLevel + PTSTOCHANGELEVEL)));
     }
 
-    function messagePos(objPosArr)
-    {
+    function messagePos(objPosArr) {
         var leftPos = parseInt(objPosArr[0]),
             topPos = parseInt(objPosArr[1]) + CHARSIZE,
             ninety = crossMultiply(90),
@@ -56,8 +52,7 @@ function Calculator()
         return new Array(leftPos, topPos);
     }
 
-    function nextOfficerPos(whichOfficer)
-    {
+    function nextOfficerPos(whichOfficer) {
         var officer = (whichOfficer == 0) ? Officer1 : Officer2;
         var relativePositions = getRelativePositions(whichOfficer);
         if (movingAxis(whichOfficer) == 'horizontal') {
@@ -81,8 +76,7 @@ function Calculator()
         }
     }
 
-    function nextThiefPosition(posArr, movRate, direction)
-    {
+    function nextThiefPosition(posArr, movRate, direction) {
         var level;
         switch (direction) {
             case 'left':
@@ -105,24 +99,21 @@ function Calculator()
         return posArr;
     }
 
-    function officer2StartPos()
-    {
+    function officer2StartPos() {
         var midMap = MAPSIZE / 2,
             tolerance = MAPSIZE - CHARSIZE;
         officerPosArr[1][0] = (thiefPosArr[0] >= midMap) ? 0 : tolerance;
         officerPosArr[1][0] = (thiefPosArr[1] >= midMap) ? 0 : tolerance;
     }
 
-    function randomCoords()
-    {
+    function randomCoords() {
         return new Array(
                 Math.floor((Math.random() * (MAPSIZE - ITEMSIZE))),
                 Math.floor((Math.random() * (MAPSIZE - ITEMSIZE)))
             );
     }
 
-    function reached(hunter, hunterSize, prey, preySize)
-    {
+    function reached(hunter, hunterSize, prey, preySize) {
         return (
                 (
                     (hunter[0] >= (prey[0] - hunterSize))
@@ -135,8 +126,7 @@ function Calculator()
             );
     }
 
-    function setNewThrowItemPos(shooterX, shooterY, item, target, incline, variation)
-    {
+    function setNewThrowItemPos(shooterX, shooterY, item, target, incline, variation) {
         if (item[0] != target[0]) {
             item[0] = setItemNewCoord(item[0], target[0]);
             item[1] = Math.round(incline * (item[0] - shooterX) + shooterY);
@@ -152,8 +142,7 @@ function Calculator()
 
     }
 
-    function sortBomb()
-    {
+    function sortBomb() {
         if ((!isBombVisible) && (areChancesAmoung(5))) {
             return 'bomb';
         } else if ((isBombVisible) && (areChancesAmoung(10))) {
@@ -162,35 +151,30 @@ function Calculator()
         return false;
     }
 
-    function sortMolotov()
-    {
+    function sortMolotov() {
         if (areChancesAmoung(10))
             return true;
         return false;
     }
 
-    function variationRate(speed, incline)
-    {
+    function variationRate(speed, incline) {
         return Math.sqrt(speed / (parseFloat(Math.pow(incline,2)+1)));
     }
 
-    function inclination(itemPos, targetPos)
-    {
+    function inclination(itemPos, targetPos) {
         var deltaX = targetPos[0] - itemPos[0],
             deltaY = targetPos[1] - itemPos[1];
         return (deltaX != 0) ? (deltaY/deltaX).toFixed(4) : 0;
     }
 
-    function getRelativePositions(officer)
-    {
+    function getRelativePositions(officer) {
         return [
             getTargetHorRelPos(officer),
             getTargetVerRelPos(officer)
         ];
     }
 
-    function getTargetHorRelPos(officer)
-    {
+    function getTargetHorRelPos(officer) {
         if (officerPosArr[officer][0] > thiefPosArr[0])
             return 'left';
         if (officerPosArr[officer][0] < thiefPosArr[0])
@@ -198,8 +182,7 @@ function Calculator()
         return 'same';
     }
 
-    function getTargetVerRelPos(officer)
-    {
+    function getTargetVerRelPos(officer) {
         if (officerPosArr[officer][1] > thiefPosArr[1])
            return 'up';
         if (officerPosArr[officer][1] < thiefPosArr[1])
@@ -207,10 +190,9 @@ function Calculator()
         return 'same';
     }
 
-    function movingAxis(officer)
-    {
-        var diffX = getAbsoluteDiffX(officerPosArr[officer][0]),
-            diffY = getAbsoluteDiffY(officerPosArr[officer][1]);
+    function movingAxis(officer) {
+        var diffX = getAbsoluteDiff(officerPosArr[officer][0], thiefPosArr[0]),
+            diffY = getAbsoluteDiff(officerPosArr[officer][1], thiefPosArr[1]);
         if (diffX != diffY) {
             if (officer == 0) {
                 if (diffX > diffY)
@@ -228,18 +210,11 @@ function Calculator()
         return 'vertical';
     }
 
-    function getAbsoluteDiffX(officerPosX)
-    {
-        return Math.abs(officerPosX - thiefPosArr[0]);
+    function getAbsoluteDiff(firstObjCoord, secondObjCoord) {
+        return Math.abs(firstObjCoord - secondObjCoord);
     }
 
-    function getAbsoluteDiffY(officerPosY)
-    {
-        return Math.abs(officerPosY - thiefPosArr[1]);
-    }
-
-    function adjustCrossBorder(pos)
-    {
+    function adjustCrossBorder(pos) {
         if (pos > MAPSIZE)
             return -CROSSBORDERTOLERANCE;
         if (pos <= (-CHARSIZE + CROSSBORDERTOLERANCE))
@@ -247,8 +222,7 @@ function Calculator()
         return pos;
     }
 
-    function areChancesAmoung(percetage)
-    {
+    function areChancesAmoung(percetage) {
         return (Math.floor((Math.random() * 100) + 1) <= percetage);
     }
 

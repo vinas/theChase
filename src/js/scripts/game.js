@@ -7,12 +7,11 @@ function Game()
 
     return this;
 
-    function init()
-    {
+    function init() {
         setup.setVisualElements();
         resizer.resizeMapAndItems();
         setup.setAll();
-        events.loadEventHandlers();
+        controls.loadControlsHandlers();
         setup.loadContent();
         gameLoop();
         gameClock();
@@ -29,8 +28,7 @@ function Game()
         setup.clearGameValues();
     }
 
-    function resetGame()
-    {
+    function resetGame() {
         setup.resetAllValues();
         display.hideInGameElements();
         display.relocateCharacters();
@@ -52,26 +50,22 @@ function Game()
 
     /**** PRIVATE METHODS ****/
 
-    function gameLoop()
-    {
+    function gameLoop() {
         if (gameOn) {
-            display.moveItAll();
+            motion.moveItAll();
             events.checkGotItem();
             events.checkGotBusted();
         }
         setTimeout(gameLoop, STANDGAMEREFRESHRATE);
     }
 
-    function gameClock()
-    {
+    function gameClock() {
         if (gameOn) {
             if (time >= 0) {
                 if (time <= 3) {
                     display.flash(Time);
                 }
-                handleClockDisplay();
-                handleMolotov();
-                handleBomb();
+                handleDisplayableItems();
                 time = time - 1;
             } else {
                 endGame("timeUp");
@@ -80,15 +74,18 @@ function Game()
         setTimeout(gameClock, 1000);
     }
 
-    function handleClockDisplay()
-    {
+    function handleDisplayableItems() {
+        handleClockDisplay();
+        handleMolotovDisplay();
+        handleBombDisplay();
+    }
+    function handleClockDisplay() {
         if ((time == DISPLAYCLOCKAT) && (!isClockVisible)) {
             display.clock();
         }
     }
 
-    function handleMolotov()
-    {
+    function handleMolotovDisplay() {
         if (calc.sortMolotov()) {
             if (!isMolotovVisible) {
                 display.molotov();
@@ -106,8 +103,7 @@ function Game()
         display.restorePolicemen();
     }
 
-    function handleBomb()
-    {
+    function handleBombDisplay() {
         if (currLevel > 1) {
             var action = calc.sortBomb();
             console.log('action - ', action);
@@ -116,8 +112,7 @@ function Game()
         }
     }
 
-    function handleLevelChange()
-    {
+    function handleLevelChange() {
         if (calc.isLevelChange()) {
             lastChangedLevel = points;
             currLevel = currLevel + 1;
@@ -133,7 +128,6 @@ function Game()
         user.lastScore = points;
         user.lastScoreDateTime = calc.formattedDateTime();
         user.gameId = 1;
-
         $.post('/api/Games/saveLastScore', user);
     }
 

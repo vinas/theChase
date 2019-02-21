@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     events = Events();
     calc = Calculator();
     display = Display();
+    sounds = Sounds();
+    motion = Motion();
+    controls = Controls();
     resizer = Resizer();
     game = Game();
     login = Login();
