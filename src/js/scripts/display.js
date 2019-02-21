@@ -1,12 +1,12 @@
 function Display()
 {
-    var Money = document.getElementById('money'),
-        PointsCounter = document.getElementById('points'),
-        Subtitle1 = document.getElementById('actionSubtitle1'),
-        Subtitle2 = document.getElementById('actionSubtitle2'),
-        Subtitle3 = document.getElementById('actionSubtitle3'),
-        Busted = document.getElementById('busted'),
-        TimeUp = document.getElementById('timeUp');
+    var Money = element('money'),
+        PointsCounter = element('points'),
+        Subtitle1 = element('actionSubtitle1'),
+        Subtitle2 = element('actionSubtitle2'),
+        Subtitle3 = element('actionSubtitle3'),
+        Busted = element('busted'),
+        TimeUp = element('timeUp');
 
     var backgrounds = new Array(
             'bkg_01.jpg',
@@ -71,31 +71,31 @@ function Display()
             order = i + 1;
             output += '<div class="rankingItem">' + order + setOrdinal(order) + ' - ' + rankingItems[i].name + ' - ' + rankingItems[i].score + '</div>';
         }
-        document.getElementById('ranking').innerHTML = output;
+        element('ranking').innerHTML = output;
     }
 
     function errorNotMobile() {
-        document.getElementById('barraInfo').style.display = 'none';
-        document.getElementById('presentation').style.display = 'none';
-        document.getElementById('background').innerHTML = '<br/><br/>&nbsp;&nbsp;&nbsp;Only playable on mobile devices!<br/><br/>=(';
+        hideElement('barraInfo');
+        hideElement('presentation');
+        element('background').innerHTML = '<br/><br/>&nbsp;&nbsp;&nbsp;Only playable on mobile devices!<br/><br/>=(';
     }
 
     function loadingButton() {
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('resetGame').style.display = 'none';
-        document.getElementById('loading').style.display = 'block';
+        hideElement('login');
+        hideElement('resetGame');
+        showElement('loading');
     }
 
     function loginButton() {
-        document.getElementById('resetGame').style.display = 'none';
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('login').style.display = 'block';
+        hideElement('resetGame');
+        hideElement('loading');
+        showElement('login');
     }
 
     function startButton() {
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('resetGame').style.display = 'block';
+        hideElement('loading');
+        hideElement('login');
+        showElement('resetGame');
     }
 
     function moveItAll()
@@ -179,8 +179,8 @@ function Display()
 
     function busted()
     {
-        document.getElementById('endGameMessage').innerHTML = getBustedMessage();
-        Busted.style.display = 'block';
+        element('endGameMessage').innerHTML = getBustedMessage();
+        showElement(Busted);
     }
 
     function clock()
@@ -239,8 +239,8 @@ function Display()
 
     function hideOfficer2()
     {
-        Counter2.style.display = 'none';
-        Officer2.style.display = 'none';
+        hideElement(Counter2);
+        hideElement(Officer2);
         Officer2.setAttribute("src", "img/guarda.gif");
     }
 
@@ -252,7 +252,7 @@ function Display()
 
     function hideClock()
     {
-        Clock.style.display = 'none';
+        hideElement(Clock);
         isClockVisible = false;
     }
 
@@ -266,10 +266,10 @@ function Display()
     function restorePolicemen()
     {
         Officer1.setAttribute("src", "img/guarda.gif");
-        Counter1.style.display = 'none';
+        hideElement(Counter1);
         if (calc.isTwoPolicemenLevel()) {
             Officer2.setAttribute("src", "img/guarda.gif");
-            Counter2.style.display = 'none';
+            hideElement(Counter2);
         }
     }
 
@@ -283,7 +283,7 @@ function Display()
             )
         );
         Counter1.innerHTML = molotovTime;
-        Counter1.style.display = 'block';
+        showElement(Counter1);
         if (calc.isTwoPolicemenLevel()) {
             objectAt(
                 Counter2,
@@ -293,13 +293,13 @@ function Display()
                 )
             );
             Counter2.innerHTML = molotovTime;
-            Counter2.style.display = 'block';
+            showElement(Counter2);
         }
     }
 
     function hideMolotov()
     {
-        Molotov.style.display = 'none';
+        hideElement(Molotov);
         isMolotovVisible = false;
     }
 
@@ -329,7 +329,7 @@ function Display()
 
     function timeUp()
     {
-        TimeUp.style.display = 'block';
+        showElement(TimeUp);
     }
 
     function burnDaPolice()
@@ -344,58 +344,58 @@ function Display()
 
     function hideInGameElements()
     {
-        document.getElementById('instructionsBar').style.display = 'none';
-        document.getElementById('presentation').style.display = 'none';
-        document.getElementById('ranking').style.display = 'none';
-        Clock.style.display = 'none';
-        Molotov.style.display = 'none';
-        Bomb.style.display = 'none';
-        Counter1.style.display = 'none';
-        Counter2.style.display = 'none';
-        Busted.style.display = 'none';
-        TimeUp.style.display = 'none';
-        Officer2.style.display = 'none';
+        hideElement('instructionsBar');
+        hideElement('presentation');
+        hideElement('ranking');
+        hideElement(Clock);
+        hideElement(Molotov);
+        hideElement(Bomb);
+        hideElement(Counter1);
+        hideElement(Counter2);
+        hideElement(Busted);
+        hideElement(TimeUp);
+        hideElement(Officer2);
     }
 
     function showInGameElements()
     {
-        document.getElementById('scoreBar').style.display = 'block';
-        Thief.style.display = 'block';
-        Officer1.style.display = 'block';
-        Money.style.display = 'block';
+        showElement('scoreBar');
+        showElement(Thief);
+        showElement(Officer1);
+        showElement(Money);
     }
 
     function hideGameValues()
     {
-        Thief.style.display = 'none';
-        Officer1.style.display = 'none';
-        Officer2.style.display = 'none';
-        Money.style.display = 'none';
-        Clock.style.display = 'none';
-        Molotov.style.display = 'none';
-        Bomb.style.display = 'none';
+        hideElement(Thief);
+        hideElement(Officer1);
+        hideElement(Officer2);
+        hideElement(Money);
+        hideElement(Clock);
+        hideElement(Molotov);
+        hideElement(Bomb);
     }
 
     function resetButton() {
         var accessCode;
         if (accessCode = login.checkForFbAccessCode()) {
-            document.getElementById('login').style.display = 'none';
-            document.getElementById('loading').style.display = 'block';
+            hideElement('login');
+            showElement('loading');
             login.getFbAccessToken(accessCode);
             waitForUserInfo();
             return;
         } else {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('login').style.display = 'block';
+            hideElement('loading');
+            showElement('login');
         }
 
         function waitForUserInfo() {
             setTimeout(function() {
                 console.log(user);
                 if (user.fbId) {
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('login').style.display = 'none';
-                    document.getElementById('resetGame').style.display = 'block';
+                    hideElement('loading');
+                    hideElement('login');
+                    showElement('resetGame');
                     return;
                 }
                 waitForUserInfo();
@@ -405,7 +405,7 @@ function Display()
 
     function startPressedTimmer()
     {
-        var button = document.getElementById('resetGame');
+        var button = element('resetGame');
         button.setAttribute('src', 'img/start_over.png');
         setTimeout(function() {
            button.setAttribute('src', 'img/start.png');
@@ -420,7 +420,7 @@ function Display()
         }
         calc.officer2StartPos();
         objectAt(Officer2, officerPosArr[1]);
-        police.style.display = 'block';
+        showElement(police);
     }
 
     function setNewBackground()
@@ -443,7 +443,7 @@ function Display()
 
     function hideBomb()
     {
-        Bomb.style.display = 'none';
+        hideElement(Bomb);
         isBombVisible = false;
     }
 
@@ -508,7 +508,7 @@ function Display()
     function displayItem(obj, arrPosition)
     {
         objectAt(obj, arrPosition);
-        obj.style.display = 'block';
+        showElement(obj);
     }
 
     function getObjectPosition(obj)
@@ -540,4 +540,30 @@ function Display()
         if (order == 2) return 'nd';
         if (order == 3) return 'rd';
     }
+
+    function element(el) {
+        if (isString(el)) return document.getElementById(el);
+        return false;
+    }
+
+    function hideElement(el) {
+        if (isString(el)) {
+            element(el).style.display = 'none';
+            return;
+        }
+        el.style.display = 'none';
+    }
+
+    function showElement(el) {
+        if (isString(el)) {
+            element(el).style.display = 'block';
+            return;
+        }
+        el.style.display = 'block';
+    }
+
+    function isString(va) {
+        return (typeof va === 'string' || va instanceof String);
+    }
+
 }

@@ -71,6 +71,7 @@ function Game()
                 }
                 handleClockDisplay();
                 handleMolotov();
+                handleBomb();
                 time = time - 1;
             } else {
                 endGame("timeUp");

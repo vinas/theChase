@@ -42,16 +42,17 @@ function Setup()
     }
 
     function handleLogin() {
-        var accessCode = login.checkForFbAccessCode(),
-            loginAttempts = 0;
-        if (accessCode && !user.fbId) {
-            display.loadingButton();
-            login.getFbAccessToken(accessCode);
-            waitForUserInfo();
-            return;
-        } else {
-            display.loginButton();
-        }
+        // var accessCode = login.checkForFbAccessCode(),
+        //     loginAttempts = 0;
+        // if (accessCode && !user.fbId) {
+        //     display.loadingButton();
+        //     login.getFbAccessToken(accessCode);
+        //     waitForUserInfo();
+        //     return;
+        // } else {
+        //     display.loginButton();
+        // }
+        display.startButton();
 
         function waitForUserInfo() {
             setTimeout(function() {
