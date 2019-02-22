@@ -2,12 +2,47 @@ function Motion()
 {
 
     this.moveItAll = moveItAll;
+    this.throwItem = throwItem;
+    this.changePoliceMoveRate = changePoliceMoveRate;
 
     return this;
 
     function moveItAll() {
         moveThief();
         movePolice();
+    }
+
+    function throwItem(item, itemPos, targetPos, callback) {
+        var shooterPosX = itemPos[0],
+            shooterPosY = itemPos[1],
+            inclination = calc.inclination(itemPos, targetPos),
+            variationRate = calc.variationRate(THROWSPEED, inclination);
+
+        moveItem();
+
+        function moveItem() {
+            if ((!reached(itemPos, ITEMSIZE, targetPos, CHARSIZE)) && (!isNaN(variationRate))) {
+                itemPos = calc.setNewThrowItemPos(
+                        shooterPosX,
+                        shooterPosY,
+                        itemPos,
+                        targetPos,
+                        inclination,
+                        variationRate
+                    );
+                display.objectAt(item, itemPos);
+                setTimeout(function() {
+                    moveItem();
+                }, 10);
+                return;
+            }
+            callback();
+        }
+    }
+
+    function changePoliceMoveRate() {
+        officerMoveRate[0] = SPEEDTABLE[currLevel][0];
+        officerMoveRate[1] = SPEEDTABLE[currLevel][1];
     }
 
     function moveThief() {

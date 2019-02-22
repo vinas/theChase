@@ -79,6 +79,7 @@ function Game()
         handleMolotovDisplay();
         handleBombDisplay();
     }
+
     function handleClockDisplay() {
         if ((time == DISPLAYCLOCKAT) && (!isClockVisible)) {
             display.clock();
@@ -120,7 +121,7 @@ function Game()
                 display.show2ndPoliceman();
             display.updateDificultyDisplay();
             display.setNewBackground();
-            events.changePoliceMoveRate();
+            motion.changePoliceMoveRate();
         }
     }
 

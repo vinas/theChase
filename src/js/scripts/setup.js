@@ -15,8 +15,7 @@ function Setup()
         return check;
     };
 
-    function loadContent()
-    {
+    function loadContent() {
      var ImgsToPreload = new Array(
             'img/detalhes.gif',
             'img/start_over.png',
@@ -80,8 +79,7 @@ function Setup()
         callback();
     }
 
-    function preloadImages(images)
-    {
+    function preloadImages(images) {
         var img;
         for (i = 0; i < images.length; i++) {
             img = new Image();
@@ -89,15 +87,13 @@ function Setup()
         }
     }
 
-    function setVisualElements()
-    {
+    function setVisualElements() {
         setCharacters();
         setGameItems();
         setDisplayItems();
     }
 
-    function clearGameValues()
-    {
+    function clearGameValues() {
         time = 0;
         isClockVisible = false;
         isMolotovVisible = false;
@@ -156,15 +152,13 @@ function Setup()
 
     }
 
-    function setCharacters()
-    {
+    function setCharacters() {
         Thief = document.getElementById('thief');
         Officer1 = document.getElementById('officer1');
         Officer2 = document.getElementById('officer2');
     }
 
-    function setGameItems()
-    {
+    function setGameItems() {
         Molotov = document.getElementById('molotov');
         Clock = document.getElementById('clock');
         Bomb = document.getElementById('bomb');
@@ -172,8 +166,7 @@ function Setup()
         Counter2 = document.getElementById('counter2');
     }
 
-    function setDisplayItems()
-    {
+    function setDisplayItems() {
         BackgroundImg = document.getElementById('backgroundImage');
         CurrLevel = document.getElementById('fase');
         Time = document.getElementById('time');

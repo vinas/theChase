@@ -8,22 +8,6 @@ function Display()
         Busted = element('busted'),
         TimeUp = element('timeUp');
 
-    var backgrounds = new Array(
-            'bkg_01.jpg',
-            'bkg_02.jpg',
-            'bkg_03.jpg',
-            'bkg_04.jpg',
-            'bkg_05.jpg',
-            'bkg_06.jpg',
-            'bkg_07.jpg',
-            'bkg_08.jpg',
-            'bkg_09.jpg',
-            'bkg_10.jpg',
-            'bkg_11.jpg',
-            'background_01.jpg',
-            'background_v2.jpg'
-        );
-
     this.bombFeedback = bombFeedback;
     this.clock = clock;
     this.clockFeedback = clockFeedback;
@@ -97,43 +81,16 @@ function Display()
         hideElement('login');
         showElement('resetGame');
     }
-
-    function throwItem(item, itemPos, targetPos, callback)
-    {
-        var shooterPosX = itemPos[0],
-            shooterPosY = itemPos[1],
-            inclination = calc.inclination(itemPos, targetPos),
-            variationRate = calc.variationRate(THROWSPEED, inclination);
-
-        moveItem();
-
-        function moveItem()
-        {
-            if ((!reached(itemPos, ITEMSIZE, targetPos, CHARSIZE)) && (!isNaN(variationRate))) {
-                itemPos = calc.setNewThrowItemPos(shooterPosX, shooterPosY, itemPos, targetPos, inclination, variationRate);
-                objectAt(item, itemPos);
-                setTimeout(function() {
-                    moveItem();
-                }, 10);
-                return;
-            }
-            callback();
-        }
-    }
     
-    function bomb()
-    {
+    function bomb() {
         bombPos = calc.randomCoords();
         displayItem(Bomb, bombPos);
         isBombVisible = true;
     }
 
-    function bombFeedback()
-    {
-        throwItem(Bomb, bombPos, officerPosArr[0], endBombFeedback);
-
-        function endBombFeedback()
-        {
+    function bombFeedback() {
+        motion.throwItem(Bomb, bombPos, officerPosArr[0], endBombFeedback);
+        function endBombFeedback() {
             bombSound.play();
             hideBomb();
             flashOfficers();
@@ -145,14 +102,12 @@ function Display()
         }
     }
 
-    function busted()
-    {
+    function busted() {
         element('endGameMessage').innerHTML = getBustedMessage();
         showElement(Busted);
     }
 
-    function clock()
-    {
+    function clock() {
         clockPos = calc.randomCoords();
         displayItem(Clock, clockPos);
         isClockVisible = true;
@@ -231,8 +186,7 @@ function Display()
         objectAt(Officer2, officerPosArr[1]);
     }
 
-    function restorePolicemen()
-    {
+    function restorePolicemen() {
         Officer1.setAttribute("src", "img/guarda.gif");
         hideElement(Counter1);
         if (calc.isTwoPolicemenLevel()) {
@@ -241,8 +195,7 @@ function Display()
         }
     }
 
-    function molotovCounter()
-    {
+    function molotovCounter() {
         objectAt(
             Counter1,
             new Array(
@@ -283,25 +236,21 @@ function Display()
         }
     }
 
-    function updateDificultyDisplay()
-    {
+    function updateDificultyDisplay() {
         CurrLevel.innerHTML = currLevel;
         flash(CurrLevel);
     }
 
-    function updatePointsDisplay()
-    {
+    function updatePointsDisplay() {
         PointsCounter.innerHTML = points;
         flash(PointsCounter);
     }
 
-    function timeUp()
-    {
+    function timeUp() {
         showElement(TimeUp);
     }
 
-    function burnDaPolice()
-    {
+    function burnDaPolice() {
         Officer1.setAttribute('src', 'img/guarda_fogo_02.gif');
         showFeedback(Officer1, Subtitle1, "can't move");
         if (calc.isTwoPolicemenLevel()) {
@@ -310,8 +259,7 @@ function Display()
         }
     }
 
-    function hideInGameElements()
-    {
+    function hideInGameElements() {
         hideElement('instructionsBar');
         hideElement('presentation');
         hideElement('ranking');
@@ -409,22 +357,19 @@ function Display()
         objeto.style.filter = "fliph";
     }
 
-    function hideBomb()
-    {
+    function hideBomb() {
         hideElement(Bomb);
         isBombVisible = false;
     }
 
-    function molotov()
-    {
+    function molotov() {
         molotovPos = calc.randomCoords();
         displayItem(Molotov, molotovPos);
         isMolotovVisible = true;
     }
 
-    function molotovFeedback()
-    {
-        throwItem(Molotov, molotovPos, officerPosArr[0], endMolotovFeedback);
+    function molotovFeedback() {
+        motion.throwItem(Molotov, molotovPos, officerPosArr[0], endMolotovFeedback);
 
         function endMolotovFeedback()
         {
@@ -434,17 +379,30 @@ function Display()
         }
     }
 
-    function sortBackground()
-    {
+    function sortBackground() {
         var rand;
+        var backgrounds = new Array(
+            'bkg_01.jpg',
+            'bkg_02.jpg',
+            'bkg_03.jpg',
+            'bkg_04.jpg',
+            'bkg_05.jpg',
+            'bkg_06.jpg',
+            'bkg_07.jpg',
+            'bkg_08.jpg',
+            'bkg_09.jpg',
+            'bkg_10.jpg',
+            'bkg_11.jpg',
+            'background_01.jpg',
+            'background_v2.jpg'
+        );
         do {
             rand = Math.floor(Math.random() * backgrounds.length);
         } while (BackgroundImg.getAttribute("src") == "url(img/"+backgrounds[rand]+")");
         return backgrounds[rand];
     }
 
-    function showFeedback(refObj, subtitleObj, message)
-    {
+    function showFeedback(refObj, subtitleObj, message) {
         var objectPosition,
             messagePosition,
             counter = 0,

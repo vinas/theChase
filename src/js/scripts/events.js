@@ -1,18 +1,12 @@
 function Events()
 {
     this.checkGotItem = checkGotItem;
-    this.changePoliceMoveRate = changePoliceMoveRate;
     this.checkGotBusted = checkGotBusted;
 
     return this;
 
     function checkGotBusted() {
         if (molotovTime <= 0 && wasThiefCought()) game.endGame('busted');
-    }
-
-    function changePoliceMoveRate() {
-        officerMoveRate[0] = SPEEDTABLE[currLevel][0];
-        officerMoveRate[1] = SPEEDTABLE[currLevel][1];
     }
 
     function checkGotItem() {
