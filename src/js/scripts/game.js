@@ -61,29 +61,34 @@ function Game()
 
     function gameClock() {
         if (gameOn) {
-            if (time >= 0) {
-                if (time <= 3) {
-                    display.flash(Time);
-                }
-                handleDisplayableItems();
-                time = time - 1;
-            } else {
+            if (time < 0) {
                 endGame("timeUp");
+                return;
             }
+            Time.innerHTML = time
+            if (time <= 3) display.flash(Time);
+            handleDisplayableItems();
+            time = time - 1;
         }
         setTimeout(gameClock, 1000);
     }
 
     function handleDisplayableItems() {
-        handleClockDisplay();
-        handleMolotovDisplay();
+        handleClock();
+        handleMolotov();
         handleBombDisplay();
     }
 
-    function handleClockDisplay() {
+    function handleClock() {
         if ((time == DISPLAYCLOCKAT) && (!isClockVisible)) {
             display.clock();
         }
+    }
+
+    function handleMolotov() {
+        handleMolotovDisplay();
+        handleMolotovTime();
+        if (molotovTime == 0) display.restorePolicemen();
     }
 
     function handleMolotovDisplay() {
@@ -95,13 +100,15 @@ function Game()
             display.hideMolotov();
             return;
         }
+    }
+
+    function handleMolotovTime() {
         if (molotovTime > 1) {
             molotovTime = molotovTime - 1;
             display.molotovCounter();
             return;
         }
         molotovTime = 0;
-        display.restorePolicemen();
     }
 
     function handleBombDisplay() {
@@ -114,7 +121,7 @@ function Game()
     }
 
     function handleLevelChange() {
-        if (calc.isLevelChange()) {
+        if (isLevelChange()) {
             lastChangedLevel = points;
             currLevel = currLevel + 1;
             if (currLevel == TWOPOLICEMENLEVEL)
@@ -130,6 +137,10 @@ function Game()
         user.lastScoreDateTime = calc.formattedDateTime();
         user.gameId = 1;
         $.post('/api/Games/saveLastScore', user);
+    }
+
+    function isLevelChange() {
+        return ((points != 0) && (points >= (lastChangedLevel + PTSTOCHANGELEVEL)));
     }
 
 }

@@ -24,7 +24,6 @@ function Display()
     this.molotovFeedback = molotovFeedback;
     this.showInGameElements = showInGameElements;
     this.hideGameValues = hideGameValues;
-    this.resetButton = resetButton;
     this.startPressedTimmer = startPressedTimmer;
     this.show2ndPoliceman = show2ndPoliceman;
     this.setNewBackground = setNewBackground;
@@ -113,14 +112,12 @@ function Display()
         isClockVisible = true;
     }
 
-    function clockFeedback()
-    {
+    function clockFeedback() {
         clockSound.play();
         showFeedback(Thief, Subtitle3, 'time +10');
     }
 
-    function gameInfo()
-    {
+    function gameInfo() {
         PointsCounter.innerHTML = '0';
         BackgroundImg.setAttribute('src', 'img/background_v2.jpg');
         Officer1.setAttribute('src', 'img/guarda.gif');
@@ -135,8 +132,7 @@ function Display()
 
         flashThis();
 
-        function flashThis()
-        {
+        function flashThis() {
             obj.style.backgroundColor = (flashCount % 2 == 0) ? color : '';
             flashCount++;
             if (flashCount < 6) {
@@ -147,8 +143,7 @@ function Display()
         }
     }
 
-    function flashOfficers()
-    {
+    function flashOfficers() {
         flash(Officer1);
         if (currLevel > TWOPOLICEMENLEVEL) flash(Officer2);
     }
@@ -160,15 +155,13 @@ function Display()
         displayItem(Money, moneyPos);
     }
 
-    function hideOfficer2()
-    {
+    function hideOfficer2() {
         hideElement(Counter2);
         hideElement(Officer2);
         Officer2.setAttribute("src", "img/guarda.gif");
     }
 
-    function objectAt(obj, posArr)
-    {
+    function objectAt(obj, posArr) {
         obj.style.left = posArr[0];
         obj.style.top = posArr[1];
     }
@@ -281,8 +274,7 @@ function Display()
         showElement(Money);
     }
 
-    function hideGameValues()
-    {
+    function hideGameValues() {
         hideElement(Thief);
         hideElement(Officer1);
         hideElement(Officer2);
@@ -292,35 +284,7 @@ function Display()
         hideElement(Bomb);
     }
 
-    function resetButton() {
-        var accessCode;
-        if (accessCode = login.checkForFbAccessCode()) {
-            hideElement('login');
-            showElement('loading');
-            login.getFbAccessToken(accessCode);
-            waitForUserInfo();
-            return;
-        } else {
-            hideElement('loading');
-            showElement('login');
-        }
-
-        function waitForUserInfo() {
-            setTimeout(function() {
-                console.log(user);
-                if (user.fbId) {
-                    hideElement('loading');
-                    hideElement('login');
-                    showElement('resetGame');
-                    return;
-                }
-                waitForUserInfo();
-            }, 300);
-        }
-    }
-
-    function startPressedTimmer()
-    {
+    function startPressedTimmer() {
         var button = element('resetGame');
         button.setAttribute('src', 'img/start_over.png');
         setTimeout(function() {
@@ -328,8 +292,7 @@ function Display()
         }, 300);
     }
 
-    function show2ndPoliceman()
-    {
+    function show2ndPoliceman() {
         police = Officer2;
         if (molotovTime > 0) {
             police.setAttribute('src', 'img/guarda_fogo_02.gif')
@@ -339,16 +302,14 @@ function Display()
         showElement(police);
     }
 
-    function setNewBackground()
-    {
+    function setNewBackground() {
         BackgroundImg.setAttribute(
             "src",
             "img/"+sortBackground()
         );
     }
 
-    function mirrorObj(objeto, escala)
-    {
+    function mirrorObj(objeto, escala) {
         objeto.style.MozTransform = "scaleX("+escala+")";
         objeto.style.webkitTransform = "scaleX("+escala+")";
         objeto.style.OTransform = "scaleX("+escala+")";

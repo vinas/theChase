@@ -2,7 +2,6 @@ function Calculator()
 {
     this.crossMultiply = crossMultiply;
     this.isTwoPolicemenLevel = isTwoPolicemenLevel;
-    this.isLevelChange = isLevelChange;
     this.messagePos = messagePos;
     this.nextOfficerPos = nextOfficerPos;
     this.nextThiefPosition = nextThiefPosition;
@@ -34,10 +33,6 @@ function Calculator()
 
     function isTwoPolicemenLevel() {
         return (currLevel >= TWOPOLICEMENLEVEL);
-    }
-
-    function isLevelChange() {
-        return ((points != 0) && (points >= (lastChangedLevel + PTSTOCHANGELEVEL)));
     }
 
     function messagePos(objPosArr) {
@@ -135,26 +130,22 @@ function Calculator()
         }
         return item;
 
-        function setItemNewCoord(sourceCoord, destCoord)
-        {
+        function setItemNewCoord(sourceCoord, destCoord) {
             return (sourceCoord < destCoord) ? sourceCoord + variation : sourceCoord - variation;
         }
 
     }
 
     function sortBomb() {
-        if ((!isBombVisible) && (areChancesAmoung(5))) {
+        if ((!isBombVisible) && (areChancesAmoung(5)))
             return 'bomb';
-        } else if ((isBombVisible) && (areChancesAmoung(10))) {
+        if ((isBombVisible) && (areChancesAmoung(10)))
             return 'hideBomb';
-        }
         return false;
     }
 
     function sortMolotov() {
-        if (areChancesAmoung(10))
-            return true;
-        return false;
+        return (areChancesAmoung(10));
     }
 
     function variationRate(speed, incline) {
