@@ -7,7 +7,9 @@ var setup,
     resizer;
 
 // Login
-var user = {};
+var user = {
+    firstName: 'User'
+};
 
 // Characters
 var Thief,
