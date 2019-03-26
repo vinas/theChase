@@ -1,5 +1,8 @@
 function Controls()
 {
+    var pos = {},
+    touchUpPos = {};
+
     this.loadControlsHandlers = loadControlsHandlers;
 
     return this;
@@ -51,27 +54,73 @@ function Controls()
         document.getElementById('rankingButton').addEventListener('click', function() {
             document.getElementById('ranking').style.display = 'block';
             document.getElementById('ranking').innerHTML = 'loading...';
-            $.get(
+            /*$.get(
                     '/api/Games/getRanking/1',
                     display.ranking
-                );
+                );*/
         });
     }
 
     function handleControlSwipes() {
-        $(document).on('swipeleft', function() {
-            pressedKey = 37;
-        }).on('swiperight', function() {
-            pressedKey = 39;
-        }).on('swipeup', function() {
-            pressedKey = 38;
-        }).on('swipedown', function() {
-            pressedKey = 40;
+        document.addEventListener("touchstart", function(obj) {
+            fingerHandler(
+                'down',
+                {
+                    x: obj.touches[0].clientX,
+                    y: obj.touches[0].clientY
+                }
+            );
         });
+        document.addEventListener("mousedown", function(obj) {
+            fingerHandler('down', obj);
+        });
+        document.addEventListener("touchend", function(obj) {
+            fingerHandler('up', touchUpPos, handleSwipe);
+            touchUpPos = {};
+        });
+        document.addEventListener("touchmove", function(obj) {
+            touchUpPos.x = obj.touches[0].clientX;
+            touchUpPos.y = obj.touches[0].clientY;
+        });
+        document.addEventListener("mouseup", function(obj) {
+            fingerHandler('up', obj, handleSwipe);
+        });
+
+    }
+
+    function handleSwipe() {
+        if (pos.up.time - pos.down.time < 500) {
+            if (Math.abs(pos.up.x - pos.down.x) > Math.abs(pos.up.y - pos.down.y)) {
+                if (pos.up.x > pos.down.x) {
+                    // console.log('identified: right');
+                    pressedKey = 39;
+                } else {
+                    // console.log('identified: left');
+                    pressedKey = 37;
+                }
+            } else {
+                if (pos.up.y > pos.down.y) {
+                    // console.log('identified: down');
+                    pressedKey = 40;
+                } else {
+                    // console.log('identified: up');
+                    pressedKey = 38;
+                }
+            }
+
+        }
     }
 
     function handleSwipePresentation() {
-        $('#presentation').on('swipeleft', function() {
+        // TO DO
+        // TO DO
+        // TO DO
+        // TO DO
+        // TO DO
+        // TO DO
+        // TO DO
+        // TO DO
+        /*$('#presentation').on('swipeleft', function() {
             if (document.getElementById('justOpened').value == 0) {
                 var presentation = $(this);
                 presentation.animate({
@@ -83,7 +132,19 @@ function Controls()
                     function() { resetGame() }
                 );
             }
-        });
+        });*/
+    }
+
+    function fingerHandler(action, obj, callback) {
+        var x, y;
+        x = obj.x;
+        y = obj.y;
+        pos[action] = {
+            x: x,
+            y: y,
+            time: Date.now()
+        };
+        if (callback) callback();
     }
 
 }

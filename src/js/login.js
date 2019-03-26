@@ -17,15 +17,15 @@ function Login() {
     }
 
     function getFbAccessToken(code) {
-        if (code)
+        /*if (code)
             $.get(
                 'https://graph.facebook.com/v2.10/oauth/access_token?client_id=725598060832930&redirect_uri=http://unusualdev.com/thechase/&client_secret=e217cc077e95f1a727147cdc69b2ab03&code='+code,
                 fetchUserInfo
-            );
+            );*/
     }
 
     function fetchUserInfo(info) {
-        if (info.access_token) {
+        /*if (info.access_token) {
             user.accessToken = info.access_token;
             $.get(
                 'https://graph.facebook.com/me?fields=first_name,name,gender,picture,birthday,age_range,hometown,locale,location&access_token='+user.accessToken,
@@ -36,7 +36,7 @@ function Login() {
                         user.picture = res.picture.data.url;
                     }
                 );
-        }
+        }*/
     }
 
     function getUserInfo() {

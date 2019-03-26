@@ -1,5 +1,4 @@
-function Setup()
-{
+function Setup() {
     this.clearGameValues = clearGameValues;
     this.setAll = setAll;
     this.resetAllValues = resetAllValues;
@@ -117,24 +116,21 @@ function Setup()
         lastChangedLevel = 0;
     }
 
-    function setAll()
-    {
+    function setAll() {
         applySettings();
         focusSettings();
 
-        function applySettings()
-        {
-            $.mobile.ajaxEnabled = false;
-            $.mobile.loader.prototype.options.disabled = true;
-            $.mobile.loading('hide');
-            $.mobile.loading().hide();
-            $.mobile.loadingMessage = false;
-            $.event.special.swipe.horizontalDistanceThreshold = SWIPEDISTANCE;
-            $.event.special.swipe.verticalDistanceThreshold = SWIPEDISTANCE;
+        function applySettings() {
+            // $.mobile.ajaxEnabled = false;
+            // $.mobile.loader.prototype.options.disabled = true;
+            // $.mobile.loading('hide');
+            // $.mobile.loading().hide();
+            // $.mobile.loadingMessage = false;
+            // $.event.special.swipe.horizontalDistanceThreshold = SWIPEDISTANCE;
+            // $.event.special.swipe.verticalDistanceThreshold = SWIPEDISTANCE;
         }
 
-        function focusSettings()
-        {
+        function focusSettings() {
             window.onblur = function() {
                 musicTheme.pause();
                 loadingTheme.pause();

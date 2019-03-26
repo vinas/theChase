@@ -4,15 +4,13 @@ function Resizer()
 
     return this;
 
-    function resizeMapAndItems()
-    {
+    function resizeMapAndItems() {
         calculateMeasurements();
         resizeVisualElements();
     }
 
 
-    function calculateMeasurements()
-    {
+    function calculateMeasurements() {
         MAPSIZE = document.getElementById('background').clientWidth;
         CROSSBORDERTOLERANCE = calc.crossMultiply(CROSSBORDERTOLERANCE);
         CATCHTOLERANCE = calc.crossMultiply(CATCHTOLERANCE);
@@ -22,8 +20,7 @@ function Resizer()
         SPEEDTABLE = setSpeedTable(calc.crossMultiply(MINMOVINGRATE));
     }
 
-    function setSpeedTable(minMoveRate)
-    {
+    function setSpeedTable(minMoveRate) {
         return new Array(
             new Array(0, 0),
             new Array(minMoveRate, 0),
@@ -47,8 +44,7 @@ function Resizer()
         );
     }
 
-    function resizeVisualElements()
-    {
+    function resizeVisualElements() {
         resizeGamePlayElements();
 
         var presentationImage = document.getElementById('presentationImage'),

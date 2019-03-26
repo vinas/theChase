@@ -136,7 +136,7 @@ function Game()
         user.lastScore = points;
         user.lastScoreDateTime = calc.formattedDateTime();
         user.gameId = 1;
-        $.post('/api/Games/saveLastScore', user);
+        //$.post('/api/Games/saveLastScore', user);
     }
 
     function isLevelChange() {

@@ -1,5 +1,4 @@
-function Sounds()
-{
+function Sounds() {
     this.handleSounds = handleSounds;
 
     return this;
