@@ -102,8 +102,7 @@ function Setup() {
         molotovTime = 0;
     }
 
-    function resetAllValues()
-    {
+    function resetAllValues() {
         clearGameValues();
         setOfficersStartCoords();
         time = STANDARDTIME;
