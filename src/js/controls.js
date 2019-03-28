@@ -1,7 +1,7 @@
 function Controls()
 {
     var pos = {},
-    touchUpPos = {};
+        touchUpPos = {};
 
     this.loadControlsHandlers = loadControlsHandlers;
 

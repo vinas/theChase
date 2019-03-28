@@ -151,6 +151,8 @@ function Setup() {
         Thief = document.getElementById('thief');
         Officer1 = document.getElementById('officer1');
         Officer2 = document.getElementById('officer2');
+        Officer1.id = 0;
+        Officer2.id = 1;
     }
 
     function setGameItems() {

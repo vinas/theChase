@@ -2,8 +2,6 @@ function Calculator()
 {
     this.crossMultiply = crossMultiply;
     this.isTwoPolicemenLevel = isTwoPolicemenLevel;
-    this.messagePos = messagePos;
-    this.nextOfficerPos = nextOfficerPos;
     this.nextThiefPosition = nextThiefPosition;
     this.officer2StartPos = officer2StartPos;
     this.randomCoords = randomCoords;
@@ -13,19 +11,8 @@ function Calculator()
     this.sortMolotov = sortMolotov;
     this.variationRate = variationRate;
     this.inclination = inclination;
-    this.formattedDateTime = formattedDateTime;
 
     return this;
-
-    function formattedDateTime() {
-        var currentdate = new Date(); 
-        return addZero(currentdate.getDate()) + "/"
-            + addZero(currentdate.getMonth()+1)  + "/" 
-            + currentdate.getFullYear() + " @ "  
-            + addZero(currentdate.getHours()) + ":"  
-            + addZero(currentdate.getMinutes()) + ":" 
-            + addZero(currentdate.getSeconds());
-    }
 
     function crossMultiply(actual) {
         return Math.floor((actual / 500) * MAPSIZE);
@@ -33,42 +20,6 @@ function Calculator()
 
     function isTwoPolicemenLevel() {
         return (currLevel >= TWOPOLICEMENLEVEL);
-    }
-
-    function messagePos(objPosArr) {
-        var leftPos = parseInt(objPosArr[0]),
-            topPos = parseInt(objPosArr[1]) + CHARSIZE,
-            ninety = crossMultiply(90),
-            thirty = crossMultiply(30);
-        if ((leftPos + ninety) >= MAPSIZE)
-            leftPos = parseInt(objPosArr[0]) - ((leftPos + ninety) - MAPSIZE);
-        if ((topPos + thirty) >= MAPSIZE)
-            topPos = parseInt(objPosArr[1]) - thirty;
-        return new Array(leftPos, topPos);
-    }
-
-    function nextOfficerPos(whichOfficer) {
-        var officer = (whichOfficer == 0) ? Officer1 : Officer2;
-        var relativePositions = getRelativePositions(whichOfficer);
-        if (movingAxis(whichOfficer) == 'horizontal') {
-            switch (relativePositions[0]) {
-                case 'right':
-                    display.mirrorObj(officer, '-1');
-                    officerPosArr[whichOfficer][0] = officerPosArr[whichOfficer][0] + officerMoveRate[whichOfficer];
-                    break;
-                case 'left':
-                    display.mirrorObj(officer, '1');
-                    officerPosArr[whichOfficer][0] = officerPosArr[whichOfficer][0] - officerMoveRate[whichOfficer];
-            }
-            return;
-        }
-        switch (relativePositions[1]) {
-            case 'up':
-                officerPosArr[whichOfficer][1] = officerPosArr[whichOfficer][1] - officerMoveRate[whichOfficer];
-                break;
-            case 'down':
-                officerPosArr[whichOfficer][1] = officerPosArr[whichOfficer][1] + officerMoveRate[whichOfficer];
-        }
     }
 
     function nextThiefPosition(posArr, movRate, direction) {
@@ -158,53 +109,6 @@ function Calculator()
         return (deltaX != 0) ? (deltaY/deltaX).toFixed(4) : 0;
     }
 
-    function getRelativePositions(officer) {
-        return [
-            getTargetHorRelPos(officer),
-            getTargetVerRelPos(officer)
-        ];
-    }
-
-    function getTargetHorRelPos(officer) {
-        if (officerPosArr[officer][0] > thiefPosArr[0])
-            return 'left';
-        if (officerPosArr[officer][0] < thiefPosArr[0])
-            return 'right';
-        return 'same';
-    }
-
-    function getTargetVerRelPos(officer) {
-        if (officerPosArr[officer][1] > thiefPosArr[1])
-           return 'up';
-        if (officerPosArr[officer][1] < thiefPosArr[1])
-            return 'down';
-        return 'same';
-    }
-
-    function movingAxis(officer) {
-        var diffX = getAbsoluteDiff(officerPosArr[officer][0], thiefPosArr[0]),
-            diffY = getAbsoluteDiff(officerPosArr[officer][1], thiefPosArr[1]);
-        if (diffX != diffY) {
-            if (officer == 0) {
-                if (diffX > diffY)
-                    return 'horizontal';
-                if (diffX < diffY)
-                    return 'vertical';
-            }
-            if (diffX > diffY)
-                return 'vertical';
-            if (diffX < diffY)
-                return 'horizontal';
-        }
-        if (Math.floor((Math.random() * 2) + 1) == 1)
-            return 'horizontal';
-        return 'vertical';
-    }
-
-    function getAbsoluteDiff(firstObjCoord, secondObjCoord) {
-        return Math.abs(firstObjCoord - secondObjCoord);
-    }
-
     function adjustCrossBorder(pos) {
         if (pos > MAPSIZE)
             return -CROSSBORDERTOLERANCE;
@@ -217,10 +121,4 @@ function Calculator()
         return (Math.floor((Math.random() * 100) + 1) <= percetage);
     }
 
-    function addZero(i) {
-        if (i < 10) {
-            i = "0" + i;
-        }
-        return i;
-    }
 }

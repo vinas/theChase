@@ -134,13 +134,30 @@ function Game()
 
     function saveGameScores() {
         user.lastScore = points;
-        user.lastScoreDateTime = calc.formattedDateTime();
+        user.lastScoreDateTime = getFormattedDateTime();
         user.gameId = 1;
         //$.post('/api/Games/saveLastScore', user);
     }
 
     function isLevelChange() {
         return ((points != 0) && (points >= (lastChangedLevel + PTSTOCHANGELEVEL)));
+    }
+
+    function getFormattedDateTime() {
+        var currentdate = new Date(); 
+        return addZero(currentdate.getDate()) + "/"
+            + addZero(currentdate.getMonth()+1)  + "/" 
+            + currentdate.getFullYear() + " @ "  
+            + addZero(currentdate.getHours()) + ":"  
+            + addZero(currentdate.getMinutes()) + ":" 
+            + addZero(currentdate.getSeconds());
+    }
+
+    function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
     }
 
 }

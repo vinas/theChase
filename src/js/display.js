@@ -370,22 +370,19 @@ function Display()
             }
         }
 
-        function positionSubtitle()
-        {
+        function positionSubtitle() {
             objectPosition = getObjectPosition(refObj);
-            messagePosition = calc.messagePos(objectPosition);
+            messagePosition = calcMessagePos(objectPosition);
             objectAt(subtitleObj, messagePosition);
         }
     }
 
-    function displayItem(obj, arrPosition)
-    {
+    function displayItem(obj, arrPosition) {
         objectAt(obj, arrPosition);
         showElements(obj);
     }
 
-    function getObjectPosition(obj)
-    {
+    function getObjectPosition(obj) {
         return new Array(
                 obj.style.left.replace(new RegExp("px", 'g'), ""),
                 obj.style.top.replace(new RegExp("px", 'g'), "")
@@ -457,6 +454,18 @@ function Display()
 
     function isString(va) {
         return (typeof va === 'string' || va instanceof String);
+    }
+
+    function calcMessagePos(objPosArr) {
+        var leftPos = parseInt(objPosArr[0]),
+            topPos = parseInt(objPosArr[1]) + CHARSIZE,
+            ninety = crossMultiply(90),
+            thirty = crossMultiply(30);
+        if ((leftPos + ninety) >= MAPSIZE)
+            leftPos = parseInt(objPosArr[0]) - ((leftPos + ninety) - MAPSIZE);
+        if ((topPos + thirty) >= MAPSIZE)
+            topPos = parseInt(objPosArr[1]) - thirty;
+        return new Array(leftPos, topPos);
     }
 
 }
