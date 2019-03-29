@@ -59,63 +59,67 @@ function Motion()
     function movePolice() {
         if (molotovTime <= 0) {
             moveOfficer(Officer1);
-            if (calc.isTwoPolicemenLevel()) newMoveOfficer(Officer2);
+            if (calc.isTwoPolicemenLevel()) moveOfficer(Officer2);
         }
     }
 
     function moveOfficer(officer) {
-        calcNextOfficerPos(officer);
-        display.objectAt(officer, officerPosArr[officer.id]);
+        display.objectAt(officer, calcNextOfficerPos(officer));
 
         function calcNextOfficerPos(officer) {
-            var relativePositions = getRelativePositions(officer);
+            var officerPos = calc.getObjectPosition(officer);
+            var relativeTargetPos = getRelativePositions(officerPos);
+            var coords = [];
+            display.mirrorObj(officer, ((relativeTargetPos[0] == 'right') ? '-1' : '1'));
             if (movingAxis(officer) == 'horizontal') {
-                switch (relativePositions[0]) {
-                    case 'right':
-                        display.mirrorObj(officer, '-1');
-                        officerPosArr[officer.id][0] = officerPosArr[officer.id][0] + officerMoveRate[officer.id];
-                        break;
-                    case 'left':
-                        display.mirrorObj(officer, '1');
-                        officerPosArr[officer.id][0] = officerPosArr[officer.id][0] - officerMoveRate[officer.id];
-                }
-                return;
+                coords[0] = calcOfficerHorPos(officerPos[0], relativeTargetPos[0]);
+                coords[1] = officerPos[1];
+                return coords;
             }
-            switch (relativePositions[1]) {
-                case 'up':
-                    officerPosArr[officer.id][1] = officerPosArr[officer.id][1] - officerMoveRate[officer.id];
-                    break;
-                case 'down':
-                    officerPosArr[officer.id][1] = officerPosArr[officer.id][1] + officerMoveRate[officer.id];
-            }
+            coords[0] = officerPos[0];
+            coords[1] = calcOfficerVerPos(officerPos[1], relativeTargetPos[1]);
+            return coords;
         }
 
-        function getRelativePositions(officer) {
+        function calcOfficerHorPos(officerPos, relativeTargetPos) {
+            if (relativeTargetPos == 'right')
+                return officerPos + officerMoveRate[officer.id];
+            return officerPos - officerMoveRate[officer.id];
+        }
+
+        function calcOfficerVerPos(officerPos, relativeTargetPos) {
+            if (relativeTargetPos == 'up')
+                return officerPos - officerMoveRate[officer.id];
+            return officerPos + officerMoveRate[officer.id];
+        }
+
+        function getRelativePositions(coords) {
             return [
-                getTargetHorRelPos(officer.id),
-                getTargetVerRelPos(officer.id)
+                getTargetHorRelPos(coords[0]),
+                getTargetVerRelPos(coords[1])
             ];
         }
     
-        function getTargetHorRelPos(officerId) {
-            if (officerPosArr[officerId][0] > thiefPosArr[0])
+        function getTargetHorRelPos(coord) {
+            if (coord > thiefPosArr[0])
                 return 'left';
-            if (officerPosArr[officerId][0] < thiefPosArr[0])
+            if (coord < thiefPosArr[0])
                 return 'right';
             return 'same';
         }
     
-        function getTargetVerRelPos(officerId) {
-            if (officerPosArr[officerId][1] > thiefPosArr[1])
+        function getTargetVerRelPos(coord) {
+            if (coord > thiefPosArr[1])
                return 'up';
-            if (officerPosArr[officerId][1] < thiefPosArr[1])
+            if (coord < thiefPosArr[1])
                 return 'down';
             return 'same';
         }
     
         function movingAxis(officer) {
-            var diffX = getAbsoluteDiff(officerPosArr[officer.id][0], thiefPosArr[0]),
-                diffY = getAbsoluteDiff(officerPosArr[officer.id][1], thiefPosArr[1]);
+            var officerPos = calc.getObjectPosition(officer);
+            var diffX = getAbsoluteDiff(officerPos[0], thiefPosArr[0]),
+                diffY = getAbsoluteDiff(officerPos[1], thiefPosArr[1]);
             if (diffX != diffY) {
                 if (officer.id == 0) {
                     if (diffX > diffY)

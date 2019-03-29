@@ -371,7 +371,7 @@ function Display()
         }
 
         function positionSubtitle() {
-            objectPosition = getObjectPosition(refObj);
+            objectPosition = calc.getObjectPosition(refObj);
             messagePosition = calcMessagePos(objectPosition);
             objectAt(subtitleObj, messagePosition);
         }
@@ -380,13 +380,6 @@ function Display()
     function displayItem(obj, arrPosition) {
         objectAt(obj, arrPosition);
         showElements(obj);
-    }
-
-    function getObjectPosition(obj) {
-        return new Array(
-                obj.style.left.replace(new RegExp("px", 'g'), ""),
-                obj.style.top.replace(new RegExp("px", 'g'), "")
-            );
     }
 
     function getBustedMessage() {

@@ -11,8 +11,16 @@ function Calculator()
     this.sortMolotov = sortMolotov;
     this.variationRate = variationRate;
     this.inclination = inclination;
+    this.getObjectPosition = getObjectPosition;
 
     return this;
+
+    function getObjectPosition(obj) {
+        return new Array(
+                parseInt(obj.style.left.replace(new RegExp("px", 'g'), "")),
+                parseInt(obj.style.top.replace(new RegExp("px", 'g'), ""))
+            );
+    }
 
     function crossMultiply(actual) {
         return Math.floor((actual / 500) * MAPSIZE);
